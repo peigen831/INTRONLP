@@ -20,7 +20,7 @@ public class XMLParser {
 	String filepath;
 	
 	//to add 2012
-	String[] yearList = {"2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011"};
+	String[] yearList = {"2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"};
 	
 	String [] monthList = {"January", "February", "March", "April" , "May", "June" , "July", "August" , "September", "October" , "November", "December" };
 	
@@ -99,6 +99,9 @@ public class XMLParser {
 				writeArticleDate(yearList[i], monthList[j]);
 				filepath = defaultPath + "Opinyon/" + yearList[i] + "/" + monthList[j] + ".xml";
 				parseXML();
+
+				if(i == yearList.length - 1 && monthList[j].equals("September"))
+					break;
 			}
 		}
 	}
@@ -111,7 +114,7 @@ public class XMLParser {
 			pw.close();
 			
 			pw = new PrintWriter(new FileOutputStream(new File("Date"), true));
-			pw.write("Result from " + year + " - " + month + ":\n");pw.write(year + " - " + month + "\n");
+			pw.write("Result from " + year + " - " + month + ":\n");
 			pw.close();
 			
 			pw = new PrintWriter(new FileOutputStream(new File("Name"), true));
