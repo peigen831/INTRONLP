@@ -15,7 +15,8 @@ import org.w3c.dom.NodeList;
 public class XMLParser {
 	
 	//change this to your local path
-	String defaultPath = "/Users/YongZhi/Desktop/NLP/Article/";
+	String defaultPath = "/Users/USER/Desktop/NLP/Assign2/";
+//	String defaultPath = "/Users/YongZhi/Desktop/NLP/Article/";
 	
 	String filepath;
 	

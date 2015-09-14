@@ -8,20 +8,20 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexParser {
-	String namePattern = "(([A-Z][a-z]+ )+)";
-	String datePattern = "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|"
-			+ "([A-Z][a-z]{2,8}\\.* [0-9]{4})|"
-			+ "([1-2][0-9]{3})"; // ex Dec. 6,2004   Disyembre 10, 1992
-	//String datePattern = "([1-2][0-9]{3})"; // year
-	//String datePattern = "([A-Z][a-z]{2,8}\\.* [0-9]{4})"; // year
+	String namePattern = "(([A-Z][A-Za-z0-9]+)(((-)|(\\s))*(([A-Z][0-9A-Za-z]+)|((of the)|(of))))*)|"
+			+ "(([A-Z]\\.)+)"; //U.S.A.   Peigen-Gen   Manila City   SPO3 Jose Escalante
+//	String datePattern = "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|"
+//			+ "([A-Z][a-z]{2,8}\\.* [0-9]{4})|"
+//			+ "([1-2][0-9]{3})"; // ex Dec. 6,2004   Disyembre 10, 1992
+	String datePattern = "[0-9]{2,4}(-|/|/s)[0-9]{2,4}(-|/|/s)[0-9]{2,4}";
 	
 	String sLocation = "Location";
 	String sName = "Name";
 	String sDate = "Date";
 	
 	public void parse(String rawText){
-		//parseDate(rawText);
-		parseName(rawText);
+		parseDate(rawText);
+		//parseName(rawText);
 	}
 	
 	public void parseName(String rawText){
@@ -30,7 +30,7 @@ public class RegexParser {
 		Matcher m = p.matcher(rawText);
 		
 		try {
-			PrintWriter nameWriter = new PrintWriter(new FileOutputStream(new File(sName), true));
+//			PrintWriter nameWriter = new PrintWriter(new FileOutputStream(new File(sName), true));
 //			PrintWriter locationWriter = new PrintWriter(new FileOutputStream(new File(sLocation), true));
 		
 			//write on the file every time the regex is match
@@ -40,22 +40,26 @@ public class RegexParser {
 				{
 					//TODO condition to separate Name from Location
 					//TODO condition to avoid months
-					System.out.println(m.group(1));
-					//if name
-					nameWriter.write(m.group(1)+"\n");
+					String temp = m.group(1);
+					
+					if(temp.toLowerCase().contains("city") || temp.toLowerCase().contains("street") || temp.toLowerCase().contains("st."))
+					{
+						System.out.println(m.group(1));
+						//nameWriter.write(m.group(1)+"\n");
+					}
 					
 					//else locationWriter
 				}
 		    } 
-			nameWriter.close();
+//			nameWriter.close();
 
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 	}
 	
 	public void parseDate(String rawText){
-		Pattern p = Pattern.compile(namePattern);
+		Pattern p = Pattern.compile(datePattern);
 		
 		Matcher m = p.matcher(rawText);
 		
@@ -64,14 +68,8 @@ public class RegexParser {
 		
 			//write on the file every time the regex is match
 			while (m.find()) {
-				for (int j = 1; j <= m.groupCount(); j++) 
-				{
-					if(m.group(j) != null)
-					{
-						System.out.println(m.group(j));
-						pw.write(m.group(j)+"\n");
-					}
-		    	}
+				System.out.println(m.group());
+				//pw.write(m.group()+"\n");
 		    } 
 			pw.close();
 
