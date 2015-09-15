@@ -81,15 +81,19 @@ public class XMLParser {
 	
 	//tried under Opinyon folder
 	public void start(){
-//		//parse XML files under News folder
-//		for(int i = 0; i < yearList.length; i++)
-//		{
-//			for(int j = 0; j < monthList.length; j++)
-//			{
-//				filepath = defaultPath + "News/" + yearList[i] + "/" + monthList[j] + ".xml";
-//				parseXML();
-//			}
-//		}
+		//parse XML files under News folder
+		for(int i = 0; i < yearList.length; i++)
+		{
+			for(int j = 0; j < monthList.length; j++)
+			{
+				writeArticleDate(yearList[i], monthList[j]);
+				filepath = defaultPath + "News/" + yearList[i] + "/" + monthList[j] + ".xml";
+				parseXML();
+				
+				if(i == yearList.length - 1 && monthList[j].equals("September"))
+					break;
+			}
+		}
 			
 		//parse XML files under Opinyon folder
 		for(int i = 0; i < yearList.length; i++)
