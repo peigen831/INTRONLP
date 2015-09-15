@@ -109,15 +109,19 @@ public class XMLParser {
 	//write the year and month for the result files
 	public void writeArticleDate(String year, String month){
 		try{
-			PrintWriter pw = new PrintWriter(new FileOutputStream(new File("Location"), true));
+			PrintWriter pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sLocation), true));
 			pw.write("Result from " + year + " - " + month + ":\n");
 			pw.close();
 			
-			pw = new PrintWriter(new FileOutputStream(new File("Date"), true));
+			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sDate), true));
 			pw.write("Result from " + year + " - " + month + ":\n");
 			pw.close();
 			
-			pw = new PrintWriter(new FileOutputStream(new File("Name"), true));
+			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sPerson), true));
+			pw.write("Result from " + year + " - " + month + ":\n");
+			pw.close();
+			
+			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sOrganization), true));
 			pw.write("Result from " + year + " - " + month + ":\n");
 			pw.close();
 			
