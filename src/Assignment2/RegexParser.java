@@ -12,22 +12,27 @@ public class RegexParser {
 	
 	String[] dateName = {"January","Enero", "Jan\\.", "February", "Pebrero","Feb\\.","March","Marso","Mar\\.","April","Abril","Apr\\.","May","Mayo","June","Hunyo","Jun\\.","July","Hulyo","Jul\\.","August","Agosto","Aug\\.","September","Setyembre","Sept\\.","October","Oktubre","Oct\\.","November","Nobyembre","Nov\\.","December","Disyembre", "Dec\\.",
 			"Lunes", "Martes", "Miyerkules", "Huwebes", "Biyernes", "Sabado", "Linggo",
-			"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday", };
+			"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
 	String[] locationName = {"Rm.", "Ave.", "St.", "Blvd.", "City", "Brgy", "Room", "Street", "Village", "Office", "Avenue", "Floor", "Building", "Apartment", "Boulevard", "Estate", "Mountain", "Road", "Port", "River", "Ocean", "Place", "Station"};
 	
 	String[] orgName = {"Co.", "Coop.", "Corp.", "Ent.", "of", "Organization", "Inc.", "University", "Department", "Association", "Company", "Cooperative", "Corporation", "Enterprise", "Incorporated", "limited"};
 	
-	String namePattern = "([0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9]*)(((-)|(\\s)|(\\.))*(([A-Z][0-9A-Za-z]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
-			+ "(([A-Z]\\.)+)";
+	String[] personCoor = {"Si ", "Ni ", "Nina ", "Sila ", "Sina ", "Kay ", "Kila ", "Kanila "};
 	
-	String datePattern = "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|" 				// Dec. 6, 2004
+	String locCoor = "Sa ";
+	
+	String[] orgCoor = {"Ang "};
+	
+	String namePattern = "(([Nn]ina|[Ss]i|[Nn]i|[Ss]ila|[Ss]ina|[Ss]a|[Kk]ay|[Kk]anila|[Kk]ila)*[0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9ñ]*)(((-)|(\\s)|(\\.)|(,\\s))*(([A-Z][0-9A-Za-zñ]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
+			+ "(([A-Z]\\.)+)|"
+			+ "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|"			 				// Dec. 6, 2004
 			+ "([A-Z][a-z]{2,8}\\.* [0-9]{4})|"											// December 2004
 			+ "([1-2][0-9]{3})|" 														// 2004
 			+ "([0-9]{1,2}(-|/|/s)[0-9]{1,2}(-|/|/s)[0-9]{4})|"							// 8-8-2001
 			+ "([Ii]ka(-|\\s)[0-9]{1,2}(th|\\s)*(ng|\\s)*([A-Za-z]*)*)|"				// Ika-3 ng Agosto
 			+ "([0-9]{1,2},* [A-Z][A-Za-z]{2,8}\\.* [0-9]{4})|"							// 30 Apr. 2010
-			+ "([0-9]{1,2}[a-z]{2} [a-z]{2} [A-Z][A-Za-z]{2,8}\\.* ([0-9]{4})*)|"		//22nd of January		
+			+ "([0-9]{1,2}[a-z]{2} [a-z]{2} [A-Z][A-Za-z]{2,8}\\.* ([0-9]{4})*)|"		// 22nd of January		
 			+ getDatenameRegex();   													// String[] dateName 	
 	
 	static final String sLocation = "Location";
@@ -36,7 +41,6 @@ public class RegexParser {
 	static final String sDate = "Date";
 	
 	public void parse(String rawText){
-		parseDate(rawText);
 		parseName(rawText);
 	}
 	
@@ -49,26 +53,44 @@ public class RegexParser {
 			PrintWriter nameWriter = new PrintWriter(new FileOutputStream(new File(sPerson), true));
 			PrintWriter locationWriter = new PrintWriter(new FileOutputStream(new File(sLocation), true));
 			PrintWriter orgWriter = new PrintWriter(new FileOutputStream(new File(sOrganization), true));
+			PrintWriter dateWriter = new PrintWriter(new FileOutputStream(new File(sDate), true));
 		
 			//write on the file every time the regex is match
 			while (m.find()) {
 				String result = m.group();
+				
+				if(result.startsWith(" "))
+					result = result.substring(1, result.length());
+				
 				if(isDate(result))
 				{
-					continue;
+					dateWriter.write(result + "\n");
 				}
 				else if(isLocation(result))
 				{
+					result = format(result, locCoor);
 					locationWriter.write(result + "\n");
 				}
-				else if (isOrganization(result)){
-					orgWriter.write(result + "\n");
-				}
 				
-				else{
+				else if (isPerson(result))
+				{
+					result = format(result, personCoor);
 					nameWriter.write(result + "\n");
 				}
+				
+				else if (isOrganization(result))
+				{
+					orgWriter.write(result + "\n");
+				}
+				else
+				{
+					result = format(result, personCoor);
+					if(!result.trim().equals(""))
+						nameWriter.write(result + "\n");
+				}
 		    } 
+			
+			dateWriter.close();
 			nameWriter.close();
 			locationWriter.close();
 			orgWriter.close();
@@ -78,12 +100,42 @@ public class RegexParser {
 		} 
 	}
 	
+
+	public String format(String text, String[] keywordList){
+		for(int i = 0; i < keywordList.length; i++){
+			if(text.toLowerCase().startsWith(keywordList[i].toLowerCase())){
+				return text.substring(keywordList[i].length(), text.length());
+			};
+		}
+		return text;
+	}
+	
+	public String format(String text, String keyword){
+		if(text.toLowerCase().startsWith(keyword.toLowerCase()))
+			return text.substring(keyword.length(), text.length());
+		return text;
+	}
+	
+	public boolean isPerson(String text){
+		for(int i = 0; i < personCoor.length; i++)
+		{
+			if(text.toLowerCase().startsWith(personCoor[i].toLowerCase()))
+				return true;
+		}
+		return false;
+	}
+	
 	public boolean isLocation(String text){
+		
 		for(int i = 0; i < locationName.length; i++)
 		{
 			if(text.toLowerCase().contains(locationName[i].toLowerCase()))
 				return true;
 		}
+		
+		if(text.toLowerCase().startsWith(locCoor.toLowerCase()))
+			return true;
+		
 		return false;
 	}
 	
@@ -103,24 +155,6 @@ public class RegexParser {
 				return true;
 		}
 		return false;
-	}
-	
-	public void parseDate(String rawText){
-		Pattern p = Pattern.compile(datePattern);
-		
-		Matcher m = p.matcher(rawText);
-		
-		try {
-			PrintWriter pw = new PrintWriter(new FileOutputStream(new File(sDate), true));
-		
-			while (m.find()) {
-				pw.write(m.group()+"\n");
-		    } 
-			pw.close();
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} 
 	}
 	
 	public String getDatenameRegex(){
