@@ -9,12 +9,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class RegexParser {
-	
+
 	String[] dateName = {"January","Enero", "Jan\\.", "February", "Pebrero","Feb\\.","March","Marso","Mar\\.","April","Abril","Apr\\.","May","Mayo","June","Hunyo","Jun\\.","July","Hulyo","Jul\\.","August","Agosto","Aug\\.","September","Setyembre","Sept\\.","October","Oktubre","Oct\\.","November","Nobyembre","Nov\\.","December","Disyembre", "Dec\\.",
 			"Lunes", "Martes", "Miyerkules", "Huwebes", "Biyernes", "Sabado", "Linggo",
 			"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
-	String[] locationName = {"Rm.", "Ave.", "St.", "Blvd.", "City", "Brgy", "Room", "Street", "Village", "Office", "Avenue", "Floor", "Building", "Apartment", "Boulevard", "Estate", "Mountain", "Road", "Port", "River", "Ocean", "Place", "Station"};
+	String[] locationName = {"Rm.", "Ave.", "St.", "Center", "Blvd.", "City", "Brgy", "Room", "Street", "Village", "Office", "Avenue", "Floor", "Building", "Apartment", "Boulevard", "Estate", "Mountain", "Road", "Port", "River", "Ocean", "Place", "Station"};
 	
 	String[] orgName = {"Co.", "Coop.", "Corp.", "Ent.", "of", "Organization", "Inc.", "University", "Department", "Association", "Company", "Cooperative", "Corporation", "Enterprise", "Incorporated", "limited"};
 	
@@ -22,18 +22,23 @@ public class RegexParser {
 	
 	String locCoor = "Sa ";
 	
+	String dateCoor = "Sa ";
+	
 	String[] orgCoor = {"Ang "};
 	
-	String namePattern = "(([Nn]ina|[Ss]i|[Nn]i|[Ss]ila|[Ss]ina|[Ss]a|[Kk]ay|[Kk]anila|[Kk]ila)*[0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9ñ]*)(((-)|(\\s)|(\\.)|(,\\s))*(([A-Z][0-9A-Za-zñ]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
-			+ "(([A-Z]\\.)+)|"
-			+ "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|"			 				// Dec. 6, 2004
+	String datePattern = 
+			  "([A-Z][a-z]{2,8}\\.* [0-9]{1,2},* [0-9]{4})|"			 				// Dec. 6, 2004
 			+ "([A-Z][a-z]{2,8}\\.* [0-9]{4})|"											// December 2004
 			+ "([1-2][0-9]{3})|" 														// 2004
 			+ "([0-9]{1,2}(-|/|/s)[0-9]{1,2}(-|/|/s)[0-9]{4})|"							// 8-8-2001
 			+ "([Ii]ka(-|\\s)[0-9]{1,2}(th|\\s)*(ng|\\s)*([A-Za-z]*)*)|"				// Ika-3 ng Agosto
 			+ "([0-9]{1,2},* [A-Z][A-Za-z]{2,8}\\.* [0-9]{4})|"							// 30 Apr. 2010
 			+ "([0-9]{1,2}[a-z]{2} [a-z]{2} [A-Z][A-Za-z]{2,8}\\.* ([0-9]{4})*)|"		// 22nd of January		
-			+ getDatenameRegex();   													// String[] dateName 	
+			+ getDatenameRegex();
+	
+	String namePattern = "(([Nn]ina|[Ss]i|[Nn]i|[Ss]ila|[Ss]ina|[Ss]a|[Kk]ay|[Kk]anila|[Kk]ila)*[0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9]*)(((-)|(\\s)|(\\.)|(,\\s))*(([A-Z][0-9A-Za-z]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
+			+ "(([A-Z]\\.)+)|"
+			+ datePattern;
 	
 	static final String sLocation = "Location";
 	static final String sOrganization = "Organization";
@@ -64,6 +69,7 @@ public class RegexParser {
 				
 				if(isDate(result))
 				{
+					result = format(result, dateCoor);
 					dateWriter.write(result + "\n");
 				}
 				else if(isLocation(result))
@@ -116,6 +122,18 @@ public class RegexParser {
 		return text;
 	}
 	
+	public boolean isDate(String text){
+		Pattern p = Pattern.compile(datePattern);
+		
+		Matcher m = p.matcher(text);
+		
+		if(m.find()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public boolean isPerson(String text){
 		for(int i = 0; i < personCoor.length; i++)
 		{
@@ -143,15 +161,6 @@ public class RegexParser {
 		for(int i = 0; i < orgName.length; i++)
 		{
 			if(text.toLowerCase().contains(orgName[i].toLowerCase()))
-				return true;
-		}
-		return false;
-	}
-	
-	public boolean isDate(String text){
-		for(int i = 0; i < dateName.length; i++)
-		{
-			if(text.toLowerCase().contains(dateName[i].toLowerCase()))
 				return true;
 		}
 		return false;
