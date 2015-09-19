@@ -34,21 +34,18 @@ public class MedSolver {
 				ans1.append("*");
 				ans2.append(sSecond.charAt(currentX));
 				currentX--;
-				System.out.println("left");
 			}
 			
 			else if(currentX == 0){
 				ans1.append(sFirst.charAt(currentY));
 				currentY--;
 				ans2.append("*");
-				System.out.println("down");
 			}
 				
 			else{
-				//BUG: Need to check the arrow, instead of simple comparing values
-				//diagonal
+				//System.out.print(currentX + " " + currentY + " " + currentCost);
 
-				System.out.print(currentX + " " + currentY + " " + currentCost);
+				//diagonal
 				if((currentCost == cost[currentY-1][currentX-1] && sFirst.charAt(currentY) == sSecond.charAt(currentX))|| (currentCost-2) == cost[currentY-1][currentX-1]){
 					if(currentX != 0 && currentY != 0)
 						currentCost = cost[currentY-1][currentX-1];
@@ -57,7 +54,7 @@ public class MedSolver {
 					currentY--;
 					ans2.append(sSecond.charAt(currentX));
 					currentX--;
-					System.out.println(" diagonal "+ currentCost);
+					//System.out.println(" diagonal "+ currentCost);
 				}
 					
 				//leftward
@@ -67,7 +64,7 @@ public class MedSolver {
 					ans1.append("*");
 					ans2.append(sSecond.charAt(currentX));
 					currentX--;
-					System.out.println(" leftward " + currentCost);
+					//System.out.println(" leftward " + currentCost);
 				}
 					
 				//downward
@@ -77,7 +74,7 @@ public class MedSolver {
 						currentCost = cost[currentY-1][currentX];
 					currentY--;
 					ans2.append("*");
-					System.out.println(" downward " + currentCost);
+					//System.out.println(" downward " + currentCost);
 				}
 			}
 		}
