@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 public class RegexParser {
 
-	String[] dateName = {"January","Enero", "Jan\\.", "February", "Pebrero","Feb\\.","March","Marso","Mar\\.","April","Abril","Apr\\.","May","Mayo","June","Hunyo","Jun\\.","July","Hulyo","Jul\\.","August","Agosto","Aug\\.","September","Setyembre","Sept\\.","October","Oktubre","Oct\\.","November","Nobyembre","Nov\\.","December","Disyembre", "Dec\\.",
+	String[] dateName = {"January", "Enero", "Jan\\.", "February", "Pebrero","Feb\\.","March","Marso","Mar\\.","April","Abril","Apr\\.","May","Mayo","June","Hunyo","Jun\\.","July","Hulyo","Jul\\.","August","Agosto","Aug\\.","September","Setyembre","Sept\\.","October","Oktubre","Oct\\.","November","Nobyembre","Nov\\.","December","Disyembre", "Dec\\.",
 			"Lunes", "Martes", "Miyerkules", "Huwebes", "Biyernes", "Sabado", "Linggo",
 			"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
 	
@@ -22,7 +22,7 @@ public class RegexParser {
 	
 	String locCoor = "Sa ";
 	
-	String dateCoor = "Sa ";
+	String[] dateCoor = {"Sa ", "Noong "};
 	
 	String[] orgCoor = {"Ang "};
 	
@@ -36,7 +36,7 @@ public class RegexParser {
 			+ "([0-9]{1,2}[a-z]{2} [a-z]{2} [A-Z][A-Za-z]{2,8}\\.* ([0-9]{4})*)|"		// 22nd of January		
 			+ getDatenameRegex();
 	
-	String namePattern = "(([Nn]ina|[Ss]i|[Nn]i|[Ss]ila|[Ss]ina|[Ss]a|[Kk]ay|[Kk]anila|[Kk]ila)*[0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9]*)(((-)|(\\s)|(\\.)|(,\\s))*(([A-Z][0-9A-Za-z]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
+	String namePattern = "(([Nn]ina|[Ss]i|[Nn]i|[Ss]ila|[Ss]ina|[Ss]a|[Kk]ay|[Kk]anila|[Kk]ila|[Nn]oong)*[0-9]{0,4}(\\s|-)([A-Z][A-Za-z0-9]*)(((-)|(\\s)|(\\.)|(,\\s))*(([A-Z][0-9A-Za-z]*)|((of the)|(of))|([0-9]{0,4}))*)*)|"
 			+ "(([A-Z]\\.)+)|"
 			+ datePattern;
 	
