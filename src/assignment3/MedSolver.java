@@ -18,7 +18,7 @@ public class MedSolver {
 		
 		alignStrings();
 		
-		//printTable();
+		printTable();
 	}
 	
 	public void alignStrings(){
@@ -28,18 +28,21 @@ public class MedSolver {
 		
 		StringBuilder ans1 = new StringBuilder();
 		StringBuilder ans2 = new StringBuilder();
+		StringBuilder operation = new StringBuilder();
 		
 		while(currentY > 0 || currentX > 0){
 			if(currentY == 0){
 				ans1.append("*");
 				ans2.append(sSecond.charAt(currentX));
 				currentX--;
+				operation.append("I");
 			}
 			
 			else if(currentX == 0){
 				ans1.append(sFirst.charAt(currentY));
 				currentY--;
 				ans2.append("*");
+				operation.append("D");
 			}
 				
 			else{
@@ -47,13 +50,18 @@ public class MedSolver {
 
 				//diagonal
 				if((currentCost == cost[currentY-1][currentX-1] && sFirst.charAt(currentY) == sSecond.charAt(currentX))|| (currentCost-2) == cost[currentY-1][currentX-1]){
+					if(currentCost-2 == cost[currentY-1][currentX-1])
+						operation.append("S");
+					else
+						operation.append("A");
 					if(currentX != 0 && currentY != 0)
 						currentCost = cost[currentY-1][currentX-1];
-					
+
 					ans1.append(sFirst.charAt(currentY));
 					currentY--;
 					ans2.append(sSecond.charAt(currentX));
 					currentX--;
+					
 					//System.out.println(" diagonal "+ currentCost);
 				}
 					
@@ -64,6 +72,7 @@ public class MedSolver {
 					ans1.append("*");
 					ans2.append(sSecond.charAt(currentX));
 					currentX--;
+					operation.append("I");
 					//System.out.println(" leftward " + currentCost);
 				}
 					
@@ -74,12 +83,14 @@ public class MedSolver {
 						currentCost = cost[currentY-1][currentX];
 					currentY--;
 					ans2.append("*");
+					operation.append("D");
 					//System.out.println(" downward " + currentCost);
 				}
 			}
 		}
-		System.out.println(ans1.reverse().toString());
-		System.out.println(ans2.reverse().toString());
+		System.out.println("\nOutput String1: " + ans1.reverse().toString());
+		System.out.println("Operation:      " + operation.reverse().toString());;
+		System.out.println("Output String2: " +ans2.reverse().toString());
 	}
 	
 	public void computeMinEdit(){
@@ -119,14 +130,13 @@ public class MedSolver {
 	}
 	
 	public void printTable(){
-		for(int i = 0 ; i < sFirst.length(); i++)
+		System.out.println("\nMatrix:");
+		for(int i = sFirst.length()-1 ; i >= 0; i--)
 		{
-			
-			System.out.print("Cost: " + i + " :" );
 			
 			for(int j = 0; j < sSecond.length(); j++)
 			{
-				System.out.print(cost[i][j]+ " ");
+				System.out.printf("%2d ", cost[i][j]);
 			}
 			
 			System.out.println();
