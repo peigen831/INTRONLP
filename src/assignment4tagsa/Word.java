@@ -88,7 +88,7 @@ public class Word {
 		suffixes.add(suffix);
 	}
 	
-	public void addinfix(String infix) {
+	public void addInfix(String infix) {
 		infixes.add(infix);
 	}
 }
