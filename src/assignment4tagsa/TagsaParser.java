@@ -43,7 +43,15 @@ public class TagsaParser extends Parser {
             	// TODO Step 1 - check if in dictionary; if yes, stop; else continue
                 // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
             	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
+            	// TODO Step 4 - check if has prefix; if yes, separate prefix
+            	// TODO Step 5 - check if has suffix; if yes, separate suffix
+            	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
+            	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
             	
+            	word.setPrefixes(foundPrefixes);
+            	word.setSuffixes(foundSuffixes);
+            	word.setInfixes(foundInfixes);
+            	word.setRootWord(sWord);
             	words.add(word);
             }
             FileWriter fw = FileWriter.getInstance();
