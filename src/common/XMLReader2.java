@@ -14,7 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XMLReader {
+public class XMLReader2 {
 	
 	private Parser parser;
 	private String defaultPath;
@@ -23,22 +23,22 @@ public class XMLReader {
 	DocumentBuilder dBuilder;
 	Document doc;
 	
-	public XMLReader() {
+	public XMLReader2() {
 		parser = null;
 		defaultPath = null;
 	}
 	
-	public XMLReader(Parser parser) {
+	public XMLReader2(Parser parser) {
 		this.parser = parser;
 		defaultPath = null;
 	}
 	
-	public XMLReader(String packageName) {
+	public XMLReader2(String packageName) {
 		this.parser = null;
 		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
 	}
 	
-	public XMLReader(String packageName, Parser parser) {
+	public XMLReader2(String packageName, Parser parser) {
 		this.parser = parser;
 		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
 	}
