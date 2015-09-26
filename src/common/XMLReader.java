@@ -1,12 +1,14 @@
 package common;
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.PrintWriter;
+import java.util.Collection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.DirectoryFileFilter;
+import org.apache.commons.io.filefilter.RegexFileFilter;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,42 +17,59 @@ import org.w3c.dom.NodeList;
 public class XMLReader {
 	
 	private Parser parser;
+	private String defaultPath;
+	
+	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+	DocumentBuilder dBuilder;
+	Document doc;
 	
 	public XMLReader() {
 		parser = null;
+		defaultPath = null;
 	}
 	
 	public XMLReader(Parser parser) {
 		this.parser = parser;
+		defaultPath = null;
+	}
+	
+	public XMLReader(String packageName) {
+		this.parser = null;
+		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
+	}
+	
+	public XMLReader(String packageName, Parser parser) {
+		this.parser = parser;
+		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
 	}
 	
 	public void setParser(Parser parser) {
 		this.parser = parser;
 	}
 	
-	//change this to your local path
-	String defaultPath = ReadConfigurationFile.getProperty("defaultPath");
+	public void setPackageName(String packageName) {
+		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
+	}
 	
-	String filepath;
+	public void start() {
+		Collection<File> files = getAllFiles(defaultPath);
+		
+		for (File file : files) {
+			parseXML(file);
+		}
+	}
 	
-	//to add 2012
-	String[] yearList = {"2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012"};
+	private Collection<File> getAllFiles(String filePath) {
+		Collection<File> files = FileUtils.listFiles(
+            new File(filePath),
+            new RegexFileFilter("^(.*?)"),
+            DirectoryFileFilter.DIRECTORY
+		);
+		return files;
+	}
 	
-	String [] monthList = {"January", "February", "March", "April" , "May", "June" , "July", "August" , "September", "October" , "November", "December" };
-	
-	File file;
-	
-	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-	
-	DocumentBuilder dBuilder;
-	
-	Document doc;
-	
-	public void initialize(){
-		try
-		{
-			file = new File(filepath);
-			
+	private void parseXML(File file) {
+		try {
 			dbFactory = DocumentBuilderFactory.newInstance();
 			
 			dBuilder = dbFactory.newDocumentBuilder();
@@ -58,90 +77,35 @@ public class XMLReader {
 			doc = dBuilder.parse(file);
 			
 			doc.getDocumentElement().normalize();
-			
-		}catch(Exception e){
-			//e.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-	}
-	
-	public void parseXML(){
-		try
-		{
-			initialize();
-			
+		
+		try {
 			//get the article node
 			NodeList nList = doc.getElementsByTagName("article");
 	
 			for (int i = 0; i < nList.getLength(); i++) {
 				Node nNode = nList.item(i);
-						
+				
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-	
-					Element eElement = (Element) nNode;
+					Element element = (Element) nNode;
+					String name = element.getElementsByTagName("title").item(0)
+								  	     .getTextContent();
+					String body = element.getElementsByTagName("body").item(0)
+							             .getTextContent();
+					Date date = new Date(Integer.parseInt(doc.getElementsByTagName("day")
+							                    .item(0).getTextContent()),
+										 doc.getElementsByTagName("month").item(0)
+										    .getTextContent(),
+										 Integer.parseInt(doc.getElementsByTagName("year")
+											    .item(0).getTextContent()));
 					
-					parser.parse(eElement.getElementsByTagName("body").item(0).getTextContent());
+					parser.parse(name, date, body);
 				}
 			}
 	    } catch (Exception e) {
 	    	e.printStackTrace();
 	    }
-	}
-	
-	//tried under Opinyon folder
-	public void start(){
-		
-		//parse XML files under News folder
-//		filepath = defaultPath + "News/2001/May.xml";
-//		parseXML();
-		for(int i = 0; i < yearList.length; i++)
-		{
-			for(int j = 0; j < monthList.length; j++)
-			{
-				writeArticleDate(yearList[i], monthList[j]);
-				filepath = defaultPath + "News/" + yearList[i] + "/" + monthList[j] + ".xml";
-				parseXML();
-				
-				if(i == yearList.length - 1 && monthList[j].equals("September"))
-					break;
-			}
-		}
-			
-		//parse XML files under Opinyon folder
-		for(int i = 0; i < yearList.length; i++)
-		{
-			for(int j = 0; j < monthList.length; j++)
-			{
-				writeArticleDate(yearList[i], monthList[j]);
-				filepath = defaultPath + "Opinyon/" + yearList[i] + "/" + monthList[j] + ".xml";
-				parseXML();
-
-				if(i == yearList.length - 1 && monthList[j].equals("September"))
-					break;
-			}
-		}
-	}
-	
-	//write the year and month for the result files
-	public void writeArticleDate(String year, String month){
-		/*try{
-			PrintWriter pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sLocation), true));
-			pw.write("Result from " + year + " - " + month + ":\n");
-			pw.close();
-			
-			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sDate), true));
-			pw.write("Result from " + year + " - " + month + ":\n");
-			pw.close();
-			
-			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sPerson), true));
-			pw.write("Result from " + year + " - " + month + ":\n");
-			pw.close();
-			
-			pw = new PrintWriter(new FileOutputStream(new File(RegexParser.sOrganization), true));
-			pw.write("Result from " + year + " - " + month + ":\n");
-			pw.close();
-			
-		} catch(Exception e){
-			e.printStackTrace();
-		}*/
 	}
 }

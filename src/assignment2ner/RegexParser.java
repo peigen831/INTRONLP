@@ -7,6 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import common.Parser;
+import common.Date;
 
 public class RegexParser extends Parser {
 
@@ -179,5 +180,10 @@ public class RegexParser extends Parser {
 		}
 		result += ")";
 		return result;
+	}
+
+	@Override
+	public void parse(String name, Date date, String body) {
+		parse(body);
 	}
 }

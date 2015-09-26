@@ -23,7 +23,7 @@ public class ReadConfigurationFile {
 	}
 	
 	public static String getProperty(String packageName, String property) {
-		Properties properties = readFile(CONFIGFILENAME);
+		Properties properties = readFile(packageName, CONFIGFILENAME);
 		
 		Enumeration<Object> enuKeys = properties.keys();
 		Map<String, String> propertyMap = new HashMap<>();
@@ -36,13 +36,9 @@ public class ReadConfigurationFile {
 		return propertyMap.get(property);
 	}
 	
-	private static Properties readFile(String fileName) {
-		return readFile(PACKAGENAME, fileName);
-	}
-	
 	private static Properties readFile(String packageName, String fileName) {
 		try {
-			File file = new File("src/" + PACKAGENAME + "/" + fileName);
+			File file = new File("src/" + packageName + "/" + fileName);
 			FileInputStream fileInput = new FileInputStream(file);
 			Properties properties = new Properties();
 			properties.load(fileInput);
