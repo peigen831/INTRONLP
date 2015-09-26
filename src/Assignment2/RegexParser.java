@@ -1,14 +1,14 @@
 package Assignment2;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
-import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class RegexParser {
+import common.Parser;
+
+public class RegexParser extends Parser {
 
 	String[] dateName = {"January", "Enero", "Jan\\.", "February", "Pebrero","Feb\\.","March","Marso","Mar\\.","April","Abril","Apr\\.","May","Mayo","June","Hunyo","Jun\\.","July","Hulyo","Jul\\.","August","Agosto","Aug\\.","September","Setyembre","Sept\\.","October","Oktubre","Oct\\.","November","Nobyembre","Nov\\.","December","Disyembre", "Dec\\.",
 			"Lunes", "Martes", "Miyerkules", "Huwebes", "Biyernes", "Sabado", "Linggo",
@@ -49,7 +49,7 @@ public class RegexParser {
 		parseName(rawText);
 	}
 	
-	public void parseName(String rawText){
+	private void parseName(String rawText){
 		Pattern p = Pattern.compile(namePattern);
 		
 		Matcher m = p.matcher(rawText);
@@ -107,7 +107,7 @@ public class RegexParser {
 	}
 	
 
-	public String format(String text, String[] keywordList){
+	private String format(String text, String[] keywordList){
 		for(int i = 0; i < keywordList.length; i++){
 			if(text.toLowerCase().startsWith(keywordList[i].toLowerCase())){
 				return text.substring(keywordList[i].length(), text.length());
@@ -116,13 +116,13 @@ public class RegexParser {
 		return text;
 	}
 	
-	public String format(String text, String keyword){
+	private String format(String text, String keyword){
 		if(text.toLowerCase().startsWith(keyword.toLowerCase()))
 			return text.substring(keyword.length(), text.length());
 		return text;
 	}
 	
-	public boolean isDate(String text){
+	private boolean isDate(String text){
 		Pattern p = Pattern.compile(datePattern);
 		
 		Matcher m = p.matcher(text);
@@ -134,7 +134,7 @@ public class RegexParser {
 		return false;
 	}
 	
-	public boolean isPerson(String text){
+	private boolean isPerson(String text){
 		for(int i = 0; i < personCoor.length; i++)
 		{
 			if(text.toLowerCase().startsWith(personCoor[i].toLowerCase()))
@@ -143,7 +143,7 @@ public class RegexParser {
 		return false;
 	}
 	
-	public boolean isLocation(String text){
+	private boolean isLocation(String text){
 		
 		for(int i = 0; i < locationName.length; i++)
 		{
@@ -157,7 +157,7 @@ public class RegexParser {
 		return false;
 	}
 	
-	public boolean isOrganization(String text){
+	private boolean isOrganization(String text){
 		for(int i = 0; i < orgName.length; i++)
 		{
 			if(text.toLowerCase().contains(orgName[i].toLowerCase()))
@@ -166,7 +166,7 @@ public class RegexParser {
 		return false;
 	}
 	
-	public String getDatenameRegex(){
+	private String getDatenameRegex(){
 		String result = "(";
 		
 		for(int i = 0; i < dateName.length; i++){
