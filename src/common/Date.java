@@ -1,24 +1,26 @@
 package common;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Date {
 	
 	private int year;
 	private int month;
 	private int day;
 	
+	private Map<String, String> months;
+	
 	public Date() {
-		setYear(-1);
-		setMonth(-1);
-		setDay(-1);
+		this(-1, "-1", -1);
 	}
 	
 	public Date(int day, int month, int year) {
-		setYear(year);
-		setMonth(month);
-		setDay(day);
+		this(day, month + "", year);
 	}
 	
 	public Date(int day, String month, int year) {
+		initializeMonths();
 		setYear(year);
 		setMonth(month);
 		setDay(day);
@@ -32,8 +34,12 @@ public class Date {
 		this.year = year;
 	}
 	
-	public int getMonth() {
+	public int getMonthNumber() {
 		return month;
+	}
+	
+	public String getMonthName() {
+		return getMonthName(month);
 	}
 	
 	public void setMonth(int month) {
@@ -41,22 +47,7 @@ public class Date {
 	}
 	
 	public void setMonth(String month) {
-		this.month = 12;
-		switch (month) {
-			case "January":   this.month--;
-			case "February":  this.month--;
-			case "March":     this.month--;
-			case "April":     this.month--;
-			case "May":       this.month--;
-			case "June":      this.month--;
-			case "July":      this.month--;
-			case "August":    this.month--;
-			case "September": this.month--;
-			case "October":   this.month--;
-			case "November":  this.month--;
-			case "December":  this.month--;
-			default:          this.month = -1;
-		}
+		this.month = getMonthNumber(month);
 	}
 	
 	public int getDay() {
@@ -67,4 +58,39 @@ public class Date {
 		this.day = day;
 	}
 	
+	private void initializeMonths() {
+		months = new HashMap<>();
+		months.put("0", "January");
+		months.put("1", "February");
+		months.put("2", "March");
+		months.put("3", "April");
+		months.put("4", "May");
+		months.put("5", "June");
+		months.put("6", "July");
+		months.put("7", "August");
+		months.put("8", "September");
+		months.put("9", "October");
+		months.put("10", "November");
+		months.put("11", "December");
+		months.put("January", "0");
+		months.put("February", "1");
+		months.put("March", "2");
+		months.put("April", "3");
+		months.put("May", "4");
+		months.put("June", "5");
+		months.put("July", "6");
+		months.put("August", "7");
+		months.put("September", "8");
+		months.put("October", "9");
+		months.put("November", "10");
+		months.put("December", "11");
+	}
+	
+	private int getMonthNumber(String month) {
+		return Integer.parseInt(months.get(month));
+	}
+	
+	private String getMonthName(int nMonth) {
+		return months.get("" + nMonth);
+	}
 }
