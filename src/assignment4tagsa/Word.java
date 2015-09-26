@@ -68,15 +68,15 @@ public class Word {
 		this.infixes = new ArrayList<>(Arrays.asList(infixes));
 	}
 	
-	public void setPrefixes(ArrayList<String> prefixes) {
+	public void setPrefixes(List<String> prefixes) {
 		this.prefixes = new ArrayList<>(prefixes);
 	}
 	
-	public void setSuffixes(ArrayList<String> suffixes) {
+	public void setSuffixes(List<String> suffixes) {
 		this.suffixes = new ArrayList<>(suffixes);
 	}
 	
-	public void setInfixes(ArrayList<String> infixes) {
+	public void setInfixes(List<String> infixes) {
 		this.infixes = new ArrayList<>(infixes);
 	}
 	
