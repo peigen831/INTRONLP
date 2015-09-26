@@ -1,15 +1,25 @@
 package assignment4tagsa;
 
-public class Driver {
+import java.io.FileNotFoundException;
 
+import common.FileWriter;
+import common.XmlReader;
+
+public class Driver {
+	
+	private static String PACKAGENAME = "assignment4tagsa";
+	
 	public static void main(String[] args) {
+		XmlReader reader = new XmlReader(PACKAGENAME, new TagsaParser());
+		try {
+			FileWriter.getNewInstance(PACKAGENAME, "Stemmered.txt").createNewFile();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		
-		//XMLParser parser = new XMLParser();
-		
-		//error occur because of XML &???
 		System.out.println("Processsing...");
 		
-		//parser.start();
+		reader.start();
 		
 		System.out.println("Done");
 	}
