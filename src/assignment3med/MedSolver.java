@@ -1,4 +1,4 @@
-package assignment3;
+package assignment3med;
 
 public class MedSolver {
 	String sFirst;
