@@ -66,29 +66,54 @@ public class TagsaParser extends Parser {
         }
     }
     
-    private void inDictionary(String word) { /* TODO */ }
+    private boolean inDictionary(String word) { /* TODO */ return false; }
     
-    private void hasHyphen(String word) { /* TODO */ }
+    private boolean hasHyphen(String word) { /* TODO */ return false; }
     
-    private void hasPrefix(String word) { /* TODO */ }
+    private boolean hasPrefix(String word) { /* TODO */ return false; }
     
-    private void hasSuffix(String word) { /* TODO */ }
+    private boolean hasSuffix(String word) { /* TODO */ return false; }
     
-    private void hasInfix(String word) { /* TODO */ }
+    private boolean hasInfix(String word) { /* TODO */ return false; }
     
-    private void hasPartialDuplicate(String word) { /* TODO */ }
+    private boolean hasPartialDuplicate(String word) { /* TODO */ return false; }
     
-    private void hasFullDuplicate(String word) { /* TODO */ }
+    private boolean hasFullDuplicate(String word) { /* TODO */ return false; }
     
-    private void foundHyphen(String word) { /* TODO */ }
+    private void processWordWithHyphen(String word) { /* TODO */ }
     
-    private void foundPrefix(String word) { /* TODO */ }
+    private void processWordWithPrefix(String word) { /* TODO */ }
     
-    private void foundSuffix(String word) { /* TODO */ }
+    private void processWordWithSuffix(String word) { /* TODO */ }
     
-    private void foundInfix(String word) { /* TODO */ }
+    private void processWordWithInfix(String word) { /* TODO */ }
     
-    private void foundPartialDuplicate(String word) { /* TODO */ }
+    private void processWordWithPartialDuplicate(String word) { /* TODO */ }
     
-    private void foundFullDuplicate(String word) { /* TODO */ }
+    private void processWordWithFullDuplicate(String word) { /* TODO */ }
+    
+    private String findBestCandidate(String[] candidates) {
+    	String bestCandidate = null;
+    	for (String candidate : candidates) {
+    		if (inDictionary(candidate)) {
+    			bestCandidate = candidate;
+    			break;
+    		}
+    	}
+    	return bestCandidate;
+    }
+    
+    private boolean isAcceptable(String word) {
+    	if (VOWELS.contains(word.charAt(0) + "")) {
+    		if (word.length() >= 3 /* TODO && word contains at least 1 consonant */) {
+    			return true;
+    		}
+    	}
+    	else if (CONSONANTS.contains(word.charAt(0) + "")) {
+    		if (word.length() >= 4 /* TODO && word contains at least 1 vowel */) {
+    			return true;
+    		}
+    	}
+    	return false;
+    }
 }
