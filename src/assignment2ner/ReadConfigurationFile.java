@@ -17,7 +17,7 @@ public class ReadConfigurationFile {
 	public static String getProperty(String property) {
 		Properties properties = readFile(CONFIGFILENAME);
 		
-		Enumeration enuKeys = properties.keys();
+		Enumeration<Object> enuKeys = properties.keys();
 		Map<String, String> propertyMap = new HashMap<>();
 		while (enuKeys.hasMoreElements()) {
 			String key = (String) enuKeys.nextElement();
@@ -31,7 +31,7 @@ public class ReadConfigurationFile {
 	public static String getRegex(String regex) {
 		Properties properties = readFile(REGEXFILENAME);
 		
-		Enumeration enuKeys = properties.keys();
+		Enumeration<Object> enuKeys = properties.keys();
 		Map<String, String> regexMap = new HashMap<>();
 		while (enuKeys.hasMoreElements()) {
 			String key = (String) enuKeys.nextElement();

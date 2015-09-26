@@ -14,6 +14,8 @@ public class Driver {
 		System.out.print("Input target text: ");
 		String sSecond = s.nextLine();
 		
+		s.close();
+		
 		MedSolver medSolver = new MedSolver(sFirst, sSecond);
 		medSolver.computeCost();
 	}
