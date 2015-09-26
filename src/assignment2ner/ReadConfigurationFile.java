@@ -1,4 +1,4 @@
-package Assignment2;
+package assignment2ner;
 
 import java.io.File;
 import java.io.FileInputStream;
