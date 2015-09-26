@@ -50,7 +50,7 @@ public class XMLParser {
 			doc.getDocumentElement().normalize();
 			
 		}catch(Exception e){
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 	}
 	
@@ -81,34 +81,34 @@ public class XMLParser {
 	public void start(){
 		
 		//parse XML files under News folder
-		filepath = defaultPath + "News/2001/May.xml";
-		parseXML();
-//		for(int i = 0; i < yearList.length; i++)
-//		{
-//			for(int j = 0; j < monthList.length; j++)
-//			{
-//				writeArticleDate(yearList[i], monthList[j]);
-//				filepath = defaultPath + "News/" + yearList[i] + "/" + monthList[j] + ".xml";
-//				parseXML();
-//				
-//				if(i == yearList.length - 1 && monthList[j].equals("September"))
-//					break;
-//			}
-//		}
-//			
-//		//parse XML files under Opinyon folder
-//		for(int i = 0; i < yearList.length; i++)
-//		{
-//			for(int j = 0; j < monthList.length; j++)
-//			{
-//				writeArticleDate(yearList[i], monthList[j]);
-//				filepath = defaultPath + "Opinyon/" + yearList[i] + "/" + monthList[j] + ".xml";
-//				parseXML();
-//
-//				if(i == yearList.length - 1 && monthList[j].equals("September"))
-//					break;
-//			}
-//		}
+//		filepath = defaultPath + "News/2001/May.xml";
+//		parseXML();
+		for(int i = 0; i < yearList.length; i++)
+		{
+			for(int j = 0; j < monthList.length; j++)
+			{
+				writeArticleDate(yearList[i], monthList[j]);
+				filepath = defaultPath + "News/" + yearList[i] + "/" + monthList[j] + ".xml";
+				parseXML();
+				
+				if(i == yearList.length - 1 && monthList[j].equals("September"))
+					break;
+			}
+		}
+			
+		//parse XML files under Opinyon folder
+		for(int i = 0; i < yearList.length; i++)
+		{
+			for(int j = 0; j < monthList.length; j++)
+			{
+				writeArticleDate(yearList[i], monthList[j]);
+				filepath = defaultPath + "Opinyon/" + yearList[i] + "/" + monthList[j] + ".xml";
+				parseXML();
+
+				if(i == yearList.length - 1 && monthList[j].equals("September"))
+					break;
+			}
+		}
 	}
 	
 	//write the year and month for the result files
