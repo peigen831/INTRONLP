@@ -62,7 +62,7 @@ public class XmlReader {
 	private Collection<File> getAllFiles(String filePath) {
 		Collection<File> files = FileUtils.listFiles(
             new File(filePath),
-            new RegexFileFilter("^(.*?)"),
+            new RegexFileFilter("^(.*xml)"),
             DirectoryFileFilter.DIRECTORY
 		);
 		return files;
