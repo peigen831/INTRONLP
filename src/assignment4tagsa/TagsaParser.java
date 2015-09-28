@@ -60,6 +60,8 @@ public class TagsaParser extends Parser {
 	            		lastAcceptableWord = currentWord;
 	            	}
             	}
+
+                currentWord = lastAcceptableWord;
             	
             	// TODO Step 4 - get and remove /-um-/
                 if (hasInfix(currentWord, "um")) {
