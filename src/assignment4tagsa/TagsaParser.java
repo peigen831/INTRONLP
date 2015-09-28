@@ -43,16 +43,16 @@ public class TagsaParser extends Parser {
             	String currentWord = sWord;
             	
             	// TODO Step 1 - get and remove hyphen
-            	/*currentWord = */processWordWithHyphen(currentWord);
+            	currentWord = processWordWithHyphen(currentWord);
             	
             	// TODO Step 2 - get and remove /-in-/
-            	/*currentWord = */processWordWithInfix(currentWord);
+            	currentWord = processWordWithInfix(currentWord);
             	
             	String lastAcceptableWord = currentWord;
             	
             	// TODO Step 3 - get and remove prefix
             	while (lastAcceptableWord.equals(currentWord) && hasPrefix(currentWord)) {
-	            	/*currentWord = */processWordWithPrefix(currentWord);
+	            	currentWord = processWordWithPrefix(currentWord);
 	            	if (isAcceptable(currentWord)) {
 	            		lastAcceptableWord = currentWord;
 	            	}
