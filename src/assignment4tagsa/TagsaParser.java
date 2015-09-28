@@ -26,6 +26,8 @@ public class TagsaParser extends Parser {
     	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "in"));
     	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "um"));
     	System.out.println("Suffixes: " + parser.hasSuffix("kakabahan"));
+    	System.out.println("Hyphens: " + parser.hasHyphen("bahaghari"));
+    	System.out.println("Hyphens: " + parser.hasHyphen("bahag-hari"));
     }
     
     TagsaParser() {
@@ -161,7 +163,9 @@ public class TagsaParser extends Parser {
      * @return true if the word has a hyphen;
      * 		   false otherwise
      */
-    private boolean hasHyphen(String word) { /* TODO */ return false; }
+    private boolean hasHyphen(String word) {
+    	return word.contains("-");
+    }
     
     /**
      * Checks if the word contains a prefix
