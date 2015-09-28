@@ -90,6 +90,11 @@ public class TagsaParser extends Parser {
                 
                 currentWord = lastAcceptableWord;
 
+                // TODO Step 7 - get and remove full duplications
+                if (hasFullDuplicate(currentWord)) {
+                    currentWord = processWordWithFullDuplicate(currentWord);
+                }
+
 //            	System.out.println(sWord);
 //            	boolean hasOperated = true;
 //            	
