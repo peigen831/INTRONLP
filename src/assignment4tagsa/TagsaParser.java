@@ -198,11 +198,8 @@ public class TagsaParser extends Parser {
                 currentSubstring = currentSubstring.substring(1, currentSubstring.length() - 1);
             }
 
-            for (String prefix : PREFIX) {
-                if (currentSubstring.startsWith(prefix, 1)) {
-                    hasInfix = true;
-                    break;
-                }
+            if (currentSubstring.startsWith(infix, 1)) {
+            	hasInfix = true;
             }
         } catch (Exception e) {}
 
