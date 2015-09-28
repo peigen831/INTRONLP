@@ -80,6 +80,16 @@ public class TagsaParser extends Parser {
             	
                 currentWord = lastAcceptableWord;
 
+                // TODO Step 6 - get and remove suffixes
+                while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
+                    currentWord = processWordWithSuffix(currentWord);
+                    if (isAcceptable(currentWord)) {
+                        lastAcceptableWord = currentWord;
+                    }
+                }
+                
+                currentWord = lastAcceptableWord;
+
 //            	System.out.println(sWord);
 //            	boolean hasOperated = true;
 //            	
