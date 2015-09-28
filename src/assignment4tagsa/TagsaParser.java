@@ -164,42 +164,42 @@ public class TagsaParser extends Parser {
      * the prefix and check if the result is acceptable
      * @param String word
      */
-    private void processWordWithHyphen(String word) { /* TODO */ }
+    private String processWordWithHyphen(String word) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the prefix and check
      * if the result is acceptable
      * @param String word
      */
-    private void processWordWithPrefix(String word) { /* TODO */ }
+    private String processWordWithPrefix(String word) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the suffix and check
      * if the result is acceptable
      * @param String word
      */
-    private void processWordWithSuffix(String word) { /* TODO */ }
+    private String processWordWithSuffix(String word) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the infix and check
      * if the result is acceptable
      * @param String word
      */
-    private void processWordWithInfix(String word) { /* TODO */ }
+    private String processWordWithInfix(String word) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the partial duplicate and check
      * if the result is acceptable
      * @param String word
      */
-    private void processWordWithPartialDuplicate(String word) { /* TODO */ }
+    private String processWordWithPartialDuplicate(String word) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the full duplicate and check
      * if the result is acceptable
      * @param String word
      */
-    private void processWordWithFullDuplicate(String word) { /* TODO */ }
+    private String processWordWithFullDuplicate(String word) { /* TODO */ return null; }
     
     /**
      * Finds the first candidate that is found in the dictionary
