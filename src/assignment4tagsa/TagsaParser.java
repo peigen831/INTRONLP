@@ -11,8 +11,8 @@ public class TagsaParser extends Parser {
     
     private final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZÑbcdfghjklmnpqrstvwxyzñ";
     private final String VOWELS = "AEIOUaeiou";
-    private final String[] PREFIX = { "i?", "ka?", "ma?", "mag?", "mang?", "na?", "nag?", "nang?", "pa?", "pag?", "pang?" };
-    private final String[] SUFFIX = { "?in", "?an", "?hin", "?han" };
+    private final String[] PREFIX = { "i", "ka", "ma", "mag", "mang", "na", "nag", "nang", "pa", "pag", "pang" };
+    private final String[] SUFFIX = { "in", "an", "hin", "han" };
     
     private List<String> foundPrefixes;
     private List<String> foundSuffixes;
