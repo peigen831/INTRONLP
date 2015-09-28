@@ -40,21 +40,41 @@ public class TagsaParser extends Parser {
             	foundInfixes = new ArrayList<>();
             	Word word = new Word(sWord);
             	
-            	System.out.println(sWord);
-            	boolean hasOperated = true;
-            	String tracker = "54321";
-            	while(hasOperated){
-            		hasOperated = false;
-            		// TODO Step 1 - check if in dictionary; if yes, stop; else continue
-                    // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
-                	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
-                	// TODO Step 4 - check if has prefix; if yes, separate prefix
-                	// TODO Step 5 - check if has suffix; if yes, separate suffix
-                	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
-                	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
+            	String currentWord = sWord;
+            	
+            	// TODO Step 1 - get and remove hyphen
+            	/*currentWord = */processWordWithHyphen(currentWord);
+            	
+            	// TODO Step 2 - get and remove /-in-/
+            	/*currentWord = */processWordWithInfix(currentWord);
+            	
+            	String lastAcceptableWord = currentWord;
+            	
+            	// TODO Step 3 - get and remove prefix
+            	while (lastAcceptableWord.equals(currentWord) && hasPrefix(currentWord)) {
+	            	/*currentWord = */processWordWithPrefix(currentWord);
+	            	if (isAcceptable(currentWord)) {
+	            		lastAcceptableWord = currentWord;
+	            	}
             	}
+            	
+            	// TODO Step 4 - get and remove /-um-/
+            	
+//            	System.out.println(sWord);
+//            	boolean hasOperated = true;
+//            	
+//            	while(hasOperated){
+//            		hasOperated = false;
+//            		// TODO Step 1 - check if in dictionary; if yes, stop; else continue
+//                    // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
+//                	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
+//                	// TODO Step 4 - check if has prefix; if yes, separate prefix
+//                	// TODO Step 5 - check if has suffix; if yes, separate suffix
+//                	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
+//                	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
+//            	}
 
-            	if(isAcceptable(word.getRootWord()))
+            	if(isAcceptable(sWord))
             	{
 	            	word.setPrefixes(foundPrefixes);
 	            	word.setSuffixes(foundSuffixes);
