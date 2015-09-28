@@ -28,6 +28,8 @@ public class TagsaParser extends Parser {
     	System.out.println("Suffixes: " + parser.hasSuffix("kakabahan"));
     	System.out.println("Hyphens: " + parser.hasHyphen("bahaghari"));
     	System.out.println("Hyphens: " + parser.hasHyphen("bahag-hari"));
+    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamugamo"));
+    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamutgamot"));
     }
     
     TagsaParser() {
@@ -221,7 +223,7 @@ public class TagsaParser extends Parser {
         try {
             String currentSubstring = word;
             while (!CONSONANTS.contains(currentSubstring.charAt(0) + "")) {
-                currentSubstring = currentSubstring.substring(1, currentSubstring.length() - 1);
+                currentSubstring = currentSubstring.substring(1, currentSubstring.length());
             }
 
             if (currentSubstring.startsWith(infix, 1)) {
@@ -246,7 +248,34 @@ public class TagsaParser extends Parser {
      * @return true if the word has a full duplicate;
      * 		   false otherwise
      */
-    private boolean hasFullDuplicate(String word) { /* TODO */ return false; }
+    private boolean hasFullDuplicate(String word) {
+    	boolean hasFullDuplicate = false;
+    	
+    	try {
+    		String half1 = null;
+    		String half2 = null;
+    		
+    		if (word.length() % 2 == 0) {
+	    		half1 = word.substring(0, word.length() / 2);
+	    		half2 = word.substring(word.length() / 2, word.length());
+	    		
+	    		System.out.println(half1.length());
+	    		if ("u".equals(half1.charAt(half1.length() - 1) + "")) {
+	    			half1 = half1.substring(0, half1.length() - 1) + "o";
+	    		}
+	    		else if (CONSONANTS.contains(half1.charAt(half1.length() - 1) + "")
+	    				 && "u".equals(half1.charAt(half1.length() - 2) + "")) {
+	    			half1 = half1.substring(0, half1.length() - 2) + "o" + half1.charAt(half1.length() - 1);
+	    		}
+	    		
+	    		hasFullDuplicate = half1.equals(half2);
+    		}
+    		
+    		System.out.println(half1 + " " + half2);
+    	} catch (Exception e) {}
+    	
+    	return hasFullDuplicate;
+    }
     
     /**
      * Processes the word to split the hyphenated words or remove
