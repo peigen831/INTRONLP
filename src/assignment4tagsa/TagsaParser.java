@@ -160,7 +160,20 @@ public class TagsaParser extends Parser {
      * @return true if the word has a prefix;
      * 		   false otherwise
      */
-    private boolean hasPrefix(String word) { /* TODO */ return false; }
+    private boolean hasPrefix(String word) {
+    	boolean hasPrefix = false;
+        try {
+            String currentSubstring = new String(word);
+            for (String prefix : PREFIX) {
+                if (currentSubstring.startsWith(prefix, 1)) {
+                    hasPrefix = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        return hasPrefix;
+    }
     
     /**
      * Checks if the word contains a suffix
