@@ -11,13 +11,26 @@ public class TagsaParser extends Parser {
     
     private final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZ裝cdfghjklmnpqrstvwxyz�";
     private final String VOWELS = "AEIOUaeiou";
-    private final String[] PREFIX = { "i?", "ka?", "ma?", "mag?", "mang?", "na?", "nag?", "nang?", "pa?", "pag?", "pang?" };
-    private final String[] SUFFIX = { "?in", "?an", "?hin", "?han" };
+    private final String[] PREFIX = { "i", "ka", "ma", "mag", "mang", "na", "nag", "nang", "pa", "pag", "pang" };
+    private final String[] SUFFIX = { "in", "an", "hin", "han" };
     
     private List<String> foundPrefixes;
     private List<String> foundSuffixes;
     private List<String> foundInfixes;
     private List<Word> resultWords;
+    
+    public static void main(String[] args) {
+    	TagsaParser parser = new TagsaParser();
+    	System.out.println("Prefixes: " + parser.hasPrefix("kakabahan"));
+    	System.out.println("Prefixes: " + parser.hasPrefix("kinakabahan"));
+    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "in"));
+    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "um"));
+    	System.out.println("Suffixes: " + parser.hasSuffix("kakabahan"));
+    	System.out.println("Hyphens: " + parser.hasHyphen("bahaghari"));
+    	System.out.println("Hyphens: " + parser.hasHyphen("bahag-hari"));
+    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamugamo"));
+    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamutgamot"));
+    }
     
     TagsaParser() {
         super();
@@ -40,20 +53,20 @@ public class TagsaParser extends Parser {
             	Word word = new Word(sWord);
             	
             	String currentWord = sWord;
+
             	System.out.println(sWord);
-            	// TODO Step 1 - get and remove hyphen
             	if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
                 }
             	
-            	// TODO Step 2 - get and remove /-in-/
+            	// Step 2 - get and remove /-in-/
                 if (hasInfix(currentWord, "in")) {
             	   currentWord = processWordWithInfix(currentWord, "in");
                 }
             	
             	String lastAcceptableWord = currentWord;
             	
-            	// TODO Step 3 - get and remove prefix
+            	// Step 3 - get and remove prefix
             	while (lastAcceptableWord.equals(currentWord) && hasPrefix(currentWord)) {
 	            	currentWord = processWordWithPrefix(currentWord);
 	            	if (isAcceptable(currentWord)) {
@@ -63,14 +76,14 @@ public class TagsaParser extends Parser {
 
                 currentWord = lastAcceptableWord;
             	
-            	// TODO Step 4 - get and remove /-um-/
+            	// Step 4 - get and remove /-um-/
                 if (hasInfix(currentWord, "um")) {
                     currentWord = processWordWithInfix(currentWord, "um");
                 }
 
                 lastAcceptableWord = currentWord;
 
-                // TODO Step 5 - get and remove partial duplications
+                // Step 5 - get and remove partial duplications
                 while (lastAcceptableWord.equals(currentWord) && hasPartialDuplicate(currentWord)) {
                     currentWord = processWordWithPartialDuplicate(currentWord);
                     if (isAcceptable(currentWord)) {
@@ -80,7 +93,7 @@ public class TagsaParser extends Parser {
             	
                 currentWord = lastAcceptableWord;
 
-                // TODO Step 6 - get and remove suffixes
+                // Step 6 - get and remove suffixes
                 while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
                     currentWord = processWordWithSuffix(currentWord);
                     if (isAcceptable(currentWord)) {
@@ -90,7 +103,7 @@ public class TagsaParser extends Parser {
                 
                 currentWord = lastAcceptableWord;
 
-                // TODO Step 7 - get and remove full duplications
+                // Step 7 - get and remove full duplications
                 if (hasFullDuplicate(currentWord)) {
                     currentWord = processWordWithFullDuplicate(currentWord);
                 }
@@ -138,10 +151,9 @@ public class TagsaParser extends Parser {
      * @return true if the word has a hyphen;
      * 		   false otherwise
      */
-    private boolean hasHyphen(String word) { /* TODO */
-    	if(word.contains("-"))
-    		return true;
-    	return false; 
+
+    private boolean hasHyphen(String word) {
+    	return word.contains("-");
     }
     
     /**
@@ -150,7 +162,20 @@ public class TagsaParser extends Parser {
      * @return true if the word has a prefix;
      * 		   false otherwise
      */
-    private boolean hasPrefix(String word) { /* TODO */ return false; }
+    private boolean hasPrefix(String word) {
+    	boolean hasPrefix = false;
+        try {
+            String currentSubstring = new String(word);
+            for (String prefix : PREFIX) {
+                if (currentSubstring.startsWith(prefix)) {
+                    hasPrefix = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        return hasPrefix;
+    }
     
     /**
      * Checks if the word contains a suffix
@@ -158,7 +183,20 @@ public class TagsaParser extends Parser {
      * @return true if the word has a suffix;
      * 		   false otherwise
      */
-    private boolean hasSuffix(String word) { /* TODO */ return false; }
+    private boolean hasSuffix(String word) {
+    	boolean hasSuffix = false;
+        try {
+            String currentSubstring = new String(word);
+            for (String suffix : SUFFIX) {
+                if (currentSubstring.endsWith(suffix)) {
+                    hasSuffix = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        return hasSuffix;
+    }
     
     /**
      * Checks if the word contains a infix
@@ -172,14 +210,11 @@ public class TagsaParser extends Parser {
         try {
             String currentSubstring = word;
             while (!CONSONANTS.contains(currentSubstring.charAt(0) + "")) {
-                currentSubstring = currentSubstring.substring(1, currentSubstring.length() - 1);
+                currentSubstring = currentSubstring.substring(1, currentSubstring.length());
             }
 
-            for (String prefix : PREFIX) {
-                if (currentSubstring.startsWith(prefix, 1)) {
-                    hasInfix = true;
-                    break;
-                }
+            if (currentSubstring.startsWith(infix, 1)) {
+            	hasInfix = true;
             }
         } catch (Exception e) {}
 
@@ -200,7 +235,34 @@ public class TagsaParser extends Parser {
      * @return true if the word has a full duplicate;
      * 		   false otherwise
      */
-    private boolean hasFullDuplicate(String word) { /* TODO */ return false; }
+    private boolean hasFullDuplicate(String word) {
+    	boolean hasFullDuplicate = false;
+    	
+    	try {
+    		String half1 = null;
+    		String half2 = null;
+    		
+    		if (word.length() % 2 == 0) {
+	    		half1 = word.substring(0, word.length() / 2);
+	    		half2 = word.substring(word.length() / 2, word.length());
+	    		
+	    		System.out.println(half1.length());
+	    		if ("u".equals(half1.charAt(half1.length() - 1) + "")) {
+	    			half1 = half1.substring(0, half1.length() - 1) + "o";
+	    		}
+	    		else if (CONSONANTS.contains(half1.charAt(half1.length() - 1) + "")
+	    				 && "u".equals(half1.charAt(half1.length() - 2) + "")) {
+	    			half1 = half1.substring(0, half1.length() - 2) + "o" + half1.charAt(half1.length() - 1);
+	    		}
+	    		
+	    		hasFullDuplicate = half1.equals(half2);
+    		}
+    		
+    		System.out.println(half1 + " " + half2);
+    	} catch (Exception e) {}
+    	
+    	return hasFullDuplicate;
+    }
     
     /**
      * Processes the word to split the hyphenated words or remove
