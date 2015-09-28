@@ -22,8 +22,10 @@ public class TagsaParser extends Parser {
     public static void main(String[] args) {
     	TagsaParser parser = new TagsaParser();
     	System.out.println("Prefixes: " + parser.hasPrefix("kakabahan"));
+    	System.out.println("Prefixes: " + parser.hasPrefix("kinakabahan"));
     	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "in"));
     	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "um"));
+    	System.out.println("Suffixes: " + parser.hasSuffix("kakabahan"));
     }
     
     TagsaParser() {
@@ -188,7 +190,20 @@ public class TagsaParser extends Parser {
      * @return true if the word has a suffix;
      * 		   false otherwise
      */
-    private boolean hasSuffix(String word) { /* TODO */ return false; }
+    private boolean hasSuffix(String word) {
+    	boolean hasSuffix = false;
+        try {
+            String currentSubstring = new String(word);
+            for (String suffix : SUFFIX) {
+                if (currentSubstring.endsWith(suffix)) {
+                    hasSuffix = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        return hasSuffix;
+    }
     
     /**
      * Checks if the word contains a infix
