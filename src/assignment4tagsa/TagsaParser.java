@@ -137,11 +137,12 @@ public class TagsaParser extends Parser {
     
     /**
      * Checks if the word contains a infix
-     * @param String word
+     * @param String word - word to be checked
+     * @param String infix - infix to check for
      * @return true if the word has a infix;
      * 		   false otherwise
      */
-    private boolean hasInfix(String word) { /* TODO */ return false; }
+    private boolean hasInfix(String word, String infix) { /* TODO */ return false; }
     
     /**
      * Checks if the word contains a partial duplicate
