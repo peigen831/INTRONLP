@@ -42,10 +42,14 @@ public class TagsaParser extends Parser {
             	String currentWord = sWord;
             	
             	// TODO Step 1 - get and remove hyphen
-            	currentWord = processWordWithHyphen(currentWord);
+            	if (hasHyphen(currentWord)) {
+                    currentWord = processWordWithHyphen(currentWord);
+                }
             	
             	// TODO Step 2 - get and remove /-in-/
-            	currentWord = processWordWithInfix(currentWord, "in");
+                if (hasInfix(currentWord, "in")) {
+            	   currentWord = processWordWithInfix(currentWord, "in");
+                }
             	
             	String lastAcceptableWord = currentWord;
             	
@@ -58,7 +62,9 @@ public class TagsaParser extends Parser {
             	}
             	
             	// TODO Step 4 - get and remove /-um-/
-                currentWord = processWordWithInfix(currentWord, "um");
+                if (hasInfix(currentWord, "um")) {
+                    currentWord = processWordWithInfix(currentWord, "um");
+                }
             	
 //            	System.out.println(sWord);
 //            	boolean hasOperated = true;
