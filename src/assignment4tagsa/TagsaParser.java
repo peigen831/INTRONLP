@@ -18,7 +18,7 @@ public class TagsaParser extends Parser {
     private List<String> foundPrefixes;
     private List<String> foundSuffixes;
     private List<String> foundInfixes;
-    private List<Word> words;
+    private List<Word> resultWords;
     
     TagsaParser() {
         super();
@@ -30,7 +30,7 @@ public class TagsaParser extends Parser {
 
     @Override
     public void parse(String rawText) {
-    	words = new ArrayList<>();
+    	resultWords = new ArrayList<>();
         try{
         	// parse each word
             String[] allWords = rawText.split("[.,?!(): ]+");
@@ -39,20 +39,29 @@ public class TagsaParser extends Parser {
             	foundSuffixes = new ArrayList<>();
             	foundInfixes = new ArrayList<>();
             	Word word = new Word(sWord);
-                
-            	// TODO Step 1 - check if in dictionary; if yes, stop; else continue
-                // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
-            	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
-            	// TODO Step 4 - check if has prefix; if yes, separate prefix
-            	// TODO Step 5 - check if has suffix; if yes, separate suffix
-            	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
-            	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
             	
-            	word.setPrefixes(foundPrefixes);
-            	word.setSuffixes(foundSuffixes);
-            	word.setInfixes(foundInfixes);
-            	word.setRootWord(sWord);
-            	words.add(word);
+            	System.out.println(sWord);
+            	boolean hasOperated = true;
+            	String tracker = "54321";
+            	while(hasOperated){
+            		hasOperated = false;
+            		// TODO Step 1 - check if in dictionary; if yes, stop; else continue
+                    // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
+                	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
+                	// TODO Step 4 - check if has prefix; if yes, separate prefix
+                	// TODO Step 5 - check if has suffix; if yes, separate suffix
+                	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
+                	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
+            	}
+
+            	if(isAcceptable(word.getRootWord()))
+            	{
+	            	word.setPrefixes(foundPrefixes);
+	            	word.setSuffixes(foundSuffixes);
+	            	word.setInfixes(foundInfixes);
+	            	word.setRootWord(sWord);
+	            	resultWords.add(word);
+            	}
             }
             FileWriter fw = FileWriter.getInstance();
             fw.writeLine(rawText);
@@ -80,7 +89,7 @@ public class TagsaParser extends Parser {
      * @return true if the word is in the dictionary;
      * 		   false otherwise
      */
-    private boolean inDictionary(String word) { /* TODO */ return false; }
+//    private boolean inDictionary(String word) { /* TODO */ return false; }
     
     /**
      * Checks if the word contains a hyphen
@@ -177,16 +186,16 @@ public class TagsaParser extends Parser {
      * @param String[] candidates
      * @return the best candidate
      */
-    private String findBestCandidate(String[] candidates) {
-    	String bestCandidate = null;
-    	for (String candidate : candidates) {
-    		if (inDictionary(candidate)) {
-    			bestCandidate = candidate;
-    			break;
-    		}
-    	}
-    	return bestCandidate;
-    }
+//    private String findBestCandidate(String[] candidates) {
+//    	String bestCandidate = null;
+//    	for (String candidate : candidates) {
+//    		if (inDictionary(candidate)) {
+//    			bestCandidate = candidate;
+//    			break;
+//    		}
+//    	}
+//    	return bestCandidate;
+//    }
     
     /**
      * Checks if the resulting word is "acceptable" wherein
@@ -200,15 +209,33 @@ public class TagsaParser extends Parser {
      */
     private boolean isAcceptable(String word) {
     	if (VOWELS.contains(word.charAt(0) + "")) {
-    		if (word.length() >= 3 /* TODO && word contains at least 1 consonant */) {
+    		if (word.length() >= 3 && hasConsonant(word)) {
     			return true;
     		}
     	}
     	else if (CONSONANTS.contains(word.charAt(0) + "")) {
-    		if (word.length() >= 4 /* TODO && word contains at least 1 vowel */) {
+    		if (word.length() >= 4 && hasVowel(word)) {
     			return true;
     		}
     	}
     	return false;
     }
+    
+	public boolean hasVowel(String word){
+		
+		for(int i = 0; i < word.length(); i++)
+			if(VOWELS.contains(Character.toString(word.charAt(i))))
+				return true;
+		
+		return false;		
+	}
+	
+	public boolean hasConsonant(String word){
+		
+		for(int i = 0; i < word.length(); i++)
+			if(CONSONANTS.contains(Character.toString(word.charAt(i))))
+				return true;
+		
+		return false;	
+	}
 }
