@@ -9,7 +9,7 @@ import common.Parser;
 
 public class TagsaParser extends Parser {
     
-    private final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZ—bcdfghjklmnpqrstvwxyzÒ";
+    private final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZË£ùcdfghjklmnpqrstvwxyzÔøΩ";
     private final String VOWELS = "AEIOUaeiou";
     private final String[] PREFIX = { "i?", "ka?", "ma?", "mag?", "mang?", "na?", "nag?", "nang?", "pa?", "pag?", "pang?" };
     private final String[] SUFFIX = { "?in", "?an", "?hin", "?han" };
@@ -40,7 +40,7 @@ public class TagsaParser extends Parser {
             	Word word = new Word(sWord);
             	
             	String currentWord = sWord;
-            	
+            	System.out.println(sWord);
             	// TODO Step 1 - get and remove hyphen
             	if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
@@ -95,20 +95,6 @@ public class TagsaParser extends Parser {
                     currentWord = processWordWithFullDuplicate(currentWord);
                 }
 
-//            	System.out.println(sWord);
-//            	boolean hasOperated = true;
-//            	
-//            	while(hasOperated){
-//            		hasOperated = false;
-//            		// TODO Step 1 - check if in dictionary; if yes, stop; else continue
-//                    // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
-//                	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
-//                	// TODO Step 4 - check if has prefix; if yes, separate prefix
-//                	// TODO Step 5 - check if has suffix; if yes, separate suffix
-//                	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
-//                	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
-//            	}
-
             	if(isAcceptable(sWord))
             	{
 	            	word.setPrefixes(foundPrefixes);
@@ -152,7 +138,11 @@ public class TagsaParser extends Parser {
      * @return true if the word has a hyphen;
      * 		   false otherwise
      */
-    private boolean hasHyphen(String word) { /* TODO */ return false; }
+    private boolean hasHyphen(String word) { /* TODO */
+    	if(word.contains("-"))
+    		return true;
+    	return false; 
+    }
     
     /**
      * Checks if the word contains a prefix
@@ -217,7 +207,14 @@ public class TagsaParser extends Parser {
      * the prefix and check if the result is acceptable
      * @param String word
      */
-    private String processWordWithHyphen(String word) { /* TODO */ return null; }
+    private String processWordWithHyphen(String word) { /* TODO */ 
+    	String[] splitWord = word.split("-");
+    	
+    	if(isAcceptable(splitWord[1]))
+    		return splitWord[1];
+    	
+    	else return splitWord[0]; 
+    }
     
     /**
      * Processes the word to remove the prefix and check
