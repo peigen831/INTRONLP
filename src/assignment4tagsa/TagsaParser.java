@@ -67,7 +67,19 @@ public class TagsaParser extends Parser {
                 if (hasInfix(currentWord, "um")) {
                     currentWord = processWordWithInfix(currentWord, "um");
                 }
+
+                lastAcceptableWord = currentWord;
+
+                // TODO Step 5 - get and remove partial duplications
+                while (lastAcceptableWord.equals(currentWord) && hasPartialDuplicate(currentWord)) {
+                    currentWord = processWordWithPartialDuplicate(currentWord);
+                    if (isAcceptable(currentWord)) {
+                        lastAcceptableWord = currentWord;
+                    }
+                }
             	
+                currentWord = lastAcceptableWord;
+
 //            	System.out.println(sWord);
 //            	boolean hasOperated = true;
 //            	
