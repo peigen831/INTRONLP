@@ -32,7 +32,7 @@ public class TagsaParser extends Parser {
     	resultWords = new ArrayList<>();
         try{
         	// parse each word
-            String[] allWords = rawText.split("[.,?!(): ]+");
+            String[] allWords = rawText.split("[*.,?!(): ]+");
             for (String sWord : allWords) {
             	foundPrefixes = new ArrayList<>();
             	foundSuffixes = new ArrayList<>();
