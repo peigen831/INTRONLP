@@ -177,7 +177,24 @@ public class TagsaParser extends Parser {
      * @return true if the word has a infix;
      * 		   false otherwise
      */
-    private boolean hasInfix(String word, String infix) { /* TODO */ return false; }
+    private boolean hasInfix(String word, String infix) {
+        boolean hasInfix = false;
+        try {
+            String currentSubstring = word;
+            while (!CONSONANTS.contains(currentSubstring.charAt(0) + "")) {
+                currentSubstring = currentSubstring.substring(1, currentSubstring.length() - 1);
+            }
+
+            for (String prefix : PREFIX) {
+                if (currentSubstring.startsWith(prefix, 1)) {
+                    hasInfix = true;
+                    break;
+                }
+            }
+        } catch (Exception e) {}
+
+        return hasInfix;
+    }
     
     /**
      * Checks if the word contains a partial duplicate
