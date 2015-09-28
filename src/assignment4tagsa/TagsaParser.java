@@ -48,19 +48,19 @@ public class TagsaParser extends Parser {
             	
             	String currentWord = sWord;
             	
-            	// TODO Step 1 - get and remove hyphen
+            	// Step 1 - get and remove hyphen
             	if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
                 }
             	
-            	// TODO Step 2 - get and remove /-in-/
+            	// Step 2 - get and remove /-in-/
                 if (hasInfix(currentWord, "in")) {
             	   currentWord = processWordWithInfix(currentWord, "in");
                 }
             	
             	String lastAcceptableWord = currentWord;
             	
-            	// TODO Step 3 - get and remove prefix
+            	// Step 3 - get and remove prefix
             	while (lastAcceptableWord.equals(currentWord) && hasPrefix(currentWord)) {
 	            	currentWord = processWordWithPrefix(currentWord);
 	            	if (isAcceptable(currentWord)) {
@@ -70,14 +70,14 @@ public class TagsaParser extends Parser {
 
                 currentWord = lastAcceptableWord;
             	
-            	// TODO Step 4 - get and remove /-um-/
+            	// Step 4 - get and remove /-um-/
                 if (hasInfix(currentWord, "um")) {
                     currentWord = processWordWithInfix(currentWord, "um");
                 }
 
                 lastAcceptableWord = currentWord;
 
-                // TODO Step 5 - get and remove partial duplications
+                // Step 5 - get and remove partial duplications
                 while (lastAcceptableWord.equals(currentWord) && hasPartialDuplicate(currentWord)) {
                     currentWord = processWordWithPartialDuplicate(currentWord);
                     if (isAcceptable(currentWord)) {
@@ -87,7 +87,7 @@ public class TagsaParser extends Parser {
             	
                 currentWord = lastAcceptableWord;
 
-                // TODO Step 6 - get and remove suffixes
+                // Step 6 - get and remove suffixes
                 while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
                     currentWord = processWordWithSuffix(currentWord);
                     if (isAcceptable(currentWord)) {
@@ -97,7 +97,7 @@ public class TagsaParser extends Parser {
                 
                 currentWord = lastAcceptableWord;
 
-                // TODO Step 7 - get and remove full duplications
+                // Step 7 - get and remove full duplications
                 if (hasFullDuplicate(currentWord)) {
                     currentWord = processWordWithFullDuplicate(currentWord);
                 }
@@ -107,13 +107,13 @@ public class TagsaParser extends Parser {
 //            	
 //            	while(hasOperated){
 //            		hasOperated = false;
-//            		// TODO Step 1 - check if in dictionary; if yes, stop; else continue
-//                    // TODO Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
-//                	// TODO Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
-//                	// TODO Step 4 - check if has prefix; if yes, separate prefix
-//                	// TODO Step 5 - check if has suffix; if yes, separate suffix
-//                	// TODO Step 6 - check if has partial duplicate; if yes, remove duplicate
-//                	// TODO Step 7 - check if has full duplicate; if yes, remove duplicate
+//            		// Step 1 - check if in dictionary; if yes, stop; else continue
+//                    // Step 2 - check if hyphenated; if yes, is it a compound word or a prefix; if no, continue
+//                	// Step 3 - check if has infix e.g. kINawayan; if yes, separate infix
+//                	// Step 4 - check if has prefix; if yes, separate prefix
+//                	// Step 5 - check if has suffix; if yes, separate suffix
+//                	// Step 6 - check if has partial duplicate; if yes, remove duplicate
+//                	// Step 7 - check if has full duplicate; if yes, remove duplicate
 //            	}
 
             	if(isAcceptable(sWord))
