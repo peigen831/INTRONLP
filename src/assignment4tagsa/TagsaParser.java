@@ -13,7 +13,6 @@ public class TagsaParser extends Parser {
     private final String VOWELS = "AEIOUaeiou";
     private final String[] PREFIX = { "i?", "ka?", "ma?", "mag?", "mang?", "na?", "nag?", "nang?", "pa?", "pag?", "pang?" };
     private final String[] SUFFIX = { "?in", "?an", "?hin", "?han" };
-    private final String[] INFIX = { "?um?", "?in?" };
     
     private List<String> foundPrefixes;
     private List<String> foundSuffixes;
@@ -46,7 +45,7 @@ public class TagsaParser extends Parser {
             	currentWord = processWordWithHyphen(currentWord);
             	
             	// TODO Step 2 - get and remove /-in-/
-            	currentWord = processWordWithInfix(currentWord);
+            	currentWord = processWordWithInfix(currentWord, "in");
             	
             	String lastAcceptableWord = currentWord;
             	
@@ -59,6 +58,7 @@ public class TagsaParser extends Parser {
             	}
             	
             	// TODO Step 4 - get and remove /-um-/
+                currentWord = processWordWithInfix(currentWord, "um");
             	
 //            	System.out.println(sWord);
 //            	boolean hasOperated = true;
@@ -183,9 +183,10 @@ public class TagsaParser extends Parser {
     /**
      * Processes the word to remove the infix and check
      * if the result is acceptable
-     * @param String word
+     * @param String word - word to be processed
+     * @param String infix - infix to check for
      */
-    private String processWordWithInfix(String word) { /* TODO */ return null; }
+    private String processWordWithInfix(String word, String infix) { /* TODO */ return null; }
     
     /**
      * Processes the word to remove the partial duplicate and check
