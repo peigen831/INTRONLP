@@ -19,6 +19,13 @@ public class TagsaParser extends Parser {
     private List<String> foundInfixes;
     private List<Word> resultWords;
     
+    public static void main(String[] args) {
+    	TagsaParser parser = new TagsaParser();
+    	System.out.println("Prefixes: " + parser.hasPrefix("kakabahan"));
+    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "in"));
+    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "um"));
+    }
+    
     TagsaParser() {
         super();
     }
@@ -165,7 +172,7 @@ public class TagsaParser extends Parser {
         try {
             String currentSubstring = new String(word);
             for (String prefix : PREFIX) {
-                if (currentSubstring.startsWith(prefix, 1)) {
+                if (currentSubstring.startsWith(prefix)) {
                     hasPrefix = true;
                     break;
                 }
