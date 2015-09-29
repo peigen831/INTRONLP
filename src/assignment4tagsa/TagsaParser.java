@@ -13,9 +13,9 @@ public class TagsaParser extends Parser {
     private static final String VOWELS = "AEIOUaeiou";
     /* TODO add and reorder prefix, suffix. 
      * order of affix matters*/
-    private static final String[] PREFIX = { "mang", "mag", "ma",
-                                             "nang", "nag", "na",
-                                             "pang", "pag", "pa",
+    private static final String[] PREFIX = { "mang", "mag", "mam", "ma",
+                                             "nang", "nag", "nam", "na",
+                                             "pang", "pag", "pam", "pa",
                                              "ka", "ki", "i" };
     private static final String[] SUFFIX = { "han", "hin", "an", "in" };
     
@@ -29,6 +29,7 @@ public class TagsaParser extends Parser {
         parser.parse("kinakabahan");
         parser.parse("pinagpitikpitikan");
         parser.parse("pag-alis");
+        parser.parse("pamalit");
     }
     
     TagsaParser() {
@@ -170,9 +171,8 @@ public class TagsaParser extends Parser {
     private boolean hasPrefix(String word) {
         boolean hasPrefix = false;
         try {
-            String currentSubstring = new String(word);
             for (String prefix : PREFIX) {
-                if (currentSubstring.startsWith(prefix)) {
+                if (word.startsWith(prefix)) {
                     hasPrefix = true;
                     break;
                 }
@@ -191,9 +191,8 @@ public class TagsaParser extends Parser {
     private boolean hasSuffix(String word) {
         boolean hasSuffix = false;
         try {
-            String currentSubstring = new String(word);
             for (String suffix : SUFFIX) {
-                if (currentSubstring.endsWith(suffix)) {
+                if (word.endsWith(suffix)) {
                     hasSuffix = true;
                     break;
                 }
@@ -303,6 +302,17 @@ public class TagsaParser extends Parser {
     private String processWordWithPrefix(String word) { 
         for (String prefix : PREFIX) {
             if (word.startsWith(prefix)) {
+            	// ASSIMILATORY CONDITIONS START
+            	if (prefix.endsWith("ng") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            		return word.replaceFirst(prefix, "k");
+            	}
+            	if (prefix.endsWith("n") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            		return word.replaceFirst(prefix, "d"); // replace with d / l / s / t
+            	}
+            	if (prefix.endsWith("m") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            		return word.replaceFirst(prefix, "p"); // replace with b / p
+            	}
+            	// ASSIMILATORY CONDITIONS END
                 return word.substring(prefix.length());
             }
         }
