@@ -120,17 +120,20 @@ public class TagsaParser extends Parser {
                 }
                 System.out.println("after full: " + currentWord);
                 
-                if(isAcceptable(sWord))
-                {
+                if(isAcceptable(currentWord)) {
                     word.setPrefixes(foundPrefixes);
                     word.setSuffixes(foundSuffixes);
                     word.setInfixes(foundInfixes);
-                    word.setRootWord(sWord);
+                    word.setRootWord(currentWord);
                     resultWords.add(word);
                 }
+                else {
+                	word.setRootWord(sWord);
+                }
+                FileWriter fw = FileWriter.getInstance();
+                fw.writeLine(sWord + ": " + word.getRootWord());
             }
             FileWriter fw = FileWriter.getInstance();
-            fw.writeLine(rawText);
             fw.writeLine("");
         } catch (Exception e){
             e.printStackTrace();
