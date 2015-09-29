@@ -186,8 +186,11 @@ public class TagsaParser extends Parser {
         try {
             for (String prefix : PREFIX) {
                 if (word.startsWith(prefix)) {
-                    hasPrefix = true;
-                    break;
+                	if (!(CONSONANTS.contains(prefix.charAt(prefix.length() - 1) + "")
+                		  && VOWELS.contains(word.charAt(prefix.length()) + ""))) {
+                        hasPrefix = true;
+                        break;
+                	}
                 }
             }
         } catch (Exception e) {}
@@ -315,6 +318,13 @@ public class TagsaParser extends Parser {
     private String processWordWithPrefix(String word) { 
         for (String prefix : PREFIX) {
             if (word.startsWith(prefix)) {
+            	if (!(CONSONANTS.contains(prefix.charAt(prefix.length() - 1) + "")
+              		  && VOWELS.contains(word.charAt(prefix.length()) + ""))) {
+                	if (word.length() > prefix.length() && "Rr".contains(word.charAt(prefix.length()) + "")) {
+                		return word.replaceFirst(prefix + "r", "d"); // replace with r
+                	}
+            		return word.substring(prefix.length());
+              	}
             	// ASSIMILATORY CONDITIONS START
             	if (word.length() > prefix.length() && prefix.endsWith("ng")
             		&& VOWELS.contains(word.charAt(prefix.length()) + "")) {
@@ -328,11 +338,7 @@ public class TagsaParser extends Parser {
             		&& VOWELS.contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix, "p"); // replace with b / p
             	}
-            	if (word.length() > prefix.length() && "Rr".contains(word.charAt(prefix.length()) + "")) {
-            		return word.replaceFirst(prefix + "r", "d"); // replace with r
-            	}
             	// ASSIMILATORY CONDITIONS END
-                return word.substring(prefix.length());
             }
         }
         return word; 
