@@ -147,7 +147,7 @@ public class TagsaParser extends Parser {
      * @return true if the word is in the dictionary;
      *            false otherwise
      */
-//    private boolean inDictionary(String word) { /* TODO */ return false; }
+//    private boolean inDictionary(String word) { return false; }
     
     /**
      * Checks if the word contains a hyphen
@@ -343,7 +343,7 @@ public class TagsaParser extends Parser {
      * if the result is acceptable
      * @param String word
      */
-    private String processWordWithPartialDuplicate(String word) { /* TODO */ 
+    private String processWordWithPartialDuplicate(String word) {
         if(isAcceptable(word)){
             if(word.charAt(0) == word.charAt(1))
                 return word.substring(1);
