@@ -27,6 +27,7 @@ public class TagsaParser extends Parser {
     public static void main(String[] args) {
         TagsaParser parser = new TagsaParser();
         parser.parse("kinakabahan");
+        parser.parse("pinagpitikpitikan");
     }
     
     TagsaParser() {
@@ -54,11 +55,13 @@ public class TagsaParser extends Parser {
                 if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
                 }
+                System.out.println("after hyphen: " + currentWord);
                 
                 // Step 2 - get and remove /-in-/
                 if (hasInfix(currentWord, "in")) {
                    currentWord = processWordWithInfix(currentWord, "in");
                 }
+                System.out.println("after -in-: " + currentWord);
                 
                 String lastAcceptableWord = currentWord;
                 
@@ -71,11 +74,13 @@ public class TagsaParser extends Parser {
                 }
                 
                 currentWord = lastAcceptableWord;
+                System.out.println("after prefix: " + currentWord);
                 
                 // Step 4 - get and remove /-um-/
                 if (hasInfix(currentWord, "um")) {
                     currentWord = processWordWithInfix(currentWord, "um");
                 }
+                System.out.println("after -um-: " + currentWord);
                 
                 lastAcceptableWord = currentWord;
 
@@ -88,6 +93,7 @@ public class TagsaParser extends Parser {
                 }
                 
                 currentWord = lastAcceptableWord;
+                System.out.println("after partial: " + currentWord);
                 
                 // Step 6 - get and remove suffixes
                 while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
@@ -98,11 +104,13 @@ public class TagsaParser extends Parser {
                 }
                 
                 currentWord = lastAcceptableWord;
+                System.out.println("after suffix: " + currentWord);
                 
                 // Step 7 - get and remove full duplications
                 if (hasFullDuplicate(currentWord)) {
                     currentWord = processWordWithFullDuplicate(currentWord);
                 }
+                System.out.println("after full: " + currentWord);
                 
                 if(isAcceptable(sWord))
                 {
@@ -113,9 +121,9 @@ public class TagsaParser extends Parser {
                     resultWords.add(word);
                 }
             }
-            FileWriter fw = FileWriter.getInstance();
-            fw.writeLine(rawText);
-            fw.writeLine("");
+//            FileWriter fw = FileWriter.getInstance();
+//            fw.writeLine(rawText);
+//            fw.writeLine("");
         } catch (Exception e){
             e.printStackTrace();
         }
