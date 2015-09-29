@@ -31,6 +31,7 @@ public class TagsaParser extends Parser {
         parser.parse("pag-alis");
         parser.parse("pamalit");
         parser.parse("parating");
+        parser.parse("damuhan");
     }
     
     TagsaParser() {
@@ -331,7 +332,11 @@ public class TagsaParser extends Parser {
     private String processWordWithSuffix(String word) { 
         for (String suffix : SUFFIX) {
             if (word.endsWith(suffix)) {
-                return word.substring(0, word.length()-suffix.length());
+            	String resultingWord = word.substring(0, word.length() - suffix.length());
+            	if (resultingWord.endsWith("u")) {
+            		return resultingWord.replaceFirst("u$", "o");
+            	}
+                return resultingWord;
             }
         }
         return word;
