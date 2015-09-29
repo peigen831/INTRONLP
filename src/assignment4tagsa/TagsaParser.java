@@ -16,7 +16,11 @@ public class TagsaParser extends Parser {
     private static final String[] PREFIX = { "mang", "mag", "mam", "ma",
                                              "nang", "nag", "nam", "na",
                                              "pang", "pag", "pam", "pa",
-                                             "ka", "ki", "i" };
+                                             "ka", "ki",
+                                             "imang", "imag", "imam", "ima",
+                                             "inang", "inag", "inam", "ina",
+                                             "ipang", "ipag", "ipam", "ipa",
+                                             "ika", "iki" };
     private static final String[] SUFFIX = { "han", "hin", "an", "in" };
     
     private List<String> foundPrefixes;
