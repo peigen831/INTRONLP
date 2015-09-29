@@ -32,6 +32,8 @@ public class TagsaParser extends Parser {
         parser.parse("pamalit");
         parser.parse("parating");
         parser.parse("damuhan");
+        parser.parse("mamamayan");
+        parser.parse("babangungutin");
     }
     
     TagsaParser() {
@@ -335,6 +337,10 @@ public class TagsaParser extends Parser {
             	String resultingWord = word.substring(0, word.length() - suffix.length());
             	if (resultingWord.endsWith("u")) {
             		return resultingWord.replaceFirst("u$", "o");
+            	}
+            	if (resultingWord.matches("[A-Za-zÑñ]*u[" + CONSONANTS + "]$")) {
+            		return resultingWord.substring(0, resultingWord.length() - 2)
+            				+ "o" + resultingWord.charAt(resultingWord.length() - 1);
             	}
                 return resultingWord;
             }
