@@ -37,7 +37,7 @@ public class TagsaParser extends Parser {
         parser.parse("parating");
         parser.parse("damuhan");
         parser.parse("mamamayan");
-        parser.parse("babangungutin");
+        parser.parse("Madali");
     }
     
     TagsaParser() {
@@ -62,7 +62,7 @@ public class TagsaParser extends Parser {
                 Word word = new Word(sWord);
                 System.out.println(sWord);
                 
-                String currentWord = sWord;
+                String currentWord = sWord.toLowerCase();
                 
                 if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
