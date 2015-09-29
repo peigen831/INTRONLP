@@ -30,6 +30,7 @@ public class TagsaParser extends Parser {
         parser.parse("pinagpitikpitikan");
         parser.parse("pag-alis");
         parser.parse("pamalit");
+        parser.parse("parating");
     }
     
     TagsaParser() {
@@ -311,6 +312,9 @@ public class TagsaParser extends Parser {
             	}
             	if (prefix.endsWith("m") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix, "p"); // replace with b / p
+            	}
+            	if ("Rr".contains(word.charAt(prefix.length()) + "")) {
+            		return word.replaceFirst(prefix + "r", "d"); // replace with r
             	}
             	// ASSIMILATORY CONDITIONS END
                 return word.substring(prefix.length());
