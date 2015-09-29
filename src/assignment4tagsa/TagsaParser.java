@@ -50,11 +50,13 @@ public class TagsaParser extends Parser {
         try{
             // parse each word
             String[] allWords = rawText.split("[*.,?!(): ]+");
+            
             for (String sWord : allWords) {
                 foundPrefixes = new ArrayList<>();
                 foundSuffixes = new ArrayList<>();
                 foundInfixes = new ArrayList<>();
                 Word word = new Word(sWord);
+                System.out.println(sWord);
                 
                 String currentWord = sWord;
                 
@@ -127,9 +129,9 @@ public class TagsaParser extends Parser {
                     resultWords.add(word);
                 }
             }
-//            FileWriter fw = FileWriter.getInstance();
-//            fw.writeLine(rawText);
-//            fw.writeLine("");
+            FileWriter fw = FileWriter.getInstance();
+            fw.writeLine(rawText);
+            fw.writeLine("");
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -236,10 +238,10 @@ public class TagsaParser extends Parser {
      *            false otherwise
      */
     private boolean hasPartialDuplicate(String word) { /* TODO check */
-        if(isAcceptable(word)){
+        if(isAcceptable(word)) {
             if(word.charAt(0) == word.charAt(1))
                 return true;
-            else if(word.substring(0, 2).equals(word.substring(2,4)))
+            else if(word.length() > 4 && word.substring(0, 2).equals(word.substring(2,4)))
                 return true;
         }
                 
@@ -307,16 +309,19 @@ public class TagsaParser extends Parser {
         for (String prefix : PREFIX) {
             if (word.startsWith(prefix)) {
             	// ASSIMILATORY CONDITIONS START
-            	if (prefix.endsWith("ng") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            	if (word.length() > prefix.length() && prefix.endsWith("ng")
+            		&& VOWELS.contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix, "k");
             	}
-            	if (prefix.endsWith("n") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            	if (word.length() > prefix.length() && prefix.endsWith("n")
+            		&& VOWELS.contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix, "d"); // replace with d / l / s / t
             	}
-            	if (prefix.endsWith("m") && VOWELS.contains(word.charAt(prefix.length()) + "")) {
+            	if (word.length() > prefix.length() && prefix.endsWith("m")
+            		&& VOWELS.contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix, "p"); // replace with b / p
             	}
-            	if ("Rr".contains(word.charAt(prefix.length()) + "")) {
+            	if (word.length() > prefix.length() && "Rr".contains(word.charAt(prefix.length()) + "")) {
             		return word.replaceFirst(prefix + "r", "d"); // replace with r
             	}
             	// ASSIMILATORY CONDITIONS END
@@ -419,6 +424,9 @@ public class TagsaParser extends Parser {
      *         false otherwise
      */
     private boolean isAcceptable(String word) {
+    	if (word.length() < 3) {
+    		return false;
+    	}
         if (VOWELS.contains(word.charAt(0) + "")) {
             if (word.length() >= 3 && hasConsonant(word)) {
                 return true;
