@@ -13,8 +13,8 @@ public class TagsaParser extends Parser {
     private static final String VOWELS = "AEIOUaeiou";
     /* TODO add and reorder prefix, suffix. 
      * order of affix matters*/
-    private static final String[] PREFIX = { "i", "ka", "ma", "mag", "mang", "na", "nag", "nang", "pa", "pag", "pang" };
-    private static final String[] SUFFIX = { "in", "an", "hin", "han" };
+    private static final String[] PREFIX = { "mang", "mag", "ma", "nang", "nag", "na", "pang", "pag", "pa", "ka", "i" };
+    private static final String[] SUFFIX = { "han", "hin", "an", "in" };
     
     private List<String> foundPrefixes;
     private List<String> foundSuffixes;
