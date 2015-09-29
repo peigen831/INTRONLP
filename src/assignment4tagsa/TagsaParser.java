@@ -401,7 +401,7 @@ public class TagsaParser extends Parser {
         return false;
     }
     
-    public boolean hasVowel(String word){
+    private boolean hasVowel(String word) {
         
         for(int i = 0; i < word.length(); i++)
             if(VOWELS.contains(Character.toString(word.charAt(i))))
@@ -410,7 +410,7 @@ public class TagsaParser extends Parser {
         return false;        
     }
     
-    public boolean hasConsonant(String word){
+    private boolean hasConsonant(String word) {
         
         for(int i = 0; i < word.length(); i++)
             if(CONSONANTS.contains(Character.toString(word.charAt(i))))
