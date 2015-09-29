@@ -28,6 +28,7 @@ public class TagsaParser extends Parser {
         TagsaParser parser = new TagsaParser();
         parser.parse("kinakabahan");
         parser.parse("pinagpitikpitikan");
+        parser.parse("pag-alis");
     }
     
     TagsaParser() {
