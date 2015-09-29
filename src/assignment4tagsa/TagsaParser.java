@@ -357,7 +357,9 @@ public class TagsaParser extends Parser {
      * if the result is acceptable
      * @param String word
      */
-    private String processWordWithFullDuplicate(String word) { /* TODO */ return null; }
+    private String processWordWithFullDuplicate(String word) {
+    	return word.substring(word.length() / 2, word.length());
+    }
     
     /**
      * Finds the first candidate that is found in the dictionary
