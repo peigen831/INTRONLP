@@ -9,11 +9,14 @@ import common.Parser;
 
 public class TagsaParser extends Parser {
     
-    private static final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZ裝cdfghjklmnpqrstvwxyz�";
+    private static final String CONSONANTS = "BCDFGHJKLMNPQRSTVWXYZÑbcdfghjklmnpqrstvwxyzñ";
     private static final String VOWELS = "AEIOUaeiou";
     /* TODO add and reorder prefix, suffix. 
      * order of affix matters*/
-    private static final String[] PREFIX = { "mang", "mag", "ma", "nang", "nag", "na", "pang", "pag", "pa", "ka", "i" };
+    private static final String[] PREFIX = { "mang", "mag", "ma",
+    										 "nang", "nag", "na",
+    										 "pang", "pag", "pa",
+    										 "ka", "ki", "i" };
     private static final String[] SUFFIX = { "han", "hin", "an", "in" };
     
     private List<String> foundPrefixes;
@@ -23,15 +26,7 @@ public class TagsaParser extends Parser {
     
     public static void main(String[] args) {
     	TagsaParser parser = new TagsaParser();
-    	System.out.println("Prefixes: " + parser.hasPrefix("kakabahan"));
-    	System.out.println("Prefixes: " + parser.hasPrefix("kinakabahan"));
-    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "in"));
-    	System.out.println("Infixes: " + parser.hasInfix("kinakabahan", "um"));
-    	System.out.println("Suffixes: " + parser.hasSuffix("kakabahan"));
-    	System.out.println("Hyphens: " + parser.hasHyphen("bahaghari"));
-    	System.out.println("Hyphens: " + parser.hasHyphen("bahag-hari"));
-    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamugamo"));
-    	System.out.println("Full Dupe: " + parser.hasFullDuplicate("gamutgamot"));
+    	parser.parse("kinakabahan");
     }
     
     TagsaParser() {
@@ -55,8 +50,7 @@ public class TagsaParser extends Parser {
             	Word word = new Word(sWord);
             	
             	String currentWord = sWord;
-
-            	System.out.println(sWord);
+            	
             	if (hasHyphen(currentWord)) {
                     currentWord = processWordWithHyphen(currentWord);
                 }
@@ -75,14 +69,14 @@ public class TagsaParser extends Parser {
 	            		lastAcceptableWord = currentWord;
 	            	}
             	}
-
+            	
                 currentWord = lastAcceptableWord;
             	
             	// Step 4 - get and remove /-um-/
                 if (hasInfix(currentWord, "um")) {
                     currentWord = processWordWithInfix(currentWord, "um");
                 }
-
+            	
                 lastAcceptableWord = currentWord;
 
                 // Step 5 - get and remove partial duplications
@@ -94,7 +88,7 @@ public class TagsaParser extends Parser {
                 }
             	
                 currentWord = lastAcceptableWord;
-
+            	
                 // Step 6 - get and remove suffixes
                 while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
                     currentWord = processWordWithSuffix(currentWord);
@@ -104,12 +98,12 @@ public class TagsaParser extends Parser {
                 }
                 
                 currentWord = lastAcceptableWord;
-
+            	
                 // Step 7 - get and remove full duplications
                 if (hasFullDuplicate(currentWord)) {
                     currentWord = processWordWithFullDuplicate(currentWord);
                 }
-
+            	
             	if(isAcceptable(sWord))
             	{
 	            	word.setPrefixes(foundPrefixes);
@@ -257,7 +251,6 @@ public class TagsaParser extends Parser {
 	    		half1 = word.substring(0, word.length() / 2);
 	    		half2 = word.substring(word.length() / 2, word.length());
 	    		
-	    		System.out.println(half1.length());
 	    		if ("u".equals(half1.charAt(half1.length() - 1) + "")) {
 	    			half1 = half1.substring(0, half1.length() - 1) + "o";
 	    		}
@@ -268,8 +261,6 @@ public class TagsaParser extends Parser {
 	    		
 	    		hasFullDuplicate = half1.equals(half2);
     		}
-    		
-    		System.out.println(half1 + " " + half2);
     	} catch (Exception e) {}
     	
     	return hasFullDuplicate;
