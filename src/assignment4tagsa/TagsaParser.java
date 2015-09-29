@@ -283,10 +283,15 @@ public class TagsaParser extends Parser {
         //always gets the second word if it's acceptable
         String[] splitWord = word.split("-");
         
-        if(isAcceptable(splitWord[1]))
-            return splitWord[1];
+        if (hasPrefix(splitWord[0])) {
+        	return splitWord[1];
+        }
         
-        else return splitWord[0]; 
+        if (isAcceptable(splitWord[1])) {
+            return splitWord[1];
+        }
+        
+        return splitWord[0]; 
     }
     
     /**
