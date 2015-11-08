@@ -1,0 +1,18 @@
+CREATE TABLE term (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    term TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE document (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    filepath TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE relation (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    term_id INTEGER NOT NULL,
+    document_id INTEGER NOT NULL,
+    termFrequency INT NOT NULL,
+    FOREIGN KEY(term_id) REFERENCES term(id),
+    FOREIGN KEY(document_id) REFERENCES document(id)
+);
