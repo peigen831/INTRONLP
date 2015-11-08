@@ -18,6 +18,7 @@ public class XmlReader {
 	
 	private Parser parser;
 	private String defaultPath;
+	private static String currentPath = null;
 	
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder;
@@ -51,10 +52,15 @@ public class XmlReader {
 		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
 	}
 	
+	public static String getCurrentFilepath() {
+		return currentPath;
+	}
+	
 	public void start() {
 		Collection<File> files = getAllFiles(defaultPath);
 		
 		for (File file : files) {
+			currentPath = file.getAbsolutePath();
 			parseXML(file);
 		}
 	}

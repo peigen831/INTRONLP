@@ -1,8 +1,5 @@
 package assignment5ir;
 
-import java.io.FileNotFoundException;
-
-import common.FileWriter;
 import common.XmlReader;
 
 public class Driver {
@@ -10,16 +7,11 @@ public class Driver {
 	private static String PACKAGENAME = "assignment5ir";
 	
 	public static void main(String[] args) {
-		// XmlReader reader = new XmlReader(PACKAGENAME, new TagsaParser());
-		try {
-			FileWriter.getNewInstance(PACKAGENAME, "Stemmered.txt").createNewFile();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
+		XmlReader reader = new XmlReader(PACKAGENAME, new IrParser());
 		
 		System.out.println("Processsing...");
 		
-		// reader.start();
+		reader.start();
 		
 		System.out.println("Done");
 	}
