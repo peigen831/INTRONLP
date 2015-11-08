@@ -7,7 +7,7 @@ import common.XmlReader;
 
 public class Driver {
 	
-	private static String PACKAGENAME = "assignment4tagsa";
+	private static String PACKAGENAME = "assignment5ir";
 	
 	public static void main(String[] args) {
 		// XmlReader reader = new XmlReader(PACKAGENAME, new TagsaParser());
