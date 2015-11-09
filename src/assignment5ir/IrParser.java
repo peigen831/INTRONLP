@@ -2,6 +2,7 @@ package assignment5ir;
 
 import java.util.HashMap;
 
+import assignment4tagsa.TagsaParser;
 import common.Date;
 import common.Parser;
 import common.XmlReader;
@@ -45,7 +46,7 @@ public class IrParser extends Parser {
 		
 		// TODO For each word
 		
-		// TODO ... Normalize the word
+		// TODO ... Normalize / stem the word normalize(word);
 		
 		// TODO ... Put the normalized word in the mapping using incrementMapping(word);
 		
@@ -66,6 +67,10 @@ public class IrParser extends Parser {
 	
 	public HashMap<String, Integer> getMapping() {
 		return mapping;
+	}
+	
+	private String normalize(String word) {
+		return (new TagsaParser()).parseWord(word);
 	}
 	
 	private void incrementMapping(String word) {

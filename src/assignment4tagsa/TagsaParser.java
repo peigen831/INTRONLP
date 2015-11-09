@@ -40,11 +40,11 @@ public class TagsaParser extends Parser {
         parser.parse("Madali");
     }
     
-    TagsaParser() {
+    public TagsaParser() {
         super();
     }
     
-    TagsaParser(String name, Date date, String body) {
+    public TagsaParser(String name, Date date, String body) {
         super(name, date, body);
     }
 
@@ -153,6 +153,77 @@ public class TagsaParser extends Parser {
             parse(body);
         } catch (Exception e){
             e.printStackTrace();
+        }
+    }
+    
+    public String parseWord(String word) {
+    	String currentWord = word.toLowerCase();
+        
+        if (hasHyphen(currentWord)) {
+            currentWord = processWordWithHyphen(currentWord);
+        }
+        System.out.println("after hyphen: " + currentWord);
+        
+        // Step 2 - get and remove /-in-/
+        if (hasInfix(currentWord, "in")) {
+           currentWord = processWordWithInfix(currentWord, "in");
+        }
+        System.out.println("after -in-: " + currentWord);
+        
+        String lastAcceptableWord = currentWord;
+        
+        // Step 3 - get and remove prefix
+        while (lastAcceptableWord.equals(currentWord) && hasPrefix(currentWord)) {
+            currentWord = processWordWithPrefix(currentWord);
+            if (isAcceptable(currentWord)) {
+                lastAcceptableWord = currentWord;
+            }
+        }
+        
+        currentWord = lastAcceptableWord;
+        System.out.println("after prefix: " + currentWord);
+        
+        // Step 4 - get and remove /-um-/
+        if (hasInfix(currentWord, "um")) {
+            currentWord = processWordWithInfix(currentWord, "um");
+        }
+        System.out.println("after -um-: " + currentWord);
+        
+        lastAcceptableWord = currentWord;
+
+        // Step 5 - get and remove partial duplications
+        while (lastAcceptableWord.equals(currentWord) && hasPartialDuplicate(currentWord)) {
+            currentWord = processWordWithPartialDuplicate(currentWord);
+            if (isAcceptable(currentWord)) {
+                lastAcceptableWord = currentWord;
+            }
+        }
+        
+        currentWord = lastAcceptableWord;
+        System.out.println("after partial: " + currentWord);
+        
+        // Step 6 - get and remove suffixes
+        while (lastAcceptableWord.equals(currentWord) && hasSuffix(currentWord)) {
+            currentWord = processWordWithSuffix(currentWord);
+            if (isAcceptable(currentWord)) {
+                lastAcceptableWord = currentWord;
+            }
+        }
+        
+        currentWord = lastAcceptableWord;
+        System.out.println("after suffix: " + currentWord);
+        
+        // Step 7 - get and remove full duplications
+        if (hasFullDuplicate(currentWord)) {
+            currentWord = processWordWithFullDuplicate(currentWord);
+        }
+        System.out.println("after full: " + currentWord);
+        
+        if(isAcceptable(currentWord)) {
+            return currentWord;
+        }
+        else {
+        	return word;
         }
     }
     
