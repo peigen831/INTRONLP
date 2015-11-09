@@ -23,6 +23,8 @@ public class ActivityPanel extends JPanel {
 	
 	public ActivityPanel() {
 		setLayout(new BorderLayout(0, 0));
+		setSize(new Dimension(450, 600));
+		setPreferredSize(new Dimension(450, 600));
 		
 		lblActivity = new JLabel("Activity");
 		lblActivity.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -47,7 +49,11 @@ public class ActivityPanel extends JPanel {
 		scrollPane.setViewportView(txtpnResult);
 
 	}
-
+	
+	public int getActivityNumber() {
+		return Integer.parseInt(lblActivity.getText().split(" ")[1]);
+	}
+	
 	public void setActivityNumber(int number) {
 		lblActivity.setText("Activity " + number);
 	}
@@ -60,13 +66,13 @@ public class ActivityPanel extends JPanel {
 			String filetext = "";
 			
 			BufferedReader reader = new BufferedReader(new FileReader(file));
-			for (int i = 0; i < 10; i++) {
+			for (int i = 0; i < 11; i++) {
 				filetext += reader.readLine();
 				System.out.println(filetext);
 			}
 			reader.close();
 			
-			filetext = filetext.replaceAll("<(/)*[A-Za-z0-9 ?\".=-]+>", "");
+			filetext = filetext.replaceAll("<(/)*[A-Za-z0-9 ?\".=-]+>", " ");
 			filetext = filetext.replaceAll("(\t)+|(  )+", " ");
 			filetext = filetext.replaceAll("(\t)+|(  )+", " ");
 			filetext = filetext.replaceAll("(\t)+|(  )+", " ");
