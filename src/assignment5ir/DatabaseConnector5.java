@@ -147,7 +147,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 				sql += ", ";
 			}
 			else {
-				sql += ") GROUP BY `document_id`";
+				sql += ") GROUP BY `document_id`"; // HAVING COUNT(`term_id`) == ?
 			}
 		}
 		
@@ -156,6 +156,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		for (int i = 0; i < terms.length; i++) {
 			stmt.setString(i + 1, terms[i]);
 		}
+		// stmt.setInt(terms.length + 1, terms.length);
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {
 			Relation relation = new Relation();
