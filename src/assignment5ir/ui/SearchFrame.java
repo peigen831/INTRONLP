@@ -34,7 +34,7 @@ public class SearchFrame extends JFrame {
 					frame.setVisible(true);
 					
 					ArrayList<String> array = new ArrayList<>();
-					array.add("C:\\Users\\user1\\Downloads\\INTRONLP\\assignment4\\TheThreeArticles.xml");
+					array.add("C:\\Users\\USER\\Desktop\\NLP\\assign6\\TagalogNews\\Tagalog News - 1.txt");
 					frame.addSearchResultPanel(1, array);
 					frame.addSearchResultPanel(2, array);
 					frame.addSearchResultPanel(3, array);

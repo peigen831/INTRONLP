@@ -25,7 +25,7 @@ public class IrParser extends Parser {
 	
 	public IrParser(String packageName) {
 		super();
-		mapping = null;
+		wordFreqMap = null;
 		currentFilepath = null;
 		this.packageName = packageName;
 	}
@@ -150,7 +150,6 @@ public class IrParser extends Parser {
 	private Map<Integer, String> getDocumentTFIDF(String[] query){
 		Map<Integer, String> validFileScore = new TreeMap(Collections.reverseOrder());
 		
-		//for each file in filepath
 		//		int score = 0		score for current file
 		//  	for(String word: query)
 		//		{
