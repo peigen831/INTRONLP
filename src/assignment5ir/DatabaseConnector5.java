@@ -103,4 +103,26 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		return result;
 	}
 	
+	public ArrayList<Relation> getRelationGivenTerm(String term) throws SQLException {
+		PreparedStatement stmt = null;
+		ArrayList<Relation> result = new ArrayList<>();
+		String sql = "SELECT `term`, `filepath`, `termFrequency` FROM `relation` "
+				+ "INNER JOIN `term` ON `term`.`id` = `relation`.`term_id` "
+				+ "INNER JOIN `document` ON `document`.`id` = `relation`.`document_id` "
+				+ "WHERE `term` = ?";
+		
+		stmt = con.prepareStatement(sql);
+		stmt.setString(1, term);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			Relation relation = new Relation();
+			relation.setTerm(rs.getString("term"));
+			relation.setDocumentFilepath(rs.getString("filepath"));
+			relation.setTermFrequency(rs.getInt("termFrequency"));
+			result.add(relation);
+		}
+		rs.close();
+		return result;
+	}
+	
 }
