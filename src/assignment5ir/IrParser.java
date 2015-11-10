@@ -40,6 +40,7 @@ public class IrParser extends Parser {
 	public void parse(String rawText) {
 		// Variables setup
 		DatabaseConnector5 dbCon = new DatabaseConnector5(packageName);
+		
 		if (!NlpFileReader.getCurrentFilepath().equals(currentFilepath)) {
 			wordFreqMap = new HashMap<>();
 			currentFilepath = NlpFileReader.getCurrentFilepath();
