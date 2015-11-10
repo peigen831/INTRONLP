@@ -83,6 +83,20 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		return result;
 	}
 	
+	public long getTotalNumberOfDocuments() throws SQLException {
+		PreparedStatement stmt = null;
+		long result = -1;
+		String sql = "SELECT COUNT(*) FROM `document`";
+		
+		stmt = con.prepareStatement(sql);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			result = rs.getLong(1);
+		}
+		rs.close();
+		return result;
+	}
+	
 	public ArrayList<Relation> selectAllRelations() throws SQLException {
 		PreparedStatement stmt = null;
 		ArrayList<Relation> result = new ArrayList<>();
