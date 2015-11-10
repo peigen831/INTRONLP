@@ -8,8 +8,8 @@ import java.util.TreeMap;
 
 import assignment4tagsa.TagsaParser;
 import common.Date;
+import common.NlpFileReader;
 import common.Parser;
-import common.XmlReader;
 
 public class IrParser extends Parser {
 	
@@ -40,11 +40,10 @@ public class IrParser extends Parser {
 	public void parse(String rawText) {
 		// Variables setup
 		DatabaseConnector5 dbCon = new DatabaseConnector5(packageName);
-		if (!XmlReader.getCurrentFilepath().equals(currentFilepath)) {
+		if (!NlpFileReader.getCurrentFilepath().equals(currentFilepath)) {
 			wordFreqMap = new HashMap<>();
-			currentFilepath = XmlReader.getCurrentFilepath();
-
-			System.out.println(currentFilepath);
+			currentFilepath = NlpFileReader.getCurrentFilepath();
+			
 			// Add filepath to db
 			try {
 				dbCon.openConnection();
