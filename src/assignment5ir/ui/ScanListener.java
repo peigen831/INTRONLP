@@ -2,7 +2,11 @@ package assignment5ir.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.sql.SQLException;
 
+import assignment5ir.DatabaseConnector5;
 import assignment5ir.IrParser;
 import common.NlpFileReader;
 import common.Parser;
@@ -22,7 +26,29 @@ public class ScanListener extends Thread implements ActionListener {
 
 	@Override
 	public void run() {
-		Parser parser = new IrParser("assignment5ir");
+		String packageName = "assignment5ir";
+		
+		File file = new File(packageName + ".db");
+		if (file.exists()) {
+			file.delete();
+		}
+		try {
+			file.createNewFile();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		DatabaseConnector5 db = new DatabaseConnector5(packageName);
+		try {
+			db.openConnection();
+			db.recreateDatabase();
+			db.closeConnection();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		Parser parser = new IrParser(packageName);
 		NlpFileReader reader = new NlpFileReader(parser, frame.getFilepath());
 		reader.setNotifier(frame);
 		frame.showLoading();
