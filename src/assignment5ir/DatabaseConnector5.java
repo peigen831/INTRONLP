@@ -174,10 +174,34 @@ public class DatabaseConnector5 extends DatabaseConnector {
 	}
 	
 	public static void main(String[] args) {
+		DatabaseConnector5.printDatabase();
+	}
+	
+	private static void printDatabase() {
 		DatabaseConnector5 db = new DatabaseConnector5("assignment5ir");
 		try {
 			db.openConnection();
-			System.out.println(db.getRelationsGivenTerms(new String[] {"a", "b", "c"}));
+			System.out.println("-------- TERMS --------");
+			ArrayList<String> list = db.selectAllTerms();
+			for (String item : list) {
+				System.out.println(item);
+			}
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			System.out.println("-------- DOCUMENTS --------");
+			list = db.selectAllDocuments();
+			for (String item : list) {
+				System.out.println(item);
+			}
+			System.out.println("");
+			System.out.println("");
+			System.out.println("");
+			System.out.println("-------- RELATIONS --------");
+			ArrayList<Relation> list2 = db.selectAllRelations();
+			for (Relation item : list2) {
+				System.out.println(item);
+			}
 			db.closeConnection();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
