@@ -67,7 +67,7 @@ public class NlpFileReader extends Thread {
 				while ((currentLine = reader.readLine()) != null) {
 					body += currentLine + " ";
 				}
-				System.out.println(body);
+				//System.out.println(body);
 				reader.close();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -75,6 +75,7 @@ public class NlpFileReader extends Thread {
 			
 			currentPath = file.getAbsolutePath();
 			parser.parse(body);
+			System.out.println("done " + file.getName());
 		}
 		
 		done();

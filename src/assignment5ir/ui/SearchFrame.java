@@ -22,34 +22,9 @@ public class SearchFrame extends JFrame {
 	private JPanel panelArea1;
 	private JPanel panelArea2;
 	private JPanel panelArea3;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SearchFrame frame = new SearchFrame();
-					frame.setVisible(true);
-					
-					ArrayList<String> array = new ArrayList<>();
-					array.add("C:\\Users\\USER\\Desktop\\NLP\\assign6\\TagalogNews\\Tagalog News - 1.txt");
-					frame.addSearchResultPanel(1, array);
-					frame.addSearchResultPanel(2, array);
-					frame.addSearchResultPanel(3, array);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
+	
 	public SearchFrame() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -68,7 +68,7 @@ public class ActivityPanel extends JPanel {
 			BufferedReader reader = new BufferedReader(new FileReader(file));
 			for (int i = 0; i < 11; i++) {
 				filetext += reader.readLine();
-				System.out.println(filetext);
+				//System.out.println(filetext);
 			}
 			reader.close();
 			
@@ -83,7 +83,7 @@ public class ActivityPanel extends JPanel {
 			for (int i = 0; i < 40 && i < textArray.length; i++) {
 				finaltext += textArray[i] + " ";
 			}
-			System.out.println(filetext);
+			//System.out.println(filetext);
 			
 			html += "<p><strong>" + filename + "</strong><br />";
 			html += "<u>" + filepath + "</u><br />";

@@ -22,6 +22,12 @@ public class SearchListener extends Thread implements ActionListener {
 	@Override
 	public void run() {
 		String text = frame.getSearchText();
+		String[] normQuery = text.split(" ");
+		for(int i = 0; i < normQuery.length; i++)
+		{
+			normQuery[i] = InformationRetrievalModel.normalize(normQuery[i]);
+		}
+		
 		boolean activity1 = frame.getActivity1();
 		boolean activity2 = frame.getActivity2();
 		boolean activity3 = frame.getActivity3();
@@ -31,22 +37,22 @@ public class SearchListener extends Thread implements ActionListener {
 		
 		if (activity1) {
 			try {
-				sframe.addSearchResultPanel(1, InformationRetrievalModel.noRanking(text));
-			} catch (IOException e) {
+				sframe.addSearchResultPanel(1, InformationRetrievalModel.noRanking(normQuery));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if (activity2) {
 			try {
-				sframe.addSearchResultPanel(2, InformationRetrievalModel.tfRanking(text));
-			} catch (IOException e) {
+				sframe.addSearchResultPanel(2, InformationRetrievalModel.tfRanking(normQuery));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		if (activity3) {
 			try {
-				sframe.addSearchResultPanel(3, InformationRetrievalModel.tdIdfRanking(text));
-			} catch (IOException e) {
+				sframe.addSearchResultPanel(3, InformationRetrievalModel.tdIdfRanking(normQuery));
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
