@@ -39,7 +39,6 @@ public abstract class DatabaseConnector {
 		}
 		Class.forName("org.sqlite.JDBC");
 		con = DriverManager.getConnection("jdbc:sqlite:" + packageName + ".db");
-		System.out.println("jdbc:sqlite:" + packageName + ".db");
 		con.setAutoCommit(false);
 		return con;
 	}

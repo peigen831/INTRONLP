@@ -9,24 +9,6 @@ import common.DatabaseConnector;
 
 public class DatabaseConnector5 extends DatabaseConnector {
 	
-	public static void main( String args[] ) {
-		DatabaseConnector5 dbCon = new DatabaseConnector5("assignment5ir");
-		try {
-			dbCon.openConnection();
-			dbCon.insertTerm("test");
-			dbCon.insertDocument("C:\\Users\\Amanda\\Documents\\pie.txt");
-			Relation relation = new Relation("test", "C:\\Users\\Amanda\\Documents\\pie.txt", 5);
-			dbCon.insertRelation(relation);
-			System.out.println(dbCon.selectAllTerms().toString());
-			System.out.println(dbCon.selectAllDocuments().toString());
-			System.out.println(dbCon.selectAllRelations().toString());
-			dbCon.closeConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		System.out.println("Opened database successfully");
-	}
-	
 	public DatabaseConnector5(String packageName) {
 		super(packageName);
 		con = null;
@@ -34,7 +16,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 	
 	public long insertTerm(String term) throws SQLException {
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO `term` (`term`) VALUES (?)";
+		String sql = "INSERT OR IGNORE INTO `term` (`term`) VALUES (?)";
 		
 		stmt = con.prepareStatement(sql);
 		stmt.setString(1, term);
@@ -46,7 +28,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 	
 	public long insertDocument(String documentFilepath) throws SQLException {
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO `document` (`filepath`) VALUES (?)";
+		String sql = "INSERT OR IGNORE INTO `document` (`filepath`) VALUES (?)";
 		
 		stmt = con.prepareStatement(sql);
 		stmt.setString(1, documentFilepath);
@@ -58,7 +40,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 	
 	public long insertRelation(Relation relation) throws SQLException {
 		PreparedStatement stmt = null;
-		String sql = "INSERT INTO `relation` "
+		String sql = "INSERT OR IGNORE INTO `relation` "
 				+ "(`term_id`, `document_id`, `termFrequency`) VALUES "
 				+ "((SELECT `id` FROM `term` WHERE `term` = ?), "
 				+ "(SELECT `id` FROM `document` WHERE `filepath` = ?), ?)";
