@@ -4,8 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import assignment5ir.IrParser;
+import common.NlpFileReader;
 import common.Parser;
-import common.XmlReader;
 
 public class ScanListener extends Thread implements ActionListener {
 	
@@ -22,8 +22,8 @@ public class ScanListener extends Thread implements ActionListener {
 
 	@Override
 	public void run() {
-		Parser parser = new IrParser();
-		XmlReader reader = new XmlReader(parser, frame.getFilepath());
+		Parser parser = new IrParser("assignment5ir");
+		NlpFileReader reader = new NlpFileReader(parser, frame.getFilepath());
 		reader.setNotifier(frame);
 		frame.showLoading();
 		reader.start();
