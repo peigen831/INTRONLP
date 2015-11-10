@@ -1,18 +1,16 @@
 package assignment5ir;
 
-import common.XmlReader;
+import assignment5ir.ui.BrowseListener;
+import assignment5ir.ui.MainFrame;
+import assignment5ir.ui.ScanListener;
+import assignment5ir.ui.SearchListener;
 
 public class Driver {
 	
-	private static String PACKAGENAME = "assignment5ir";
-	
 	public static void main(String[] args) {
-		XmlReader reader = new XmlReader(PACKAGENAME, new IrParser());
-		
-		System.out.println("Processsing...");
-		
-		reader.start();
-		
-		System.out.println("Done");
+		MainFrame frame = new MainFrame();
+		frame.setBtnScanListener(new ScanListener(frame));
+		frame.setBtnBrowseListener(new BrowseListener(frame));
+		frame.setBtnSearchListener(new SearchListener(frame));
 	}
 }

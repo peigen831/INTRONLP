@@ -15,11 +15,19 @@ public class IrParser extends Parser {
 	
 	private HashMap<String, Integer> wordFreqMap;
 	private String currentFilepath;
+	private String packageName;
 	
 	public IrParser() {
 		super();
 		wordFreqMap = null;
 		currentFilepath = null;
+	}
+	
+	public IrParser(String packageName) {
+		super();
+		mapping = null;
+		currentFilepath = null;
+		this.packageName = packageName;
 	}
 	
 	public IrParser(String name, Date date, String body) {
@@ -31,7 +39,7 @@ public class IrParser extends Parser {
 	@Override
 	public void parse(String rawText) {
 		// Variables setup
-		DatabaseConnector5 dbCon = new DatabaseConnector5("assignment5ir");
+		DatabaseConnector5 dbCon = new DatabaseConnector5(packageName);
 		if (!XmlReader.getCurrentFilepath().equals(currentFilepath)) {
 			wordFreqMap = new HashMap<>();
 			currentFilepath = XmlReader.getCurrentFilepath();

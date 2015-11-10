@@ -14,11 +14,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XmlReader {
+public class XmlReader extends Thread {
 	
 	private Parser parser;
 	private String defaultPath;
 	private static String currentPath = null;
+	private Object notifier;
 	
 	DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 	DocumentBuilder dBuilder;
@@ -44,6 +45,11 @@ public class XmlReader {
 		defaultPath = ReadConfigurationFile.getProperty(packageName, "defaultPath");
 	}
 	
+	public XmlReader(Parser parser, String defaultPath) {
+		this.parser = parser;
+		this.defaultPath = defaultPath;
+	}
+	
 	public void setParser(Parser parser) {
 		this.parser = parser;
 	}
@@ -56,12 +62,28 @@ public class XmlReader {
 		return currentPath;
 	}
 	
-	public void start() {
+	public void run() {
 		Collection<File> files = getAllFiles(defaultPath);
 		
 		for (File file : files) {
 			currentPath = file.getAbsolutePath();
 			parseXML(file);
+		}
+		
+		done();
+	}
+	
+	public void setNotifier(Object notifier) {
+		this.notifier = notifier;
+	}
+	
+	private void done() {
+		if (notifier == null) {
+			return;
+		}
+		
+		synchronized(notifier) {
+			notifier.notify();
 		}
 	}
 	
