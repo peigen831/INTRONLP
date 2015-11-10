@@ -97,6 +97,23 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		return result;
 	}
 	
+	public long getDocumentFrequency(String term) throws SQLException {
+		PreparedStatement stmt = null;
+		long result = -1;
+		String sql = "SELECT COUNT(*) FROM `relation` "
+				+ "INNER JOIN `term` ON `term`.`id` = `relation`.`term_id` "
+				+ "WHERE `term` = ?";
+		
+		stmt = con.prepareStatement(sql);
+		stmt.setString(1, term);
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			result = rs.getLong(1);
+		}
+		rs.close();
+		return result;
+	}
+	
 	public ArrayList<Relation> selectAllRelations() throws SQLException {
 		PreparedStatement stmt = null;
 		ArrayList<Relation> result = new ArrayList<>();
