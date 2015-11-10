@@ -117,6 +117,40 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		return result;
 	}
 	
+	public ArrayList<Relation> getRelationsGivenTerms(String[] terms) throws SQLException {
+		PreparedStatement stmt = null;
+		ArrayList<Relation> result = new ArrayList<>();
+		String sql = "SELECT `term`, `filepath`, `termFrequency` FROM `relation` "
+				+ "INNER JOIN `term` ON `term`.`id` = `relation`.`term_id` "
+				+ "INNER JOIN `document` ON `document`.`id` = `relation`.`document_id` "
+				+ "WHERE `term` IN (";
+		for (int i = 0; i < terms.length; i++) {
+			sql += "?";
+			if (i < terms.length - 1) {
+				sql += ", ";
+			}
+			else {
+				sql += ") GROUP BY `document_id`";
+			}
+		}
+		
+		stmt = con.prepareStatement(sql);
+		
+		for (int i = 0; i < terms.length; i++) {
+			stmt.setString(i + 1, terms[i]);
+		}
+		ResultSet rs = stmt.executeQuery();
+		while (rs.next()) {
+			Relation relation = new Relation();
+			relation.setTerm(rs.getString("term"));
+			relation.setDocumentFilepath(rs.getString("filepath"));
+			relation.setTermFrequency(rs.getInt("termFrequency"));
+			result.add(relation);
+		}
+		rs.close();
+		return result;
+	}
+	
 	public ArrayList<Relation> getRelationGivenTerm(String term) throws SQLException {
 		PreparedStatement stmt = null;
 		ArrayList<Relation> result = new ArrayList<>();
@@ -137,6 +171,18 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		}
 		rs.close();
 		return result;
+	}
+	
+	public static void main(String[] args) {
+		DatabaseConnector5 db = new DatabaseConnector5("assignment5ir");
+		try {
+			db.openConnection();
+			System.out.println(db.getRelationsGivenTerms(new String[] {"a", "b", "c"}));
+			db.closeConnection();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
