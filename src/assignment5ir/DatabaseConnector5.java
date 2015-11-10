@@ -14,6 +14,35 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		con = null;
 	}
 	
+	public void recreateDatabase() throws SQLException {
+		PreparedStatement stmt = null;
+		String sql = "CREATE TABLE `term` ("
+				+ "`id` INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "`term` TEXT NOT NULL UNIQUE)";
+		
+		stmt = con.prepareStatement(sql);
+		stmt.executeUpdate();
+
+		sql = "CREATE TABLE `document` ("
+				+ "`id` INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "`filepath` TEXT NOT NULL UNIQUE)";
+		
+		stmt = con.prepareStatement(sql);
+		stmt.executeUpdate();
+
+		sql = "CREATE TABLE `relation` ("
+				+ "`id` INTEGER PRIMARY KEY AUTOINCREMENT, "
+				+ "`term_id` INTEGER NOT NULL, "
+				+ "`document_id` INTEGER NOT NULL, "
+				+ "`termFrequency` INT NOT NULL, "
+				+ "FOREIGN KEY(`term_id`) REFERENCES term(`id`), "
+				+ "FOREIGN KEY(`document_id`) REFERENCES document(`id`))";
+		
+		stmt = con.prepareStatement(sql);
+		stmt.executeUpdate();
+		con.commit();
+	}
+	
 	public long insertTerm(String term) throws SQLException {
 		PreparedStatement stmt = null;
 		String sql = "INSERT OR IGNORE INTO `term` (`term`) VALUES (?)";
