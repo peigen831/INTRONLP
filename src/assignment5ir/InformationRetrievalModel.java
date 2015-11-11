@@ -41,15 +41,12 @@ public class InformationRetrievalModel {
 		for(Relation r : rList){
 			String currentPath = r.getDocumentFilepath();
 			
-			//System.out.println("Term: " + r.getTerm() + " Frequency: " + r.getTermFrequency() + " Path: " + currentPath);
-			
 			for(String s: normQuery){
 				if(r.getTerm().equals(s))
 				{
 					Double score = 0.0;
 					try {
 						score = validFileMap.get(currentPath);
-						System.out.println("score " + score + " filepath "+ r.getDocumentFilepath());
 						
 						if(score == null)
 							score = 0.0;
@@ -61,7 +58,7 @@ public class InformationRetrievalModel {
 					int tf = r.getTermFrequency();
 					if(tf > 0)
 						score += (1 + Math.log10(tf));
-					//System.out.println("Query Term: "+s + " Score: " + score);
+
 					validFileMap.put(currentPath, score);
 				}
 			}
@@ -107,7 +104,6 @@ public class InformationRetrievalModel {
 						tfScore = (1 + Math.log10(tf));
 					score += (tfScore * idfScore);
 					
-					//System.out.println("tf: " + tf + " df: " + df + " N: "+ N+ " idfScore: "+ idfScore + " tfScore: "+tfScore);	
 					validFileMap.put(currentPath, score);
 				}
 			}

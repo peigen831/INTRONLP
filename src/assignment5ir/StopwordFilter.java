@@ -9,7 +9,7 @@ public class StopwordFilter {
 	
 	public String filename = "stopword.txt";
 	
-	public String[] getStopwords(){
+	public ArrayList<String> getStopwords(){
 		ArrayList<String> lStopword = new ArrayList<String>();
 	    try {
 
@@ -25,16 +25,25 @@ public class StopwordFilter {
 	    catch (Exception e) {
 	        e.printStackTrace();
 	    }
-	    return lStopword.toArray(new String[lStopword.size()]);
+	    return lStopword;
 	}
 	
 	
-//	public static void main(String args[]){
-//		StopwordFilter s = new StopwordFilter();
-//		
-//		String[] list = s.getStopwords();
-//		
-//		for(String a: list)
-//			System.out.println(a);
-//	}
+	public static void main(String args[]){
+		StopwordFilter s = new StopwordFilter();
+		
+		ArrayList<String> stop = s.getStopwords();
+		
+		ArrayList<String> nList = new ArrayList<String>();
+		
+		String[] newjoin = {"at", "atin", "gogo", "ating", "ay", "lets"};
+		
+		for(String a: newjoin){
+			if(!stop.contains(a))
+				nList.add(a);
+		}
+		for(String a: nList){
+			System.out.println(a);
+		}
+	}
 }

@@ -185,7 +185,7 @@ public class DatabaseConnector5 extends DatabaseConnector {
 		for (int i = 0; i < terms.length; i++) {
 			stmt.setString(i + 1, terms[i]);
 		}
-		stmt.setInt(terms.length + 1, terms.length);
+		//stmt.setInt(terms.length + 1, terms.length);
 		
 		ResultSet rs = stmt.executeQuery();
 		while (rs.next()) {

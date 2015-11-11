@@ -55,16 +55,19 @@ public class IrParser extends Parser {
 		// TODO Tokenize rawText / split them into words
 		String[] wordList = rawText.split(" ");
 		
-		// TODO For each word
 		ArrayList<String> normalizedWL = new ArrayList<String>();
+		
+		ArrayList<String> stopword = new StopwordFilter().getStopwords();
 		
 		// TODO ... Normalize / stem the word normalize(word);
 		// TODO ... Put the normalized word in the mapping using incrementMapping(word);
 		for(String word: wordList){
 			String normWord = InformationRetrievalModel.normalize(word);
-			
-			normalizedWL.add(normWord);
-			incrementWordFreq(normWord);
+			if(!stopword.contains(normWord))
+			{
+				normalizedWL.add(normWord);
+				incrementWordFreq(normWord);
+			}
 		}
 		
 		try{
