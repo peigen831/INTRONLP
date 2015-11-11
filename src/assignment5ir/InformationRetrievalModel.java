@@ -31,7 +31,7 @@ public class InformationRetrievalModel {
 	
 	public static ArrayList<String> tfRanking(String[] normQuery) throws ClassNotFoundException, SQLException {
 		//Map<String, Double> validFileMap = new TreeMap();
-		Map<String, Double> validFileMap = new TreeMap(Collections.reverseOrder());
+		Map<String, Double> validFileMap = new TreeMap<String, Double> ();
 
 		DatabaseConnector5 db = new DatabaseConnector5("assignment5ir");
 		db.openConnection();
@@ -41,14 +41,16 @@ public class InformationRetrievalModel {
 		for(Relation r : rList){
 			String currentPath = r.getDocumentFilepath();
 			
-			System.out.println("Term: " + r.getTerm() + " Frequency: " + r.getTermFrequency() + " Path: " + currentPath);
+			//System.out.println("Term: " + r.getTerm() + " Frequency: " + r.getTermFrequency() + " Path: " + currentPath);
 			
 			for(String s: normQuery){
 				if(r.getTerm().equals(s))
 				{
 					Double score = 0.0;
 					try {
-						score = validFileMap.get(s);
+						score = validFileMap.get(currentPath);
+						System.out.println("score " + score + " filepath "+ r.getDocumentFilepath());
+						
 						if(score == null)
 							score = 0.0;
 					}
@@ -59,7 +61,7 @@ public class InformationRetrievalModel {
 					int tf = r.getTermFrequency();
 					if(tf > 0)
 						score += (1 + Math.log10(tf));
-					System.out.println("Query Term: "+s + " Score: " + score);
+					//System.out.println("Query Term: "+s + " Score: " + score);
 					validFileMap.put(currentPath, score);
 				}
 			}
@@ -74,7 +76,7 @@ public class InformationRetrievalModel {
 	
 	
 	public static ArrayList<String> tdIdfRanking(String[] normQuery) throws ClassNotFoundException, SQLException {
-		Map<String, Double> validFileMap = new TreeMap(Collections.reverseOrder());
+		Map<String, Double> validFileMap = new TreeMap<String, Double> ();
 		
 		DatabaseConnector5 db = new DatabaseConnector5("assignment5ir");
 		db.openConnection();
@@ -88,7 +90,7 @@ public class InformationRetrievalModel {
 				{
 					Double score = 0.0;
 					try {
-						score = validFileMap.get(s);
+						score = validFileMap.get(currentPath);
 						if(score == null)
 							score = 0.0;
 					}
