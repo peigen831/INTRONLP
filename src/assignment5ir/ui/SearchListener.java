@@ -2,7 +2,6 @@ package assignment5ir.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
 
 import assignment5ir.InformationRetrievalModel;
 

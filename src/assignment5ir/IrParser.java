@@ -1,12 +1,9 @@
 package assignment5ir;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
 
-import assignment4tagsa.TagsaParser;
 import common.Date;
 import common.NlpFileReader;
 import common.Parser;
@@ -92,12 +89,6 @@ public class IrParser extends Parser {
 	
 	public HashMap<String, Integer> getMapping() {
 		return wordFreqMap;
-	}
-	
-	private String stem(String word) {
-		String temp = new TagsaParser().parseWord(word);
-				
-		return temp;
 	}
 	
 	private void incrementWordFreq(String word) {
