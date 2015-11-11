@@ -115,7 +115,7 @@ public class MainFrame extends JFrame {
 		panel_2.add(panel_8, BorderLayout.CENTER);
 		
 		ImageIcon loadingIcon = new ImageIcon(getClass().getResource("loading-icon.gif"));
-		loading = new JLabel("Loading...");//new ImageIcon(MainFrame.class.getResource("/assignment5ir/ui/loading-icon.gif")), JLabel.CENTER);
+		loading = new JLabel(new ImageIcon(MainFrame.class.getResource("/assignment5ir/ui/loading-icon.gif")), JLabel.CENTER);
 		loading.setSize(50, 50);
 		loading.setVisible(false);
 		panel_8.add(loading);

@@ -4,7 +4,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.sql.SQLException;
 
 import assignment5ir.DatabaseConnector5;
 import assignment5ir.IrParser;
