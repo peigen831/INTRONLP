@@ -9,28 +9,30 @@ import com.aliasi.lm.NGramProcessLM;
 import com.aliasi.util.AbstractExternalizable;
 import com.aliasi.util.Strings;
 
+import common.ReadConfigurationFile;
+
 import java.io.*;
 
 public class TrainLanguageId {
+	
+	static final String PACKAGENAME = "assignment6lingpipe";
+	static int nGram = Integer.parseInt(ReadConfigurationFile.getProperty(PACKAGENAME, "nGram"));
+	static int numChars = 10000;
+	static int minCount = 10;
 
     // java TrainLanguageId <dataDir>:dir 
     //                      <modelFile>:file 
     //                      <ngram>:int 
     //                      <numChars>:int
     public static void main(String[] args) throws Exception {
-        File dataDir = new File(args[0]);
+        File dataDir = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "directoryName"));
         if (!dataDir.isDirectory()) {
             String msg = "Set first argument to the data directory."
                 + " Found dataDir=" + dataDir;
             throw new IllegalArgumentException(msg);
         }
-        File modelFile = new File(args[1]);
-        int nGram = Integer.valueOf(args[2]);
-        int numChars = Integer.valueOf(args[3]);
+        File modelFile = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "fileName"));
         System.out.println("nGram=" + nGram + " numChars=" + numChars);
-        int minCount = args.length > 4
-            ? Integer.valueOf(args[4])
-            : 10;
 
         String[] categories = dataDir.list();
         DynamicLMClassifier<NGramProcessLM> classifier
@@ -41,8 +43,7 @@ public class TrainLanguageId {
         for (int i = 0; i < categories.length; ++i) {
             String category = categories[i];
             System.out.println("Training category=" + category);
-            File trainingFile = new File(new File(dataDir,category),
-                                         category + ".txt");
+            File trainingFile = new File(dataDir,category);
             FileInputStream fileIn 
                 = new FileInputStream(trainingFile);
             InputStreamReader reader 

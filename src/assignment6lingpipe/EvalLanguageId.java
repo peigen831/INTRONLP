@@ -11,7 +11,17 @@ import com.aliasi.classify.Classified;
 import com.aliasi.util.AbstractExternalizable;
 import com.aliasi.util.Strings;
 
+import common.ReadConfigurationFile;
+
 public class EvalLanguageId {
+	
+	static final String PACKAGENAME = "assignment6lingpipe";
+	static int nGram = Integer.parseInt(ReadConfigurationFile.getProperty(PACKAGENAME, "nGram"));
+	static int numChars = 10000;
+	static int minCount = 10;
+    static int testSize = 10;
+    static int numTests = 10;
+
 
     // java EvalLanguageId <corpusDir>: dir
     //                     <modelFile>:file 
@@ -19,11 +29,8 @@ public class EvalLanguageId {
     //                     <testSize>:int
     //                     <numTestsPerCat>:int
     public static void main(String[] args) throws Exception {
-        File dataDir = new File(args[0]);
-        File modelFile = new File(args[1]);
-        int numChars = Integer.valueOf(args[2]);
-        int testSize = Integer.valueOf(args[3]);
-        int numTests = Integer.valueOf(args[4]);
+        File dataDir = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "directoryName"));
+        File modelFile = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "fileName"));
 
         char[] csBuf = new char[testSize];
         
@@ -44,8 +51,7 @@ public class EvalLanguageId {
         for (int i = 0; i < categories.length; ++i) {
             String category = categories[i];
             System.out.println("Evaluating category=" + category);
-	    File trainingFile = new File(new File(dataDir,category),
-					 category + ".txt");
+	    File trainingFile = new File(dataDir,category);
 	    FileInputStream fileIn 
 		= new FileInputStream(trainingFile);
 	    InputStreamReader reader
