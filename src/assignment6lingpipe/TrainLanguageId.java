@@ -17,7 +17,7 @@ public class TrainLanguageId {
 	
 	static final String PACKAGENAME = "assignment6lingpipe";
 	static int nGram = Integer.parseInt(ReadConfigurationFile.getProperty(PACKAGENAME, "nGram"));
-	static int numChars = 100000;
+	static int numChars = 10000000;
 	static int minCount = 10;
 
     // java TrainLanguageId <dataDir>:dir 
@@ -35,31 +35,25 @@ public class TrainLanguageId {
         System.out.println("nGram=" + nGram + " numChars=" + numChars);
 
         String[] categories = dataDir.list();
-        DynamicLMClassifier<NGramProcessLM> classifier
-            = DynamicLMClassifier
-            .createNGramProcess(categories,nGram);
+        // //
+        DynamicLMClassifier<NGramProcessLM> classifier = DynamicLMClassifier.createNGramProcess(categories,nGram);
 
         char[] csBuf = new char[numChars]; 
         for (int i = 0; i < categories.length; ++i) {
             String category = categories[i];
             System.out.println("Training category=" + category);
             File trainingFile = new File(dataDir,category);
-            FileInputStream fileIn 
-                = new FileInputStream(trainingFile);
-            InputStreamReader reader 
-                = new InputStreamReader(fileIn,Strings.UTF8);
+            FileInputStream fileIn = new FileInputStream(trainingFile);
+            InputStreamReader reader = new InputStreamReader(fileIn,Strings.UTF8);
             reader.read(csBuf);
             String text = new String(csBuf,0,numChars);
+            
+            // //
             Classification c = new Classification(category);
-            Classified<CharSequence> classified
-                = new Classified<CharSequence>(text,c);
+            Classified<CharSequence> classified = new Classified<CharSequence>(text,c);
             classifier.handle(classified);
             reader.close();
         }
-
-        // prune substring counts by eliminating counts below 10
-        for (String cat : categories)
-            classifier.languageModel(cat).substringCounter().prune(minCount);
 
         System.out.println("\nCompiling model to file=" + modelFile);
         AbstractExternalizable.compileTo(classifier,modelFile);

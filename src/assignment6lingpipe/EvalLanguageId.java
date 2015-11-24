@@ -16,7 +16,7 @@ import common.ReadConfigurationFile;
 public class EvalLanguageId {
 	
 	static final String PACKAGENAME = "assignment6lingpipe";
-	static int numChars = 100000;
+	static int numChars = 10000000;
     static int testSize = 10000;
     static int numTests = 10;
 
