@@ -16,10 +16,8 @@ import common.ReadConfigurationFile;
 public class EvalLanguageId {
 	
 	static final String PACKAGENAME = "assignment6lingpipe";
-	static int nGram = Integer.parseInt(ReadConfigurationFile.getProperty(PACKAGENAME, "nGram"));
-	static int numChars = 10000;
-	static int minCount = 10;
-    static int testSize = 10;
+	static int numChars = 100000;
+    static int testSize = 10000;
     static int numTests = 10;
 
 
@@ -69,7 +67,7 @@ public class EvalLanguageId {
 	    reader.close();
 	}
 
-        System.out.println("TEST RESULTS");
+        System.out.println("\n\nTEST RESULTS");
         System.out.println(evaluator.toString());
     }
 

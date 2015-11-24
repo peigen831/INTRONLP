@@ -17,7 +17,7 @@ public class TrainLanguageId {
 	
 	static final String PACKAGENAME = "assignment6lingpipe";
 	static int nGram = Integer.parseInt(ReadConfigurationFile.getProperty(PACKAGENAME, "nGram"));
-	static int numChars = 10000;
+	static int numChars = 100000;
 	static int minCount = 10;
 
     // java TrainLanguageId <dataDir>:dir 
