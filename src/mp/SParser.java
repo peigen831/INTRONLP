@@ -67,7 +67,7 @@ class SParser {
       System.out.println();
 
       System.out.println("The words of the sentence:");
-      for (Label lab : parse.yield()) {
+      for (Label lab : parse.labeledYield()) {
         if (lab instanceof CoreLabel) {
           System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
         } else {
