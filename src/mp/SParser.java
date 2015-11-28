@@ -67,6 +67,7 @@ class SParser {
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
 			System.out.println(Arrays.toString(getSubjects(tdl)));
+			System.out.println(Arrays.toString(getScopes(tdl)));
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -149,18 +150,21 @@ class SParser {
 		boolean hasDependency = true;
 		TreeMap<Integer, String> ordering = new TreeMap<>();
 		ArrayList<String> dependencies = new ArrayList<>();
+		ArrayList<String> oldDependencies = null;
 		
 		dependencies.add(subject);
 		
 		while (hasDependency) {
 			hasDependency = false;
+			oldDependencies = new ArrayList<>(dependencies);
 			for (TypedDependency dependency : tdl) {
-				if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
-					if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
-						ordering.put(dependency.gov().get(CoreAnnotations.IndexAnnotation.class), subject);
-					}
+				if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
+					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class), subject);
+				}
+				else if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
 					if (dependency.reln().getShortName().equals("compound") ||
 						dependency.reln().getShortName().equals("case") ||
+						dependency.reln().getShortName().equals("amod") ||
 						dependency.reln().getShortName().equals("det") ||
 						(dependency.reln().getShortName().equals("nmod") &&
 						 dependency.reln().getSpecific().equals("of"))) {
@@ -171,6 +175,7 @@ class SParser {
 					}
 				}
 			}
+			dependencies.removeAll(oldDependencies);
 		}
 		
 		for (String strOrdering : ordering.values()) {
