@@ -116,7 +116,7 @@ class SParser {
 				 dependency.reln().getSpecific().equals("agent"))) {
 				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
-			else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("nsubjpass")) {
+			else if (dependency.reln().getShortName().equals("nsubjpass")) {
 				results.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 		}
@@ -167,7 +167,8 @@ class SParser {
 						dependency.reln().getShortName().equals("amod") ||
 						dependency.reln().getShortName().equals("det") ||
 						(dependency.reln().getShortName().equals("nmod") &&
-						 dependency.reln().getSpecific().equals("of"))) {
+						 (dependency.reln().getSpecific().equals("of") ||
+						  dependency.reln().getSpecific().equals("to")))) {
 						hasDependency = true;
 						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
 						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
