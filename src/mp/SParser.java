@@ -120,12 +120,17 @@ class SParser {
 			}
 		}
 		
-		String[] arrResults = Arrays.copyOf(results.toArray(), results.size(), String[].class);
+		String[] arrResults = new String[results.size()];
+		ArrayList<String> arrlResults = new ArrayList<String>(results);
+		
+		for (int i = 0; i < results.size(); i++) {
+			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i));
+		}
 		
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	private String getSubjectDependencies(List<TypedDependency> tdl, String subject) {
+	private String getNounDependencies(List<TypedDependency> tdl, String subject) {
 		String results = "";
 		boolean hasDependency = true;
 		TreeMap<Integer, String> ordering = new TreeMap<>();
