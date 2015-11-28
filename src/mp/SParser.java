@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
@@ -13,6 +14,7 @@ import edu.stanford.nlp.process.DocumentPreprocessor;
 import edu.stanford.nlp.process.Tokenizer;
 import edu.stanford.nlp.trees.GrammaticalStructure;
 import edu.stanford.nlp.trees.GrammaticalStructureFactory;
+import edu.stanford.nlp.trees.LabeledScoredTreeFactory;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreebankLanguagePack;
 import edu.stanford.nlp.trees.TypedDependency;
@@ -42,7 +44,7 @@ class SParser {
       }
       sentences = tmp;
     } else {
-      String sent2 = ("Ministries may develop and implement additional information security policies, standards and guidelines for use within their organization or for a specific information system or program.");
+      String sent2 = ("Management must set direction and provide support for information security.");
       // Use the default tokenizer for this TreebankLanguagePack
       Tokenizer<? extends HasWord> toke =
         tlp.getTokenizerFactory().getTokenizer(new StringReader(sent2));
@@ -64,6 +66,7 @@ class SParser {
       GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
       List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
       System.out.println(tdl);
+      System.out.println(">   " + parse.getChild(0).getChild(1).value().equals("NP"));
       System.out.println();
 
       System.out.println("The words of the sentence:");
@@ -77,8 +80,41 @@ class SParser {
       System.out.println();
       System.out.println(parse.taggedYield());
       System.out.println();
-
+      
+      
+      Tree result = find(parse, "VP");
+      Tree remove = find(result, "PP");
+      System.out.println("finding::: " + remove(result, remove));
+      
     }
+  }
+  
+    public static Tree find(Tree tree, String value) {
+	  if (tree.value().equals(value)) {
+		  return tree;
+	  }
+	  for (Tree child : tree.getChildrenAsList()) {
+		  Tree result = find(child, value);
+		  if (result != null) {
+			  return result;
+		  }
+	  }
+	  
+	  return null;
+  }
+  
+  public static Tree remove(Tree parent, Tree subtree) {
+	  LabeledScoredTreeFactory factory = new LabeledScoredTreeFactory();
+	  
+	  if (parent == subtree) {
+		  return null;
+	  }
+	  
+	  for (parent.getChildrenAsList()) {
+		  
+	  }
+	  
+	  return newParent;
   }
 
   private SParser() {} // static methods only
