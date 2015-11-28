@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.TreeMap;
 
 import common.FileWriter;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -126,16 +127,34 @@ class SParser {
 	
 	private String getSubjectDependencies(List<TypedDependency> tdl, String subject) {
 		String results = "";
+		boolean hasDependency = false;
+		TreeMap<Integer, String> ordering = new TreeMap<>();
+		ArrayList<String> dependencies = new ArrayList<>();
 		
-		for (TypedDependency dependency : tdl) {
-			if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
-				
-			}
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
-				if (dependency.reln().getSpecific().equals("compound")) {
-					results += dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+		dependencies.add(subject);
+		
+		while (hasDependency) {
+			hasDependency = false;
+			for (TypedDependency dependency : tdl) {
+				if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
+					if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
+						ordering.put(dependency.gov().get(CoreAnnotations.IndexAnnotation.class), subject);
+					}
+					if (dependency.reln().getShortName().equals("compound") ||
+						dependency.reln().getShortName().equals("case") ||
+						dependency.reln().getShortName().equals("det") ||
+						(dependency.reln().getShortName().equals("nmod") &&
+						 dependency.reln().getSpecific().equals("of"))) {
+						hasDependency = true;
+						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
+								     dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+					}
 				}
 			}
+		}
+		
+		for (String strOrdering : ordering.values()) {
+			results += strOrdering;
 		}
 		
 		return (results.length() > 0) ? results : null;
