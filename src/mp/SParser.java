@@ -74,7 +74,7 @@ class SParser {
 			
 			Tree result = find(parse, "VP");
 			Tree remove = find(result, "PP");
-			System.out.println("finding::: " + remove(result, remove));
+			System.out.println("finding::: " + remove(parse, remove));
 		}
 	}
 	
@@ -99,11 +99,16 @@ class SParser {
 			return null;
 		}
 		
+		Tree newParent = factory.newTreeNode(parent.label(), null);
+		
 		for (Tree child : parent.getChildrenAsList()) {
-			// TODO
+			Tree result = remove(child, subtree);
+			if (result != null) {
+				newParent.addChild(result);
+			}
 		}
 		
-		return parent;
+		return newParent;
 	}
 	
 	public static void main(String[] args) throws IOException {
@@ -116,11 +121,12 @@ class SParser {
     	//7.1.1 Access to information systems and services must be consistent with business needs and be based on security requirements.
     	//7.3.3 Users must ensure the safety of sensitive information from unauthorized access, loss or damage.
 		
-		String[] input = {"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
-		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
-		"Security roles and responsibilities for personnel must be documented.",
-		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
-		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
+		String[] input = {"Management must set direction and provide support for information security."};
+//		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
+//		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
+//		"Security roles and responsibilities for personnel must be documented.",
+//		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
+//		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
 		s.parseSentences(input);
 	}
 }
