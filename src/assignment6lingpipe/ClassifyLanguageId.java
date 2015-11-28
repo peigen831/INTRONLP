@@ -29,6 +29,7 @@ public class ClassifyLanguageId {
 			String input = scanner.nextLine();
 			Classification classification = classifier.classify(input);
 			System.out.println("Language is: " + classification.bestCategory().replace("_Text.txt", ""));
+			System.out.println("Language is: " + classification.toString());
 		}
 	}
 }

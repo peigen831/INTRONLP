@@ -6,5 +6,6 @@
 	<classpathentry kind="lib" path="libs/sqlite-jdbc-3.8.11.2.jar"/>
 	<classpathentry kind="lib" path="libs/lingpipe-4.1.0.jar"/>
 	<classpathentry kind="lib" path="libs/stanford-parser.jar"/>
+	<classpathentry kind="lib" path="libs/stanford-parser-3.5.2-models.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

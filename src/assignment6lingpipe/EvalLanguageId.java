@@ -27,7 +27,7 @@ public class EvalLanguageId {
     //                     <testSize>:int
     //                     <numTestsPerCat>:int
     public static void main(String[] args) throws Exception {
-        File dataDir = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "directoryName"));
+        File dataDir = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "testName"));
         File modelFile = new File(ReadConfigurationFile.getProperty(PACKAGENAME, "fileName"));
 
         char[] csBuf = new char[testSize];
