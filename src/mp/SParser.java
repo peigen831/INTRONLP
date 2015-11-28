@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.FileWriter;
+import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.Label;
@@ -61,6 +62,7 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
+			System.out.println(getGoal(tdl));
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -78,6 +80,16 @@ class SParser {
 			Tree remove = find(result, "PP");
 			System.out.println("finding::: " + remove(parse, remove));
 		}
+	}
+	
+	public String getGoal(List<TypedDependency> tdl) {
+		for (TypedDependency dependency : tdl) {
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
+				return dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+			}
+		}
+		
+		return null;
 	}
 	
 	public Tree find(Tree tree, String value) {
