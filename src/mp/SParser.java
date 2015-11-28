@@ -130,6 +130,20 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
+	public String[] getScopes(List<TypedDependency> tdl) {
+		Set<String> results = new HashSet<>();
+		for (TypedDependency dependency : tdl) {
+			if (dependency.reln().getShortName().equals("nsubjpass") ||
+				dependency.reln().getShortName().equals("dobj")) {
+				results.add(getNounDependencies(tdl, dependency.dep().getString(CoreAnnotations.ValueAnnotation.class)));
+			}
+		}
+		
+		String[] arrResults = Arrays.copyOf(results.toArray(), results.size(), String[].class);
+		
+		return (arrResults.length > 0) ? arrResults : null;
+	}
+	
 	private String getNounDependencies(List<TypedDependency> tdl, String subject) {
 		String results = "";
 		boolean hasDependency = true;
