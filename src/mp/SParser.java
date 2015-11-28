@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import common.FileWriter;
@@ -62,7 +63,7 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
-			System.out.println(getGoal(tdl));
+			System.out.println(Arrays.toString(getGoals(tdl)));
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -82,14 +83,25 @@ class SParser {
 		}
 	}
 	
-	public String getGoal(List<TypedDependency> tdl) {
+	public String[] getGoals(List<TypedDependency> tdl) {
+		ArrayList<String> results = new ArrayList<>();
+		String root = null;
 		for (TypedDependency dependency : tdl) {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
-				return dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+				root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+				results.add(root);
+			}
+			else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
+					 dependency.reln().getShortName().equals("conj") &&
+					 (dependency.reln().getSpecific().equals("or") ||
+					  dependency.reln().getSpecific().equals("and"))) {
+				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 		}
 		
-		return null;
+		String[] arrResults = Arrays.copyOf(results.toArray(), results.size(), String[].class);
+		
+		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
 	public Tree find(Tree tree, String value) {
@@ -141,12 +153,12 @@ class SParser {
     	//7.1.1 Access to information systems and services must be consistent with business needs and be based on security requirements.
     	//7.3.3 Users must ensure the safety of sensitive information from unauthorized access, loss or damage.
 		
-		String[] input = {"Management must set direction and provide support for information security."};
-//		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
-//		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
-//		"Security roles and responsibilities for personnel must be documented.",
-//		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
-//		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
+		String[] input = {"Management must set direction and provide support for information security.",
+		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
+		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
+		"Security roles and responsibilities for personnel must be documented.",
+		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
+		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
 		s.parseSentences(input);
 	}
 }
