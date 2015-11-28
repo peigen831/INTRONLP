@@ -1,10 +1,12 @@
 package mp;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import common.FileWriter;
 import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
 import edu.stanford.nlp.ling.Label;
@@ -112,6 +114,12 @@ class SParser {
 	}
 	
 	public static void main(String[] args) throws IOException {
+		try {
+			FileWriter.getNewInstance("mp", "Results.txt").createNewFile();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
 		SParser s = new SParser();
 		s.initialize();
     	//2.1.1 Management must set direction and provide support for information security.
