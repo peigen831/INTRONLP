@@ -124,6 +124,23 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
+	private String getSubjectDependencies(List<TypedDependency> tdl, String subject) {
+		String results = "";
+		
+		for (TypedDependency dependency : tdl) {
+			if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
+				
+			}
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
+				if (dependency.reln().getSpecific().equals("compound")) {
+					results += dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+				}
+			}
+		}
+		
+		return (results.length() > 0) ? results : null;
+	}
+	
 	public Tree find(Tree tree, String value) {
 		if (tree.value().equals(value)) {
 			return tree;
