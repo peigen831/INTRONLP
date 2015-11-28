@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import common.FileWriter;
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -63,7 +65,7 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
-			System.out.println(Arrays.toString(getGoals(tdl)));
+			System.out.println(Arrays.toString(getSubjects(tdl)));
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -84,7 +86,7 @@ class SParser {
 	}
 	
 	public String[] getGoals(List<TypedDependency> tdl) {
-		ArrayList<String> results = new ArrayList<>();
+		Set<String> results = new HashSet<>();
 		String root = null;
 		for (TypedDependency dependency : tdl) {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
@@ -96,6 +98,24 @@ class SParser {
 					 (dependency.reln().getSpecific().equals("or") ||
 					  dependency.reln().getSpecific().equals("and"))) {
 				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+			}
+		}
+		
+		String[] arrResults = Arrays.copyOf(results.toArray(), results.size(), String[].class);
+		
+		return (arrResults.length > 0) ? arrResults : null;
+	}
+	
+	public String[] getSubjects(List<TypedDependency> tdl) {
+		Set<String> results = new HashSet<>();
+		for (TypedDependency dependency : tdl) {
+			if (dependency.reln().getShortName().equals("nsubj") ||
+				(dependency.reln().getShortName().equals("nmod") &&
+				 dependency.reln().getSpecific().equals("agent"))) {
+				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+			}
+			else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("nsubjpass")) {
+				results.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 		}
 		
