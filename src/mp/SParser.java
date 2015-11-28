@@ -127,7 +127,7 @@ class SParser {
 	
 	private String getSubjectDependencies(List<TypedDependency> tdl, String subject) {
 		String results = "";
-		boolean hasDependency = false;
+		boolean hasDependency = true;
 		TreeMap<Integer, String> ordering = new TreeMap<>();
 		ArrayList<String> dependencies = new ArrayList<>();
 		
@@ -146,18 +146,19 @@ class SParser {
 						(dependency.reln().getShortName().equals("nmod") &&
 						 dependency.reln().getSpecific().equals("of"))) {
 						hasDependency = true;
+						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
 						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
-								     dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
 					}
 				}
 			}
 		}
 		
 		for (String strOrdering : ordering.values()) {
-			results += strOrdering;
+			results += strOrdering + " ";
 		}
 		
-		return (results.length() > 0) ? results : null;
+		return (results.length() > 0) ? results.replace("by ", "").trim() : null;
 	}
 	
 	public Tree find(Tree tree, String value) {
