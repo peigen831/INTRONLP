@@ -174,21 +174,21 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	private String getNounDependencies(List<TypedDependency> tdl, String subject) {
+	private String getNounDependencies(List<TypedDependency> tdl, String noun) {
 		String results = "";
 		boolean hasDependency = true;
 		TreeMap<Integer, String> ordering = new TreeMap<>();
 		ArrayList<String> dependencies = new ArrayList<>();
 		ArrayList<String> oldDependencies = null;
 		
-		dependencies.add(subject);
+		dependencies.add(noun);
 		
 		while (hasDependency) {
 			hasDependency = false;
 			oldDependencies = new ArrayList<>(dependencies);
 			for (TypedDependency dependency : tdl) {
-				if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(subject)) {
-					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class), subject);
+				if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(noun)) {
+					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class), noun);
 				}
 				else if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
 					if (dependency.reln().getShortName().equals("compound") ||
