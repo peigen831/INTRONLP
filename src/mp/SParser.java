@@ -105,16 +105,41 @@ class SParser {
 	public String[] getGoals(List<TypedDependency> tdl) {
 		Set<String> results = new HashSet<>();
 		String root = null;
-		for (TypedDependency dependency : tdl) {
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
-				root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
-				results.add(root);
+		
+		if (tdl.toString().contains("acl(")) {
+			for (TypedDependency dependency : tdl) {
+				if (dependency.reln().getShortName().equals("acl")) {
+					root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+				}
+				else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
+						 dependency.reln().getShortName().equals("xcomp")) {
+					results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				}
 			}
-			else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
-					 dependency.reln().getShortName().equals("conj") &&
-					 (dependency.reln().getSpecific().equals("or") ||
-					  dependency.reln().getSpecific().equals("and"))) {
-				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+		}
+		else if (tdl.toString().contains("advcl(")) {
+			for (TypedDependency dependency : tdl) {
+				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
+					root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+				}
+				else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
+						 dependency.reln().getShortName().equals("advcl")) {
+					results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				}
+			}
+		}
+		else {
+			for (TypedDependency dependency : tdl) {
+				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
+					root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
+					results.add(root);
+				}
+				else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
+						 dependency.reln().getShortName().equals("conj") &&
+						 (dependency.reln().getSpecific().equals("or") ||
+						  dependency.reln().getSpecific().equals("and"))) {
+					results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				}
 			}
 		}
 		
