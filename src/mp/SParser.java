@@ -66,8 +66,12 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
-			System.out.println(Arrays.toString(getSubjects(tdl)));
-			System.out.println(Arrays.toString(getScopes(tdl)));
+			
+			String[] goals = getGoals(tdl);
+			System.out.println(Arrays.toString(goals));
+			for (String goal : goals) {
+				System.out.println(Arrays.toString(getConstraints(tdl, goal)));
+			}
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -104,6 +108,31 @@ class SParser {
 		}
 		
 		String[] arrResults = Arrays.copyOf(results.toArray(), results.size(), String[].class);
+		
+		return (arrResults.length > 0) ? arrResults : null;
+	}
+	
+	public String[] getConstraints(List<TypedDependency> tdl, String goal) {
+		Set<String> results = new HashSet<>();
+		for (TypedDependency dependency : tdl) {
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
+					dependency.reln().getShortName().equals("nmod") &&
+					(dependency.reln().getSpecific().equals("with") ||
+					 dependency.reln().getSpecific().equals("from") ||
+					 dependency.reln().getSpecific().equals("on"))) {
+				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+			}
+			else if (dependency.reln().getShortName().equals("nsubjpass")) {
+				results.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+			}
+		}
+		
+		String[] arrResults = new String[results.size()];
+		ArrayList<String> arrlResults = new ArrayList<String>(results);
+		
+		for (int i = 0; i < results.size(); i++) {
+			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i));
+		}
 		
 		return (arrResults.length > 0) ? arrResults : null;
 	}
