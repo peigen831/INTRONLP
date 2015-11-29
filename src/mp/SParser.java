@@ -167,7 +167,7 @@ class SParser {
 		ArrayList<String> arrlResults = new ArrayList<String>(results);
 		
 		for (int i = 0; i < results.size(); i++) {
-			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i));
+			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i), goal);
 		}
 		
 		return (arrResults.length > 0) ? arrResults : null;
@@ -191,7 +191,7 @@ class SParser {
 		ArrayList<String> arrlResults = new ArrayList<String>(results);
 		
 		for (int i = 0; i < results.size(); i++) {
-			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i));
+			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i), goal);
 		}
 		
 		return (arrResults.length > 0) ? arrResults : null;
@@ -203,7 +203,7 @@ class SParser {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
 				(dependency.reln().getShortName().equals("nsubjpass") ||
 				dependency.reln().getShortName().equals("dobj"))) {
-				results.add(getNounDependencies(tdl, dependency.dep().getString(CoreAnnotations.ValueAnnotation.class)));
+				results.add(getNounDependencies(tdl, dependency.dep().getString(CoreAnnotations.ValueAnnotation.class), goal));
 			}
 		}
 		
@@ -212,7 +212,7 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	private String getNounDependencies(List<TypedDependency> tdl, String noun) {
+	private String getNounDependencies(List<TypedDependency> tdl, String noun, String goal) {
 		String results = "";
 		boolean hasDependency = true;
 		TreeMap<Integer, String> ordering = new TreeMap<>();
@@ -220,6 +220,17 @@ class SParser {
 		ArrayList<String> oldDependencies = null;
 		
 		dependencies.add(noun);
+		
+		for (TypedDependency dependency : tdl) {
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal)) {
+				if (dependency.reln().getShortName().equals("nmod") &&
+					dependency.reln().getSpecific().equals("for")) {
+					dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
+							     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+				}
+			}
+		}
 		
 		while (hasDependency) {
 			hasDependency = false;
