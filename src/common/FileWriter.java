@@ -1,8 +1,11 @@
 package common;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FileWriter {
@@ -68,5 +71,17 @@ public class FileWriter {
 		PrintWriter pw = new PrintWriter(new FileOutputStream(new File(path + "/" + fileName), true));
 		pw.write(text + "\n");
 		pw.close();
+	}
+	
+	public void deleteFileIfEmpty() throws IOException {
+		File file = new File(path + "/" + fileName);
+		BufferedReader br = new BufferedReader(new FileReader(file));     
+		if (br.readLine() == null) {
+			br.close();
+			file.delete();
+		}
+		else {
+			br.close();
+		}
 	}
 }
