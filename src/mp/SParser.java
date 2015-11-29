@@ -92,9 +92,9 @@ class SParser {
 			
 			String[] goals = getGoals(tdl);
 			printAndWrite("Goals: " + Arrays.toString(goals));
-			printAndWrite("Subjects: " + Arrays.toString(getSubjects(tdl)));
-			printAndWrite("Scopes: " + Arrays.toString(getScopes(tdl)));
 			for (String goal : goals) {
+				printAndWrite("Subjects: " + Arrays.toString(getSubjects(tdl, goal)));
+				printAndWrite("Scopes: " + Arrays.toString(getScopes(tdl, goal)));
 				printAndWrite("Constraint: " + Arrays.toString(getConstraints(tdl, goal)));
 			}
 			printAndWrite("");
@@ -173,12 +173,13 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	public String[] getSubjects(List<TypedDependency> tdl) {
+	public String[] getSubjects(List<TypedDependency> tdl, String goal) {
 		Set<String> results = new HashSet<>();
 		for (TypedDependency dependency : tdl) {
-			if (dependency.reln().getShortName().equals("nsubj") ||
-				(dependency.reln().getShortName().equals("nmod") &&
-				 dependency.reln().getSpecific().equals("agent"))) {
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
+				(dependency.reln().getShortName().equals("nsubj") ||
+				 (dependency.reln().getShortName().equals("nmod") &&
+				  dependency.reln().getSpecific().equals("agent")))) {
 				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 			else if (dependency.reln().getShortName().equals("nsubjpass")) {
@@ -196,11 +197,12 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	public String[] getScopes(List<TypedDependency> tdl) {
+	public String[] getScopes(List<TypedDependency> tdl, String goal) {
 		Set<String> results = new HashSet<>();
 		for (TypedDependency dependency : tdl) {
-			if (dependency.reln().getShortName().equals("nsubjpass") ||
-				dependency.reln().getShortName().equals("dobj")) {
+			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
+				(dependency.reln().getShortName().equals("nsubjpass") ||
+				dependency.reln().getShortName().equals("dobj"))) {
 				results.add(getNounDependencies(tdl, dependency.dep().getString(CoreAnnotations.ValueAnnotation.class)));
 			}
 		}
