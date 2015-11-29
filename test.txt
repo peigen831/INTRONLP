@@ -1,0 +1,77 @@
+Chapter 1 - Security Policy 
+ 
+The Information Security Policy establishes requirements to ensure that information security policies remain current as business needs evolve and technology changes. This policy must be published and communicated to employees and relevant external parties. 
+1.1     Information Security Policy 
+1.1.1     Information security policy document 
+      Hi. The Office of the Government Chief Information Officer is responsible for establishing, issuing and monitoring information security policies. 
+1.1.2     Review of the infrmation security policy 
+      The information security policy must be reviewed on an annual basis and updated when required. 
+ 
+1.1     Security Policy - Information security policy 
+1.1.1     The Office of the Government Chief Information Officer is responsible for establishing, issuing and monitoring information security policies. 
+a) Information Security Policy 
+b) Ministry or agency information security policy 
+Purpose:     To establish comprehensive information security policies, processes and practices that will assist Ministries in delivering services.
+1.1.1 a) Information Security Policy 
+The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services. Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through: 
+•    Management and business processes that include and enable security processes; 
+•    Ongoing personnel awareness of security issues; 
+•    Physical security requirements for information systems; 
+•    Governance processes for information technology; 
+•    Reporting information security events and weaknesses; 
+•    Creating and maintaining business continuity plans
+•    Monitoring for compliance. 
+ 
+The Office of the Government Chief Information Officer recognizes that information security is a process, which to be effective, requires management commitment, the active participation of all personnel and ongoing awareness programs. The process for developing and maintaining policy is outlined in CIO Policy Development - Governance and Procedures (under review).
+
+1.1.1 b) Ministry or agency information security policy 
+Ministries may develop and implement additional information security policies, standards and guidelines for use within their organization or for a specific information system or program. Ministry developed information security policies, standards and guidelines can exceed but must not conflict with the baseline established by the Information Security Policy. 
+ 
+Ministries must provide the Office of the Government Chief Information Officer with copies of any locally developed information security policies, standards or guidelines. 
+ 
+A central repository must be maintained by the Office of the Government Chief Information Officer for the collection and re-use of Ministry developed information security policies, standards or guidelines. 
+Standards: 
+Where standards exist they are included in individual policies. The Office of the Government Chief Information Officer will issue and revise government standards as needed.  
+ 
+CIO Policy Development - Governance and Procedures (under review) - contact Knowledge and Information Services Branch, Office of the Government Chief Information Officer 
+Guidelines: 
+Guidelines are included in individual policies to assist in interpretation and implementation. 
+Metrics and Enforcement: 
+•    Is there a process for developing, issuing and monitoring the information security policy? 
+•    Can the executive management commitment to information security be demonstrated? 
+•    Do Ministries provide a copy of their information security policies to the GCIO? 
+•    Is there a central repository for information security policies, standards and guidelines? 
+Other References: 
+ISP 1.1.2 - Review of the information security policy 
+ISP 2.1 - Internal organization 
+Core Policy and Procedures Manual 
+BC Public Service Agency - Human Resource Policies 
+ 
+1.1.2     The information security policy must be reviewed on an annual basis and updated when required. 
+a)    Information Security Policy review - Office of the Government Chief Information Officer 
+b)    Information security policy review - Ministries and other agencies 
+Purpose:     To ensure information security policies remain current with evolving business needs and technological changes. 
+1.1.2 a) Information Security Policy review - Office of the Government Chief Information Officer 
+The Office of the Government Chief Information Officer is responsible for reviewing information security policies, standards and guidelines on an annual basis. Policies and standards review must be initiated: 
+•    In conjunction with legislative, regulatory or policy changes which have information management implications; 
+•    During planning and implementation of new or significantly changed technology; 
+•    Following a Security Threat and Risk Assessment of major initiatives (e.g., new information systems or contracting arrangements); 
+•    When audit reports or security risk and controls reviews identify high risk exposures involving information systems; 
+•    If threat or vulnerability trends produced from automated monitoring processes indicate the probability of significantly increased risk; 
+•    After receiving the final report of investigation into information security incidents; 
+•    Prior to renewing third party access agreements which involve major government programs or services; 
+•    When industry, national or international standards for information security are introduced or significantly revised to address emerging business and technology issues
+•    When associated external agencies (e.g., Information and Privacy Commissioner, National CIO Sub-Committee on Information Protection, RCMP) issue reports or identify emerging trends related to information security. 
+1.1.2 b) Information security policy review - Ministries and other agencies 
+Where ministries have developed ministry specific information security policies, standards and guidelines they must: 
+•    Review them annually
+•    Provide the Office of the Government Chief Information Officer with copies of updated documents. 
+Standards: 
+CIO Policy Development - Governance and Procedures (under review) - contact Knowledge and Information Services Branch, Office of the Government Chief Information Officer 
+Metrics and Enforcement: 
+•    Is there an information security policy review process? 
+•    Does the information security policy review happen on an annual basis? 
+•    Do Ministries review their internal information security policies on an annual basis? 
+•    Are updated policies provided to the Office of the Government Chief Information Officer? 
+Other References: 
+ISP1.1.1 - Information security policy document 
