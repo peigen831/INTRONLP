@@ -329,5 +329,7 @@ class SParser {
 		}
 		
 		s.parseSentences(Arrays.copyOf(inputs.toArray(), inputs.size(), String[].class));
+		
+		FileWriter.getInstance().deleteFileIfEmpty();
 	}
 }
