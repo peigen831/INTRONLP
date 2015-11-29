@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -66,12 +67,6 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			System.out.println(tdl);
-			
-			String[] goals = getGoals(tdl);
-			System.out.println(Arrays.toString(goals));
-			for (String goal : goals) {
-				System.out.println(Arrays.toString(getConstraints(tdl, goal)));
-			}
 			System.out.println();
 
 			System.out.println("The words of the sentence:");
@@ -83,11 +78,27 @@ class SParser {
 					System.out.println("lab "+lab);
 				}
 			}
-			System.out.println(parse.taggedYield());
+			//System.out.println(parse.taggedYield());
+			System.out.println();
 			
-			Tree result = find(parse, "VP");
-			Tree remove = find(result, "PP");
-			System.out.println("finding::: " + remove(parse, remove));
+			printAndWrite(sentence.toString());
+			printAndWrite("");
+			
+			printAndWrite("The words of the sentence:");
+			for (TypedDependency td : tdl) {
+				printAndWrite(td.toString());
+			}
+			printAndWrite("");
+			
+			String[] goals = getGoals(tdl);
+			printAndWrite("Goals: " + Arrays.toString(goals));
+			printAndWrite("Subjects: " + Arrays.toString(getSubjects(tdl)));
+			printAndWrite("Scopes: " + Arrays.toString(getScopes(tdl)));
+			for (String goal : goals) {
+				printAndWrite("Constraint: " + Arrays.toString(getConstraints(tdl, goal)));
+			}
+			printAndWrite("");
+			printAndWrite("");
 		}
 	}
 	
@@ -248,9 +259,20 @@ class SParser {
 		return newParent;
 	}
 	
+	public void printAndWrite(String line) {
+		System.out.println(line);
+		FileWriter fw = FileWriter.getInstance();
+		try {
+			fw.writeLine(line);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) throws IOException {
 		try {
-			FileWriter.getNewInstance("mp", "Results.txt").createNewFile();
+			FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".txt").createNewFile();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -264,12 +286,23 @@ class SParser {
     	//7.1.1 Access to information systems and services must be consistent with business needs and be based on security requirements.
     	//7.3.3 Users must ensure the safety of sensitive information from unauthorized access, loss or damage.
 		
-		String[] input = {"Management must set direction and provide support for information security.",
-		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
-		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
-		"Security roles and responsibilities for personnel must be documented.",
-		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
-		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
-		s.parseSentences(input);
+//		String[] input = {"The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services."};
+//		"Management must set direction and provide support for information security.",
+//		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
+//		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
+//		"Security roles and responsibilities for personnel must be documented.",
+//		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
+//		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
+		System.out.println("Write something:");
+		
+		ArrayList<String> inputs = new ArrayList<>();
+		
+		Scanner scan = new Scanner(System.in);
+		String input = null;
+		while ((input = scan.nextLine()) != null && !input.equals("")) {
+			inputs.add(input);
+		}
+		
+		s.parseSentences(Arrays.copyOf(inputs.toArray(), inputs.size(), String[].class));
 	}
 }
