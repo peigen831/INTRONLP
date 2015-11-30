@@ -14,6 +14,7 @@ import java.util.TreeMap;
 import common.FileWriter;
 import edu.stanford.nlp.ling.CoreAnnotations;
 import edu.stanford.nlp.ling.HasWord;
+import edu.stanford.nlp.ling.IndexedWord;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.process.Tokenizer;
 import edu.stanford.nlp.trees.GrammaticalStructure;
@@ -343,10 +344,10 @@ class SParser {
 		String results = "";
 		boolean hasDependency = true;
 		TreeMap<Double, String> ordering = new TreeMap<>();
-		ArrayList<String> dependencies = new ArrayList<>();
-		ArrayList<String> oldDependencies = null;
+		ArrayList<IndexedWord> dependencies = new ArrayList<>();
+		ArrayList<IndexedWord> oldDependencies = new ArrayList<>();
 		
-		dependencies.add(noun.dep().getString(CoreAnnotations.ValueAnnotation.class));
+		dependencies.add(noun.dep());
 		ordering.put(noun.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(), noun.dep().getString(CoreAnnotations.ValueAnnotation.class));
 		
 		if (noun.reln().getShortName().equals("nsubjpass") ||
@@ -357,7 +358,7 @@ class SParser {
 						(dependency.reln().getSpecific().equals("of") ||
 						 dependency.reln().getSpecific().equals("for") ||
 						 dependency.reln().getSpecific().equals("through"))) {
-						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						dependencies.add(dependency.dep());
 						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
 								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
 					}
@@ -367,9 +368,9 @@ class SParser {
 		
 		while (hasDependency) {
 			hasDependency = false;
-			oldDependencies = new ArrayList<>(dependencies);
+			oldDependencies.addAll(dependencies);
 			for (TypedDependency dependency : tdl) {
-				if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
+				if (dependencies.contains(dependency.gov())) {
 					if (dependency.reln().getShortName().equals("compound") ||
 						dependency.reln().getShortName().equals("case") ||
 						dependency.reln().getShortName().equals("amod") ||
@@ -380,16 +381,17 @@ class SParser {
 						  dependency.reln().getSpecific().equals("poss") ||
 						  dependency.reln().getSpecific().equals("through")))) {
 						hasDependency = true;
-						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						dependencies.add(dependency.dep());
 						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
 								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
 					}
 					else if (dependency.reln().getShortName().equals("conj")) {
 						hasDependency = true;
-						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						dependencies.add(dependency.dep());
 						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
 								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
-						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue() - 0.5,
+						ordering.put((dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue() +
+									  dependency.gov().get(CoreAnnotations.IndexAnnotation.class).doubleValue()) / 2,
 							    	 dependency.reln().getSpecific());
 					}
 				}
