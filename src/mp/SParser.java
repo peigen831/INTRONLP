@@ -176,10 +176,9 @@ class SParser {
 	public String[] getSubjects(List<TypedDependency> tdl, String goal) {
 		Set<String> results = new HashSet<>();
 		for (TypedDependency dependency : tdl) {
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
-				(dependency.reln().getShortName().equals("nsubj") ||
-				 (dependency.reln().getShortName().equals("nmod") &&
-				  dependency.reln().getSpecific().equals("agent")))) {
+			if (dependency.reln().getShortName().equals("nsubj") ||
+				(dependency.reln().getShortName().equals("nmod") &&
+				 dependency.reln().getSpecific().equals("agent"))) {
 				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 			else if (dependency.reln().getShortName().equals("nsubjpass")) {
