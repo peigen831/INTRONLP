@@ -94,9 +94,14 @@ class SParser {
 			String[] goals = getGoals(tdl);
 			printAndWrite("Goals: " + Arrays.toString(goals));
 			for (String goal : goals) {
-				printAndWrite("Subjects: " + Arrays.toString(getSubjects(tdl, goal)));
-				printAndWrite("Scopes: " + Arrays.toString(getScopes(tdl, goal)));
-				printAndWrite("Constraint: " + Arrays.toString(getConstraints(tdl, goal)));
+				String[] subjects = getSubjects(tdl, goal);
+				String[] scopes = getScopes(tdl, goal);
+				String[] constraints = getConstraints(tdl, goal);
+				String[] jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
+				printAndWrite("Subjects: " + Arrays.toString(subjects));
+				printAndWrite("Scopes: " + Arrays.toString(scopes));
+				printAndWrite("Constraints: " + Arrays.toString(constraints));
+				printAndWrite("Jurisdictions: " + Arrays.toString(jurisdictions));
 			}
 			printAndWrite("");
 			printAndWrite("");
@@ -180,34 +185,76 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	public String[] getJurisdiction(List<TypedDependency> tdl, String goal) {
-		Set<String> results = new HashSet<>();
+	public String[] getJurisdictions(List<TypedDependency> tdl, String[][] alreadyFound) {
 		ArrayList<TypedDependency> arrlResults = new ArrayList<>();
-		String strTdl = tdl.toString();
+		//String strTdl = tdl.toString();
 		for (TypedDependency dependency : tdl) {
-			if (strTdl.contains("acl(")) {
-				
-			}
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
-				dependency.reln().getShortName().equals("nmod") &&
-				(dependency.reln().getSpecific().equals("with") ||
-				 dependency.reln().getSpecific().equals("from") ||
-				 dependency.reln().getSpecific().equals("on"))) {
-				results.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+			if (dependency.reln().getShortName().equals("nmod")) {
 				arrlResults.add(dependency);
-			}
-			else if (dependency.reln().getShortName().equals("nsubjpass")) {
-				results.remove(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
-				arrlResults.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 		}
 		
 		ArrayList<String> finalResults = new ArrayList<>();
 		
-		for (int i = 0; i < results.size(); i++) {
-			String current = getNounDependencies(tdl, arrlResults.get(i), goal);
-			if (!finalResults.contains(current)) {
-				finalResults.add(current);
+		for (int i = 0; i < arrlResults.size(); i++) {
+			for (String goal : alreadyFound[0]) {
+				String current = getNounDependencies(tdl, arrlResults.get(i), goal);
+				if (!finalResults.contains(current)) {
+					finalResults.add(current);
+				}
+			}
+		}
+		
+		if (alreadyFound[1] != null) {
+			for (String subject : alreadyFound[1]) {
+				for (String result : finalResults) {
+					if (result.equals(subject) || subject.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		if (alreadyFound[2] != null) {
+			for (String scope : alreadyFound[2]) {
+				for (String result : finalResults) {
+					if (result.equals(scope) || scope.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		if (alreadyFound[3] != null) {
+			for (String constraint : alreadyFound[3]) {
+				for (String result : finalResults) {
+					if (result.equals(constraint) || constraint.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
 			}
 		}
 		
@@ -294,6 +341,7 @@ class SParser {
 						(dependency.reln().getShortName().equals("nmod") &&
 						 (dependency.reln().getSpecific().equals("of") ||
 						  dependency.reln().getSpecific().equals("to") ||
+						  dependency.reln().getSpecific().equals("poss") ||
 						  dependency.reln().getSpecific().equals("through")))) {
 						hasDependency = true;
 						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
