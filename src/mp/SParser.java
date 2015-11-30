@@ -284,6 +284,23 @@ class SParser {
 			}
 		}
 		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
 		String[] arrResults = Arrays.copyOf(finalResults.toArray(), finalResults.size(), String[].class);
 		return (arrResults.length > 0) ? arrResults : null;
 	}
@@ -295,6 +312,25 @@ class SParser {
 				(dependency.reln().getShortName().equals("nsubjpass") ||
 				dependency.reln().getShortName().equals("dobj"))) {
 				results.add(getNounDependencies(tdl, dependency, goal));
+			}
+		}
+		
+		ArrayList<String> finalResults = new ArrayList<>(results);
+		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
 			}
 		}
 		
@@ -441,6 +477,7 @@ class SParser {
 		while ((input = scan.nextLine()) != null && !input.equals("")) {
 			inputs.add(new SectionSentence(null, input));
 		}
+		scan.close();
 		
 		s.parseSentences(inputs);
 		
