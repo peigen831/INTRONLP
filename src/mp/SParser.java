@@ -13,10 +13,7 @@ import java.util.TreeMap;
 
 import common.FileWriter;
 import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
-import edu.stanford.nlp.ling.IndexedWord;
-import edu.stanford.nlp.ling.Label;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.process.Tokenizer;
 import edu.stanford.nlp.trees.GrammaticalStructure;
@@ -43,13 +40,13 @@ class SParser {
 		gsf = tlp.grammaticalStructureFactory();
 	}
 	
-	public Iterable<List<? extends HasWord>> tokenizeSentence(String[] sentences){
+	public Iterable<List<? extends HasWord>> tokenizeSentence(ArrayList<SectionSentence> sentences){
 		Iterable<List<? extends HasWord>> result;
 		List<List<? extends HasWord>> tmp = new ArrayList<List<? extends HasWord>>();
 		
-		for(String s: sentences){
-			printAndWrite(s);
-			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s));
+		for(SectionSentence s: sentences){
+			printAndWrite(s.getSection() + ": " + s.getSentence());
+			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s.getSentence()));
 			List<? extends HasWord> sTokenized = toke.tokenize();
 			tmp.add(sTokenized);
 		}
@@ -58,7 +55,7 @@ class SParser {
 		return result;
 	}
 	
-	public void parseSentences(String[] input){
+	public void parseSentences(ArrayList<SectionSentence> input){
 		Iterable<List<? extends HasWord>> sTokenized = tokenizeSentence(input);
 		printAndWrite("");
 
@@ -389,15 +386,15 @@ class SParser {
 //		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
 		System.out.println("Write something:");
 		
-		ArrayList<String> inputs = new ArrayList<>();
+		ArrayList<SectionSentence> inputs = new ArrayList<>();
 		
 		Scanner scan = new Scanner(System.in);
 		String input = null;
 		while ((input = scan.nextLine()) != null && !input.equals("")) {
-			inputs.add(input);
+			inputs.add(new SectionSentence(null, input));
 		}
 		
-		s.parseSentences(Arrays.copyOf(inputs.toArray(), inputs.size(), String[].class));
+		s.parseSentences(inputs);
 		
 		FileWriter.getInstance().deleteFileIfEmpty();
 	}
