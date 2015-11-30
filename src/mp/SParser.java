@@ -46,7 +46,6 @@ class SParser {
 		List<List<? extends HasWord>> tmp = new ArrayList<List<? extends HasWord>>();
 		
 		for(SectionSentence s: sentences){
-			printAndWrite(s.getSection() + ": " + s.getSentence());
 			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s.getSentence()));
 			List<? extends HasWord> sTokenized = toke.tokenize();
 			tmp.add(sTokenized);
@@ -58,54 +57,55 @@ class SParser {
 	
 	public void parseSentences(ArrayList<SectionSentence> input){
 		Iterable<List<? extends HasWord>> sTokenized = tokenizeSentence(input);
-		printAndWrite("");
+		int counter = 0;
+		printAndWrite("Section", new String[] {"Goals"}, new String[] {"Subjects"},
+					  new String[] {"Scopes"}, new String[] {"Constraints"},
+					  new String[] {"Jurisdictions"});
 
 		for (List<? extends HasWord> sentence : sTokenized) {
         	// Parse for parts of speech
 			Tree parse = lp.parse(sentence);
-//			parse.pennPrint();
 			
-          // Find grammatical structure
+			// Find grammatical structure
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-//			System.out.println(tdl);
-//			System.out.println();
-
-//			System.out.println("The words of the sentence:");
-//			for (Label lab : parse.yield()) {
-//				if (lab instanceof CoreLabel) {
-//					System.out.println("Word: " + ((CoreLabel)lab).word() + " Tag:" +((CoreLabel)lab).tag());
-//              //System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
-//				} else {
-//					System.out.println("lab "+lab);
-//				}
-//			}
-			//System.out.println(parse.taggedYield());
-			System.out.println();
 			
-			printAndWrite(sentence.toString());
-			printAndWrite("");
-			
-			printAndWrite("The words of the sentence:");
 			for (TypedDependency td : tdl) {
-				printAndWrite(td.toString());
+				System.out.println(td.toString());
 			}
-			printAndWrite("");
 			
 			String[] goals = getGoals(tdl);
-			printAndWrite("Goals: " + Arrays.toString(goals));
+			String[] subjects = null;
+			String[] scopes = null;
+			String[] constraints = null;
+			String[] jurisdictions = null;
+			
+			Set<String> lstSubjects = new HashSet<>();
+			Set<String> lstScopes = new HashSet<>();
+			Set<String> lstConstraints= new HashSet<>();
+			
 			for (String goal : goals) {
-				String[] subjects = getSubjects(tdl, goal);
-				String[] scopes = getScopes(tdl, goal);
-				String[] constraints = getConstraints(tdl, goal);
-				String[] jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
-				printAndWrite("Subjects: " + Arrays.toString(subjects));
-				printAndWrite("Scopes: " + Arrays.toString(scopes));
-				printAndWrite("Constraints: " + Arrays.toString(constraints));
-				printAndWrite("Jurisdictions: " + Arrays.toString(jurisdictions));
+				String[] tempSubjects = getSubjects(tdl, goal);
+				String[] tempScopes = getScopes(tdl, goal);
+				String[] tempConstraints = getConstraints(tdl, goal);
+				if (tempSubjects != null) {
+					lstSubjects.addAll(Arrays.asList(tempSubjects));
+				}
+				if (tempScopes != null) {
+					lstScopes.addAll(Arrays.asList(tempScopes));
+				}
+				if (tempConstraints != null) {
+					lstConstraints.addAll(Arrays.asList(tempConstraints));
+				}
 			}
-			printAndWrite("");
-			printAndWrite("");
+			subjects = Arrays.copyOf(lstSubjects.toArray(), lstSubjects.size(), String[].class);
+			scopes = Arrays.copyOf(lstScopes.toArray(), lstScopes.size(), String[].class);
+			constraints = Arrays.copyOf(lstConstraints.toArray(), lstConstraints.size(), String[].class);
+			jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
+			
+			printAndWrite(input.get(counter).getSection(), goals, subjects, scopes, constraints, jurisdictions);
+			
+			counter++;
 		}
 	}
 	
@@ -268,6 +268,7 @@ class SParser {
 		for (TypedDependency dependency : tdl) {
 			if (dependency.reln().getShortName().equals("nsubj") ||
 				(dependency.reln().getShortName().equals("nmod") &&
+				 dependency.reln().getSpecific() != null &&
 				 dependency.reln().getSpecific().equals("agent"))) {
 				arrlResults.add(dependency);
 			}
@@ -355,6 +356,7 @@ class SParser {
 			for (TypedDependency dependency : tdl) {
 				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal)) {
 					if (dependency.reln().getShortName().equals("nmod") &&
+						dependency.reln().getSpecific() != null &&
 						(dependency.reln().getSpecific().equals("of") ||
 						 dependency.reln().getSpecific().equals("for") ||
 						 dependency.reln().getSpecific().equals("through"))) {
@@ -376,6 +378,7 @@ class SParser {
 						dependency.reln().getShortName().equals("amod") ||
 						dependency.reln().getShortName().equals("det") ||
 						(dependency.reln().getShortName().equals("nmod") &&
+						 dependency.reln().getSpecific() != null &&
 						 (dependency.reln().getSpecific().equals("of") ||
 						  dependency.reln().getSpecific().equals("to") ||
 						  dependency.reln().getSpecific().equals("poss") ||
@@ -450,27 +453,75 @@ class SParser {
 		}
 	}
 	
+	public void printAndWrite(String section, String[] goals, String[] subjects,
+							  String[] scopes, String[] constraints, String[] jurisdictions) {
+		String formatted = "\"" + section + "\",\"";
+		String temp = "";
+		
+		if (goals == null) {
+			return;
+		}
+		
+		for (String current : goals) {
+			temp += current + ", ";
+		}
+		temp = temp.substring(0, temp.length() - 2);
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (subjects != null && subjects.length > 0) {
+			for (String current : subjects) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (scopes != null && scopes.length > 0) {
+			for (String current : scopes) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (constraints != null && constraints.length > 0) {
+			for (String current : constraints) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (jurisdictions != null && jurisdictions.length > 0) {
+			for (String current : jurisdictions) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\"";
+		
+		printAndWrite(formatted);
+	}
+	
 	public static void main(String[] args) throws IOException {
 		try {
-			FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".txt").createNewFile();
+			FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".csv").createNewFile();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 		
 		SParser s = new SParser();
 		s.initialize();
-//    	s.readFile();
-		
-//		String[] input = {"Management must set direction and provide support for information security."};
-//		s.parseSentences(input);
-//		String[] input = {"The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services."};
-//		"Management must set direction and provide support for information security.",
-//		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
-//		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
-//		"Security roles and responsibilities for personnel must be documented.",
-//		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
-//		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
-		System.out.println("Write something:");
+    	System.out.println("Write something:");
 		
 		ArrayList<SectionSentence> inputs = new ArrayList<>();
 		

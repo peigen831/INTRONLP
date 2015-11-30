@@ -226,5 +226,16 @@ public class MPFileReader {
 		fr.writeAll(ss);
 		
 		System.out.println("Invalid count: " + fr.invalidCount);
+		
+		try {
+			common.FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".csv").createNewFile();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		SParser s = new SParser();
+		s.initialize();
+		
+		s.parseSentences(ss);
 	}
 }
