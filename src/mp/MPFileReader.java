@@ -14,7 +14,7 @@ public class MPFileReader {
 	private String filename = "test.txt";
 	private int curChapter = 0;
 	private String curSection;
-	private String sectionPattern = "^([1-9](.[0-9]+)+(\\s[a-z]\\)\\s*)*)";
+	private String sectionPattern = "^([0-9]+(.[0-9]+)+(\\s[a-z]\\)\\s*)*)";
 	private String[] invalidStart = {"Purpose:", "Standards:", "Other References:", "Guidelines:", "Metrics and Enforcement:"};
 	
 
@@ -157,7 +157,6 @@ public class MPFileReader {
 					result = Character.toLowerCase(result.charAt(0)) + result.substring(1);
 		}
 		else{
-			
 			invalidCount++;
 			}
 		

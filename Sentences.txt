@@ -1,7 +1,43 @@
-1 The protection of information assets requires a multi-disciplinary approach that is supported by the government’s information security organization.
-1 This chapter describes the management structure needed to coordinate information security activities including required information security activities, who coordinates them and what agreements are required.
-1 This coordination applies to internal organizations and to external parties accessing or managing the organization’s information assets.
-1 The information security organization requires the support of a network of contacts in the information security community to elicit advice, trends and to deal with other external factors.
+1 The Information Security Policy establishes requirements to ensure that information security policies remain current as business needs evolve and technology changes.
+1 This policy must be published and communicated to employees and relevant external parties.
+1.1.1 Hi.
+1.1.1 The Office of the Government Chief Information Officer is responsible for establishing, issuing and monitoring information security policies.
+1.1.2 The information security policy must be reviewed on an annual basis and updated when required.
+1.1.1 The Office of the Government Chief Information Officer is responsible for establishing, issuing and monitoring information security policies.
+1.1.1 a)  The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through management and business processes that include and enable security processes.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through ongoing personnel awareness of security issues.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through physical security requirements for information systems.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through governance processes for information technology.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through reporting information security events and weaknesses.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through creating and maintaining business continuity plans.
+1.1.1 a)  Secure service delivery requires the assurance of confidentiality, integrity, availability and privacy of government information assets through monitoring for compliance..
+1.1.1 a)  The Office of the Government Chief Information Officer recognizes that information security is a process, which to be effective, requires management commitment, the active participation of all personnel and ongoing awareness programs.
+1.1.1 a)  The process for developing and maintaining policy is outlined in CIO Policy Development - Governance and Procedures (under review)
+1.1.1 b)  Ministries may develop and implement additional information security policies, standards and guidelines for use within their organization or for a specific information system or program.
+1.1.1 b)  Ministry developed information security policies, standards and guidelines can exceed but must not conflict with the baseline established by the Information Security Policy.
+1.1.1 b)  Ministries must provide the Office of the Government Chief Information Officer with copies of any locally developed information security policies, standards or guidelines.
+1.1.1 b)  A central repository must be maintained by the Office of the Government Chief Information Officer for the collection and re-use of Ministry developed information security policies, standards or guidelines.
+1.1.1 b)  Where standards exist they are included in individual policies.
+1.1.1 b)  The Office of the Government Chief Information Officer will issue and revise government standards as needed.
+1.1.1 b)  Guidelines are included in individual policies to assist in interpretation and implementation.
+1.1.2 The information security policy must be reviewed on an annual basis and updated when required.
+1.1.2 a)  The Office of the Government Chief Information Officer is responsible for reviewing information security policies, standards and guidelines on an annual basis.
+1.1.2 a)  Policies and standards review must be initiated in conjunction with legislative, regulatory or policy changes which have information management implications.
+1.1.2 a)  Policies and standards review must be initiated during planning and implementation of new or significantly changed technology.
+1.1.2 a)  Policies and standards review must be initiated following a Security Threat and Risk Assessment of major initiatives (e.g., new information systems or contracting arrangements).
+1.1.2 a)  Policies and standards review must be initiated when audit reports or security risk and controls reviews identify high risk exposures involving information systems.
+1.1.2 a)  Policies and standards review must be initiated if threat or vulnerability trends produced from automated monitoring processes indicate the probability of significantly increased risk.
+1.1.2 a)  Policies and standards review must be initiated after receiving the final report of investigation into information security incidents.
+1.1.2 a)  Policies and standards review must be initiated prior to renewing third party access agreements which involve major government programs or services.
+1.1.2 a)  Policies and standards review must be initiated when industry, national or international standards for information security are introduced or significantly revised to address emerging business and technology issues.
+1.1.2 a)  Policies and standards review must be initiated when associated external agencies (e.g., Information and Privacy Commissioner, National CIO Sub-Committee on Information Protection, RCMP) issue reports or identify emerging trends related to information security..
+1.1.2 b)  Where ministries have developed ministry specific information security policies, standards and guidelines they must review them annually.
+1.1.2 b)  Where ministries have developed ministry specific information security policies, standards and guidelines they must provide the Office of the Government Chief Information Officer with copies of updated documents..
+2 The protection of information assets requires a multi-disciplinary approach that is supported by the government’s information security organization.
+2 This chapter describes the management structure needed to coordinate information security activities including required information security activities, who coordinates them and what agreements are required.
+2 This coordination applies to internal organizations and to external parties accessing or managing the organization’s information assets.
+2 The information security organization requires the support of a network of contacts in the information security community to elicit advice, trends and to deal with other external factors.
 2.1.1 Management must set direction and provide support for information security.
 2.1.2 Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer.
 2.1.4 Establishment of new information systems and processing facilities requires formal management authorization.
@@ -168,12 +204,12 @@
 2.2.3 b)  Information Owners and Information Custodians must ensure the security requirements of external party access agreements include processes for conducting audits and compliance monitoring activities.
 2.2.3 b)  Information Owners and Information Custodians must ensure the security requirements of external party access agreements include responsibilities and processes for reporting security and privacy incidents.
 2.2.3 b)  Information Owners and Information Custodians must ensure the security requirements of external party access agreements include assurances that disciplinary action will be applied to employees or contractors who fail to comply with the terms of the agreement..
-2 Information and information systems services constitute valuable government resources.
-2 The asset management chapter establishes the blueprint to identify the rules of acceptable use and the rules for protection: what assets to protect, who protects them and how much protection is adequate.
-2 To account for the assets that require protection, this chapter specifies the requirement to designate who owns assets.
-2 Designated owners become responsible for protecting information and technology assets and to maintain the way assets are protected.
-2 This chapter sets the foundation for a system that classifies information to identify different security levels, to specify how much protection is expected and how information should be handled at each level.
-2 Not all the information requires the same level of protection because only some information is sensitive or confidential.
+3 Information and information systems services constitute valuable government resources.
+3 The asset management chapter establishes the blueprint to identify the rules of acceptable use and the rules for protection: what assets to protect, who protects them and how much protection is adequate.
+3 To account for the assets that require protection, this chapter specifies the requirement to designate who owns assets.
+3 Designated owners become responsible for protecting information and technology assets and to maintain the way assets are protected.
+3 This chapter sets the foundation for a system that classifies information to identify different security levels, to specify how much protection is expected and how information should be handled at each level.
+3 Not all the information requires the same level of protection because only some information is sensitive or confidential.
 3.1.1 An inventory of all important assets associated with information systems must be documented and maintained.
 3.1.2 Information Owners and Information Custodians must be designated for all assets associated with information systems.
 3.1.3 Rules for the acceptable use of information systems must be identified, documented, and implemented.
@@ -252,13 +288,13 @@
 3.2.2 b)  Information protection procedures must take into account the information security classification, labelling and handling processes and the access control policies.
 3.2.2 b)  Procedures must be defined for interpreting information classification labels from, and handling information exchanged with, other jurisdictions.
 3.2.2 b)  During systems development, specify labelling requirements when defining business requirements for reports, screens and data storage.
-3 This chapter identifies the information security requirements for personnel that have an employment relationship with government organizations.
-3 To reduce information security risks, the terms and conditions of employment must establish expectations for the protection of government assets, information and services.
-3 This chapter references the terms and conditions set by the BC Public Service Agency for employees and identifies the conditions for external personnel such as contractors.
-3 Management and personnel have different security responsibilities and liabilities that apply prior, during, and at the time of termination of employment.
-3 Prior to employment, emphasis is on the awareness of the expected roles and responsibilities, the screening of prospects and the existence of agreements.
-3 During employment, policies establish management responsibilities, education, training and formal processes to handle problematic security situations.
-3 This chapter also establishes rules to ensure a secure transition when employment is ended or changed.
+4 This chapter identifies the information security requirements for personnel that have an employment relationship with government organizations.
+4 To reduce information security risks, the terms and conditions of employment must establish expectations for the protection of government assets, information and services.
+4 This chapter references the terms and conditions set by the BC Public Service Agency for employees and identifies the conditions for external personnel such as contractors.
+4 Management and personnel have different security responsibilities and liabilities that apply prior, during, and at the time of termination of employment.
+4 Prior to employment, emphasis is on the awareness of the expected roles and responsibilities, the screening of prospects and the existence of agreements.
+4 During employment, policies establish management responsibilities, education, training and formal processes to handle problematic security situations.
+4 This chapter also establishes rules to ensure a secure transition when employment is ended or changed.
 4.1.1 Security roles and responsibilities for personnel must be documented.
 4.1.2 Personnel screening must be performed prior to entering a working relationship with the Province.
 4.1.3 The terms and conditions of employment must document the responsibility of personnel for information and information systems security.
@@ -345,10 +381,10 @@
 4.3.3 c)  Managers must ensure access to information systems and information processing facilities is reduced or removed before the employment terminates or changes, based upon the evaluation of risk factors such as the value of the assets currently accessible..
 4.3.3 c)  The following forms are available to initiate termination or change of employment processes for managing access rights of personnel employee Separation Report form - BC Public Service Agency, Human Resource forms.
 4.3.3 c)  The following forms are available to initiate termination or change of employment processes for managing access rights of personnel staff Change Notification (SCN) form - Electronic Forms Initiative (EFI)..
-4 This chapter identifies requirements for the protection from environmental and man-made threats to personnel and property in information processing facilities.
-4 One of the principles used for protection is the use of security zones to place computers, people and information in secure areas.
-4 Safety measures for equipment installations are also described.
-4 Requirements for the installation, operation, protection and maintenance of computer equipment are identified to preserve the confidentiality, integrity and availability of government information and information systems.
+5 This chapter identifies requirements for the protection from environmental and man-made threats to personnel and property in information processing facilities.
+5 One of the principles used for protection is the use of security zones to place computers, people and information in secure areas.
+5 Safety measures for equipment installations are also described.
+5 Requirements for the installation, operation, protection and maintenance of computer equipment are identified to preserve the confidentiality, integrity and availability of government information and information systems.
 5.1.1 Government information processing facilities must be protected by a physical security perimeter.
 5.1.2 Secure areas must be protected by appropriate entry controls to ensure that only authorized personnel are allowed access.
 5.1.3 Physical security requirements must be designed, documented and applied for all areas in and around an information processing facility.
@@ -537,13 +573,13 @@
 5.2.7 a)  , Terms and Conditions of Use).
 5.2.7 a)  Personnel removing assets from government premises should be challenged to present an authorization for removal.
 5.2.7 a)  Personnel removing assets without authorization may be subject to disciplinary action.
-5 This chapter establishes a framework to support the integration of information security in the services provided by government information processing facilities.
-5 Planning and management of the day-to-day activities is required to ensure the availability and capacity of the resources that provide services.
-5 Services can be delivered by external parties and by computer networks and by all services that exchange information.
-5 This framework identifies requirements to control and monitor operations for service delivery and to manage changes as the operations evolve.
-5 Controls for operations include documented processes, staff duties and formal methods to implement changes to facilities.
-5 This includes: methods to protect information, create copies for back-up and to manage the media where those copies are stored.
-5 Network protection requirements from threats such as viruses or unauthorized disclosure are also described.
+6 This chapter establishes a framework to support the integration of information security in the services provided by government information processing facilities.
+6 Planning and management of the day-to-day activities is required to ensure the availability and capacity of the resources that provide services.
+6 Services can be delivered by external parties and by computer networks and by all services that exchange information.
+6 This framework identifies requirements to control and monitor operations for service delivery and to manage changes as the operations evolve.
+6 Controls for operations include documented processes, staff duties and formal methods to implement changes to facilities.
+6 This includes: methods to protect information, create copies for back-up and to manage the media where those copies are stored.
+6 Network protection requirements from threats such as viruses or unauthorized disclosure are also described.
 6.1.1 Operating procedures and responsibilities for information systems and information processing facilities must be authorized, documented, and maintained.
 6.1.2 Changes to information systems and information processing facilities must be controlled.
 6.1.3 Duties and areas of responsibility must be segregated to reduce opportunities for unauthorized modification or misuse of information systems.
@@ -1015,13 +1051,13 @@
 6.10.6 b)  Government approved clock hosts are any local router gateway..
 6.10.6 b)  The clock hosts must be synchronized with a national time service such as the Government of Canada, National Research Council’s Network Time Protocol server.
 6.10.6 b)  Time discrepancies should be reported to Shared Services BC, Customer Service Centre, (250) 952-6000.
-6 This chapter identifies the mechanisms that restrict access to government information and information assets.
-6 Access restrictions protect organizations from security threats such as internal and external intrusions.
-6 The restrictions are guided by legislation that protects particular types of information (e.
-6 g.
-6 , personal, sensitive or cabinet confidential) and by business requirements.
-6 Access control policies provide the blueprint for the management of user access, authorizations and control mechanisms for computer networks, operating systems, applications and information.
-6 This chapter identifies security best practices and responsibilities for administrators and personnel.
+7 This chapter identifies the mechanisms that restrict access to government information and information assets.
+7 Access restrictions protect organizations from security threats such as internal and external intrusions.
+7 The restrictions are guided by legislation that protects particular types of information (e.
+7 g.
+7 , personal, sensitive or cabinet confidential) and by business requirements.
+7 Access control policies provide the blueprint for the management of user access, authorizations and control mechanisms for computer networks, operating systems, applications and information.
+7 This chapter identifies security best practices and responsibilities for administrators and personnel.
 7.1.1 Access to information systems and services must be consistent with business needs and be based on security requirements.
 7.2.1 There must be a formal user registration and de-registration process for granting access to all information systems.
 7.2.2 The allocation and use of system privileges must be restricted and controlled.
@@ -1413,10 +1449,10 @@
 7.7.2 c)  Controls required for an ad hoc teleworking policy are subject to applicable law, the right of the province to monitor and investigate security events at the teleworking location, including access to employee owned equipment used for teleworking..
 7.7.2 c)  Ad hoc teleworking users should use one of the following security measures when accessing the government information services shared Services BC Desktop Terminal Service (DTS); or.
 7.7.2 c)  Ad hoc teleworking users should use one of the following security measures when accessing the government information services application specific methods such as Secure Sockets Layer (SSL) enabled websites (e.g., Outlook Web Access)..
-7 This chapter establishes requirements for incorporating security measures into the life cycle of an information system.
-7 Security controls must be identified as part of the business requirements for new information systems or enhancements to existing information systems.
-7 Information security is integrated into the creation, modification, implementation and expansion by ongoing security practices such as the management of vulnerable points and securing system files.
-7 For applications, information security can be applied to the validation of data input and output and by encoding information using electronic keys.
+8 This chapter establishes requirements for incorporating security measures into the life cycle of an information system.
+8 Security controls must be identified as part of the business requirements for new information systems or enhancements to existing information systems.
+8 Information security is integrated into the creation, modification, implementation and expansion by ongoing security practices such as the management of vulnerable points and securing system files.
+8 For applications, information security can be applied to the validation of data input and output and by encoding information using electronic keys.
 8.1.1 Security controls must be identified as part of the business requirements for new information systems or enhancements to existing information systems.
 8.2.1 Data input to an information system must be validated to ensure that it is correct and appropriate.
 8.2.2 Internal processing checks must be performed to minimize the risk of processing failures or deliberate acts leading to a loss of integrity.
@@ -1598,10 +1634,10 @@
 8.6.1 a)  The Chief Information Security Officer must publish summary reports on vulnerability response activities and costs.
 8.6.1 a)  The Chief Information Security Officer must when required, initiate incident response processes to address vulnerabilities..
 8.6.1 a)  Responsibilities for vulnerability response should be included in external party service agreements.
-8 This chapter establishes requirements for reporting a possible breach of information security as quickly as possible.
-8 This includes establishing procedures and processes so that personnel understand their roles in reporting and mitigating security events.
-8 Information security incident management policies identify mechanisms to detect and report when information security events occur and the directives for the consistent management of such events.
-8 The information collected about the events can be analyzed to identify trends and to direct efforts continually improve and strengthen the information security infrastructure of the Province.
+9 This chapter establishes requirements for reporting a possible breach of information security as quickly as possible.
+9 This includes establishing procedures and processes so that personnel understand their roles in reporting and mitigating security events.
+9 Information security incident management policies identify mechanisms to detect and report when information security events occur and the directives for the consistent management of such events.
+9 The information collected about the events can be analyzed to identify trends and to direct efforts continually improve and strengthen the information security infrastructure of the Province.
 9.1.1 Information security events must be reported through appropriate management channels immediately.
 9.1.2 Personnel using information systems must note and report any observed or suspected security weaknesses in those systems.
 9.2.1 Incident management responsibilities and procedures must be established to ensure a quick, effective and orderly response to information security incidents.
@@ -1669,149 +1705,125 @@
 9.2.3 a)  Evidence collection procedures must be documented by the Chief Information Security Officer.
 9.2.3 a)  Investigative processes must follow the rules of evidence to ensure relevance, admissibility and materiality.
 9.2.3 a)  Information Owners and Information Custodians in receipt of a legal order to produce electronic evidence must immediately contact the Chief Information Security Officer.
-9 This chapter provides direction from a security focus for planning the resumption of business or services where a man-made or natural disaster has occurred.
-9 Government organizations are required to be prepared and to re-establish business or services as swiftly and smoothly as possible.
-9 Business continuity plans include the evaluation of security risks in line with the directions set by Emergency Management BC and government.
-9 More comprehensive policy on business continuity management is described in Chapter 16 of the Core Policy and Procedures Manual.
-9 A risk assessment must be conducted to identify information security events that may interrupt business processes.
-9 Business continuity plans must be developed to resume and maintain business operations to the required level following interruption to, or failure of, essential services.
-9 A government-wide framework of business continuity plans must be maintained to ensure consistent handling of information security requirements.
-9 Business continuity plans must be regularly exercised and updated.
-9 10.
-9 1.
-9 1 There must be a managed process to ensure that business continuity programs address information security requirements.
-9 Government policy on business continuity programs is defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
-9 Information Owners and Information Custodians must ensure business continuity and recovery plans address information security requirements consistent with the classification of the information.
-9 Processes for establishing business continuity and recovery plans are detailed in the Business Continuity Management Program Guidelines.
-9 The Information Custodian must maintain the business continuity and recovery plans for information systems as part of the System Security Plan.
-9 10.
-9 1.
-9 2 A risk assessment must be conducted to identify information security events that may interrupt business processes.
-9 The process for identifying, analyzing and evaluating risks, including information security risks, is detailed in the Business Continuity Management Program Guidelines, section 2 - Identify, Analyze and Evaluate Risks.
-9 The process for analyzing and assessing business impacts, including those for information security risks, is detailed in the Business Continuity Management Program Guidelines, section 3 - Review Business Functions and Analyze Business Impacts.
-9 The process for developing a business continuity strategy is detailed in the Business Continuity Management Program Guidelines, section 4 - Plan Mitigation Strategies and, section 5 - Plan Business Continuity Strategies.
-9 10.
-9 1.
-9 3 Business continuity plans must be developed to maintain and resume business operations to the required level following interruption to, or failure of, essential services
-9 Requirements for business continuity plans are defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
-9 The process for developing and maintaining business continuity plans is detailed in the Business Continuity Management Program Guidelines.
-9 Information Owners and Information Custodians must ensure business continuity plans include the classification of information assets to identify critical business operations.
-9 Information Owners and Information Custodians must ensure business continuity plans use government-wide frameworks and processes.
-9 Information Owners and Information Custodians must ensure business continuity plans use information security processes which maintain approved security levels..
-9 The Emergency Management BC must coordinate government-wide business continuity plans to reconcile recovery priorities, business impacts, security impacts and business resumption processes.
-9 The Government Chief Information Officer (GCIO) is responsible for protecting the privacy, confidentiality, integrity and availability of government's electronic information.
-9 This responsibility includes providing expert advice to Emergency Management BC on information security aspects of business continuity plans.
-9 10.
-9 1.
-9 5 Business continuity plans must be regularly exercised and updated.
-9 Requirements for exercising business continuity plans are defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
-9 The process for exercising business continuity plans are detailed in the Business Continuity Management Program Guidelines, section 8 - Train and Exercise.
-9 Requirement for the maintenance of the business continuity plan are detailed in Business Continuity Management Program Guidelines, Section 10 - Monitor and Review.
-10 The chapter describes requirements for verifying that information systems comply with relevant statutory, regulatory, and information security contractual clauses.
-10 Compliance policies identify what to do to ensure that the Province is in compliance with applicable laws and policies.
-10 Processes to monitor the extent in which information systems follow policies include conducting security reviews, assessments and the systematic analysis of logged information.
-10 The statutory, regulatory and contractual requirements for each information system must be explicitly defined, documented and maintained.
-10 Controls must be implemented to ensure compliance with legal, regulatory and contractual restrictions on the use of material with respect to intellectual property rights and proprietary software licensing.
-10 Government records must be protected from loss, destruction and falsification.
-10 Security controls must be applied to protect data and personal information in accordance with relevant legislation.
-10 Controls must be in place to deter misuse of information systems.
-10 Cryptographic controls must be used in conjunction with relevant agreements, laws and regulations.
-10 Management must ensure security procedures are followed in their areas of responsibility and facilitate regular reviews to ensure compliance with security policies and standards.
-10 Information systems must be regularly checked for compliance with security policies and standards.
-10 Audit requirements and activities involving checks on operational systems must be planned and approved to minimize disruption to business processes.
-10 Access to system audit tools must be controlled to prevent misuse or compromise.
-10 11.
-10 1.
-10 1 The statutory, regulatory and contractual requirements for each information system must be explicitly defined, documented and maintained
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are identified and documented when commencing a system development or enhancement initiative.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are reviewed prior to, or concurrent with, changes to legislation, regulation or policy.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are explicitly identified in contracts and service agreements, and included in ensuring that information and software is only acquired from reputable vendors.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are maintaining proof or evidence of ownership or right to use.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are requiring the removal of unlicensed information and software from government information systems.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are informing personnel of government policies including those pertaining to appropriate use of government resources.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are ensuring licensed intellectual property is securely removed from electronic media prior to media disposition.
-10 Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are complying with terms and conditions for information and software obtained from public networks (e.g., “free for personal use only�?, open source)..
-10 Policy for the intellectual property of government information assets is in Core Policy and Procedures Manual 6.
-10 3.
-10 4 - Corporate Supply and Disposal Arrangements which is managed by the Intellectual Property Program of the Office of the Government Chief Information Officer.
-10 11.
-10 1.
-10 3 Government records must be protected from loss, destruction and falsification.
-10 The Document Disposal Act defines requirements for the disposal of government records.
-10 Policy requirements for records management are in Core Policy and Procedures Manual 12.
-10 3.
-10 3 - Information Management, and the Recorded Information Management Manual.
-10 11.
-10 1.
-10 4 Security controls must be applied to protect data and personal information in accordance with relevant legislation.
-10 The Freedom of Information and Protection of Privacy Act requires personal information to be protected using ‘reasonable security measures’.
-10 Policy requirements for protecting data and personal information are found in Core Policy and Procedures Manual 12.
-10 3.
-10 3 - Information Management and the Freedom of Information and Protection of Privacy Act Policy and Procedures Manual.
-10 The Information Security Policy includes detailed controls which enable and support the protection of government information and information systems.
-10 11.
-10 1.
-10 5 Controls must be in place to deter misuse of information systems.
-10 Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by ensuring audit logs contain sufficient detail to detect and trace inappropriate usage.
-10 Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by implementing processes to analyze audit logs to identify potential misuse of information systems. Implementing system rules to prevent access to undesirable Internet sites;
-10 Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by ensuring that security incidents are investigated in accordance with policy.
-10 Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by determining, in consultation with the Public Service Agency, if disciplinary action, including dismissal, cancellation of contract and/or other legal remedies are warranted for personnel who have made unauthorized or inappropriate use of information system resources..
-10 Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure monitoring activities will be compliant with legal, policy and contractual requirements and obligations.
-10 Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure personnel are informed that specific activities may be monitored.
-10 Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure access to data gathered through monitoring processes is restricted on a ‘need to know’ and ‘least privilege’ basis to the fewest possible number of users..
-10 11.
-10 1.
-10 6 Cryptographic controls must be used in conjunction with relevant agreements, laws and regulations.
-10 When cryptographic controls are used, Information Owners and Information Custodians must ensure that the use of cryptographic control(s) is supported by an Information Security Threat and Risk Assessment.
-10 When cryptographic controls are used, Information Owners and Information Custodians must consult with the Office of the Government Chief Information Officer regarding the records management, electronic commerce, information access, privacy and security issues prior to acquiring cryptographic controls.
-10 When cryptographic controls are used, Information Owners and Information Custodians must when acquiring cryptographic controls from outside Canada, the procurement must be from a reputable vendor who can provide reasonable assurance on the legality of import into Canada..
-10 The Office of the Government Chief Information Officer will develop and document cryptographic key management processes.
-10 The Office of the Government Chief Information Officer will provide guidance and assistance to Ministries and agencies in the selection and use of cryptographic controls.
-10 The Office of the Government Chief Information Officer will establish and publish cryptographic standards..
-10 11.
-10 2.
-10 1 Management must ensure security procedures are followed in their areas of responsibility and facilitate regular reviews to ensure compliance with security policies and standards
-10 Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by conducting periodic self assessments.
-10 Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by ensuring personnel receive regular information security awareness updates.
-10 Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by initiating independent assessments, reviews or audits to assess compliance to policy..
-10 When review processes indicate non-compliance with policies, Information Owners and Information Custodians must determine cause(s).
-10 When review processes indicate non-compliance with policies, Information Owners and Information Custodians must assess the threats and risks of non-compliant processes.
-10 When review processes indicate non-compliance with policies, Information Owners and Information Custodians must document the marginal risks; and where required.
-10 When review processes indicate non-compliance with policies, Information Owners and Information Custodians must develop plans to implement corrective action..
-10 Ministries must develop an annual plan which identifies information systems scheduled for a security review in each fiscal year.
-10 The information systems to be reviewed in each year should be the value of the information system as determined by a Security Threat and Risk Assessment or a Risk and Controls Review..
-10 •    Results of previous reviews.
-10 Internal Audit and Advisory Services, Office of the Comptroller General, should be consulted prior to issuing Requests For Proposals or contracts for independent information security reviews or audits.
-10 Self assessment tools are available from Information Security Branch, Office of the Government Chief Information Officer.
-10 11.
-10 2.
-10 2 Information systems must be regularly checked for compliance with security policies and standards.
-10 Information Custodians must regularly test information system technical control compliance by using automated tools to detect network intrusion.
-10 Information Custodians must regularly test information system technical control compliance by using automated tools to conduct penetration testing.
-10 Information Custodians must regularly test information system technical control compliance by using automated tools to determine if information system patches have been applied.
-10 Information Custodians must regularly test information system technical control compliance by using automated tools to confirm that system technical controls have been implemented and are functioning as designed.
-10 Information Custodians must regularly test information system technical control compliance by using automated tools to perform technical compliance checking as part of the system change management process to verify that unauthorized connections and/or systems changes have not been made..
-10 Managers responsible for technical compliance checking and Information Custodians must ensure that information Owners and operations personnel are consulted prior to initiating tests.
-10 Managers responsible for technical compliance checking and Information Custodians must ensure that the Chief Information Security Officer is notified prior to testing to prevent triggering false security alarms from the infrastructure.
-10 Managers responsible for technical compliance checking and Information Custodians must ensure that automated testing of operational systems is conducted by personnel authorized by the Chief Information Security Officer..
-10 Ministries must consult with the Chief Information Security Officer prior to issuing Requests For Proposal or contracts for technical compliance checking.
-10 Managers responsible for technical compliance checking and Information Custodians must assess results of testing and promptly develop action plans to investigate and mitigate identified exposures in consultation with the Ministry Information Security Officer.
-10 Managers responsible for technical compliance checking and Information Custodians must provide Information Owners and the Chief Information Security Officer with copies of test results and action plans.
-10 Managers responsible for technical compliance checking and Information Custodians must provide the Chief Information Security Officer with the internal or external audit reports immediately upon receipt.
-10 Managers responsible for technical compliance checking and Information Custodians must maintain records, in accordance with established records schedules, of tests for subsequent review by internal and external auditors..
-10 The Chief Information Security Officer should develop and maintain testing processes for authorizing/conducting tests, storing results and building on previous testing experience.
-10 The Chief Information Security Officer should provide summarized quarterly reports to the Government Chief Information Officer on the status and results of testing..
-10 11.
-10 3.
-10 1 Audit requirements and activities involving checks on operational systems must be planned and approved to minimize disruption to business processes.
-10 Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by determining the scope, duration and level of detail of the compliance checking activity.
-10 Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by limiting access rights to operational information systems for compliance checking personnel to “read only�?.
-10 Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by determining handling requirements for copies of files made by compliance checking personnel including: o establishing a separate environment for the analysis of files, o restricting access to those files,.
-10 Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by submitting the reports of penetration tests or vulnerability assessments to the Chief Information Security Officer immediately upon receipt.
-10 Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by requiring that personnel conducting compliance checking activities maintain a segregation of duty from the operational information systems being checked..
-10 Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by the Chief Information Security Officer; and/or,.
-10 Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by office of the Comptroller General.
-10 Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by restricting access to authorized personnel who have a need-to-know.
-10 Guidance for compliance checking activities can be obtained from installing or enabling specialized audit tools for the duration required by the compliance checking activity.
-10 Guidance for compliance checking activities can be obtained from removing information system access at the conclusion of the compliance checking activities.
-10 Guidance for compliance checking activities can be obtained from notifying the Chief Information Security Officer prior to the use of audit tools..
+10 This chapter provides direction from a security focus for planning the resumption of business or services where a man-made or natural disaster has occurred.
+10 Government organizations are required to be prepared and to re-establish business or services as swiftly and smoothly as possible.
+10 Business continuity plans include the evaluation of security risks in line with the directions set by Emergency Management BC and government.
+10 More comprehensive policy on business continuity management is described in Chapter 16 of the Core Policy and Procedures Manual.
+10.1.2 A risk assessment must be conducted to identify information security events that may interrupt business processes.
+10.1.3 Business continuity plans must be developed to resume and maintain business operations to the required level following interruption to, or failure of, essential services.
+10.1.4 A government-wide framework of business continuity plans must be maintained to ensure consistent handling of information security requirements.
+10.1.5 Business continuity plans must be regularly exercised and updated.
+10.1.1 There must be a managed process to ensure that business continuity programs address information security requirements.
+10.1.1 a)  Government policy on business continuity programs is defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
+10.1.1 a)  Information Owners and Information Custodians must ensure business continuity and recovery plans address information security requirements consistent with the classification of the information.
+10.1.1 a)  Processes for establishing business continuity and recovery plans are detailed in the Business Continuity Management Program Guidelines.
+10.1.1 a)  The Information Custodian must maintain the business continuity and recovery plans for information systems as part of the System Security Plan.
+10.1.2 A risk assessment must be conducted to identify information security events that may interrupt business processes.
+10.1.2 a)  The process for identifying, analyzing and evaluating risks, including information security risks, is detailed in the Business Continuity Management Program Guidelines, section 2 - Identify, Analyze and Evaluate Risks.
+10.1.2 a)  The process for analyzing and assessing business impacts, including those for information security risks, is detailed in the Business Continuity Management Program Guidelines, section 3 - Review Business Functions and Analyze Business Impacts.
+10.1.2 b)  The process for developing a business continuity strategy is detailed in the Business Continuity Management Program Guidelines, section 4 - Plan Mitigation Strategies and, section 5 - Plan Business Continuity Strategies.
+10.1.3 Business continuity plans must be developed to maintain and resume business operations to the required level following interruption to, or failure of, essential services
+10.1.3 a)  Requirements for business continuity plans are defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
+10.1.3 a)  The process for developing and maintaining business continuity plans is detailed in the Business Continuity Management Program Guidelines.
+10.1.4 a)  Information Owners and Information Custodians must ensure business continuity plans include the classification of information assets to identify critical business operations.
+10.1.4 a)  Information Owners and Information Custodians must ensure business continuity plans use government-wide frameworks and processes.
+10.1.4 a)  Information Owners and Information Custodians must ensure business continuity plans use information security processes which maintain approved security levels..
+10.1.4 a)  The Emergency Management BC must coordinate government-wide business continuity plans to reconcile recovery priorities, business impacts, security impacts and business resumption processes.
+10.1.4 a)  The Government Chief Information Officer (GCIO) is responsible for protecting the privacy, confidentiality, integrity and availability of government's electronic information.
+10.1.4 a)  This responsibility includes providing expert advice to Emergency Management BC on information security aspects of business continuity plans.
+10.1.5 Business continuity plans must be regularly exercised and updated.
+10.1.5 a)  Requirements for exercising business continuity plans are defined in Core Policy and Procedures Manual 16 - Business Continuity Management.
+10.1.5 a)  The process for exercising business continuity plans are detailed in the Business Continuity Management Program Guidelines, section 8 - Train and Exercise.
+10.1.5 a)  Requirement for the maintenance of the business continuity plan are detailed in Business Continuity Management Program Guidelines, Section 10 - Monitor and Review.
+11 The chapter describes requirements for verifying that information systems comply with relevant statutory, regulatory, and information security contractual clauses.
+11 Compliance policies identify what to do to ensure that the Province is in compliance with applicable laws and policies.
+11 Processes to monitor the extent in which information systems follow policies include conducting security reviews, assessments and the systematic analysis of logged information.
+11.1.1 The statutory, regulatory and contractual requirements for each information system must be explicitly defined, documented and maintained.
+11.1.2 Controls must be implemented to ensure compliance with legal, regulatory and contractual restrictions on the use of material with respect to intellectual property rights and proprietary software licensing.
+11.1.3 Government records must be protected from loss, destruction and falsification.
+11.1.4 Security controls must be applied to protect data and personal information in accordance with relevant legislation.
+11.1.5 Controls must be in place to deter misuse of information systems.
+11.1.6 Cryptographic controls must be used in conjunction with relevant agreements, laws and regulations.
+11.2.1 Management must ensure security procedures are followed in their areas of responsibility and facilitate regular reviews to ensure compliance with security policies and standards.
+11.2.2 Information systems must be regularly checked for compliance with security policies and standards.
+11.3.1 Audit requirements and activities involving checks on operational systems must be planned and approved to minimize disruption to business processes.
+11.3.2 Access to system audit tools must be controlled to prevent misuse or compromise.
+11.1.1 The statutory, regulatory and contractual requirements for each information system must be explicitly defined, documented and maintained
+11.1.1 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are identified and documented when commencing a system development or enhancement initiative.
+11.1.1 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are reviewed prior to, or concurrent with, changes to legislation, regulation or policy.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are explicitly identified in contracts and service agreements, and included in ensuring that information and software is only acquired from reputable vendors.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are maintaining proof or evidence of ownership or right to use.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are requiring the removal of unlicensed information and software from government information systems.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are informing personnel of government policies including those pertaining to appropriate use of government resources.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are ensuring licensed intellectual property is securely removed from electronic media prior to media disposition.
+11.1.2 a)  Information Owners are responsible for ensuring that statutory, regulatory, policy and contractual requirements of each information system are complying with terms and conditions for information and software obtained from public networks (e.g., “free for personal use only�?, open source)..
+11.1.2 b)  Policy for the intellectual property of government information assets is in Core Policy and Procedures Manual 6.
+11.1.2 b)  3.
+11.1.2 b)  4 - Corporate Supply and Disposal Arrangements which is managed by the Intellectual Property Program of the Office of the Government Chief Information Officer.
+11.1.3 Government records must be protected from loss, destruction and falsification.
+11.1.3 a)  The Document Disposal Act defines requirements for the disposal of government records.
+11.1.3 a)  Policy requirements for records management are in Core Policy and Procedures Manual 12.
+11.1.3 a)  3.
+11.1.3 a)  3 - Information Management, and the Recorded Information Management Manual.
+11.1.4 Security controls must be applied to protect data and personal information in accordance with relevant legislation.
+11.1.4 a)  The Freedom of Information and Protection of Privacy Act requires personal information to be protected using ‘reasonable security measures’.
+11.1.4 a)  Policy requirements for protecting data and personal information are found in Core Policy and Procedures Manual 12.
+11.1.4 a)  3.
+11.1.4 a)  3 - Information Management and the Freedom of Information and Protection of Privacy Act Policy and Procedures Manual.
+11.1.4 a)  The Information Security Policy includes detailed controls which enable and support the protection of government information and information systems.
+11.1.5 Controls must be in place to deter misuse of information systems.
+11.1.5 a)  Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by ensuring audit logs contain sufficient detail to detect and trace inappropriate usage.
+11.1.5 a)  Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by implementing processes to analyze audit logs to identify potential misuse of information systems. Implementing system rules to prevent access to undesirable Internet sites;
+11.1.5 a)  Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by ensuring that security incidents are investigated in accordance with policy.
+11.1.5 a)  Information Owners and Information Custodians must monitor information system usage to prevent, detect and respond to unauthorized or inappropriate use by determining, in consultation with the Public Service Agency, if disciplinary action, including dismissal, cancellation of contract and/or other legal remedies are warranted for personnel who have made unauthorized or inappropriate use of information system resources..
+11.1.5 a)  Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure monitoring activities will be compliant with legal, policy and contractual requirements and obligations.
+11.1.5 a)  Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure personnel are informed that specific activities may be monitored.
+11.1.5 a)  Prior to implementing information system monitoring processes Information Owners and Information Custodians must ensure access to data gathered through monitoring processes is restricted on a ‘need to know’ and ‘least privilege’ basis to the fewest possible number of users..
+11.1.6 Cryptographic controls must be used in conjunction with relevant agreements, laws and regulations.
+11.1.6 a)  When cryptographic controls are used, Information Owners and Information Custodians must ensure that the use of cryptographic control(s) is supported by an Information Security Threat and Risk Assessment.
+11.1.6 a)  When cryptographic controls are used, Information Owners and Information Custodians must consult with the Office of the Government Chief Information Officer regarding the records management, electronic commerce, information access, privacy and security issues prior to acquiring cryptographic controls.
+11.1.6 a)  When cryptographic controls are used, Information Owners and Information Custodians must when acquiring cryptographic controls from outside Canada, the procurement must be from a reputable vendor who can provide reasonable assurance on the legality of import into Canada..
+11.1.6 a)  The Office of the Government Chief Information Officer will develop and document cryptographic key management processes.
+11.1.6 a)  The Office of the Government Chief Information Officer will provide guidance and assistance to Ministries and agencies in the selection and use of cryptographic controls.
+11.1.6 a)  The Office of the Government Chief Information Officer will establish and publish cryptographic standards..
+11.2.1 Management must ensure security procedures are followed in their areas of responsibility and facilitate regular reviews to ensure compliance with security policies and standards
+11.2.1 a)  Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by conducting periodic self assessments.
+11.2.1 a)  Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by ensuring personnel receive regular information security awareness updates.
+11.2.1 a)  Information Owners and Information Custodians must ensure security policies and processes are implemented and adhered to by initiating independent assessments, reviews or audits to assess compliance to policy..
+11.2.1 a)  When review processes indicate non-compliance with policies, Information Owners and Information Custodians must determine cause(s).
+11.2.1 a)  When review processes indicate non-compliance with policies, Information Owners and Information Custodians must assess the threats and risks of non-compliant processes.
+11.2.1 a)  When review processes indicate non-compliance with policies, Information Owners and Information Custodians must document the marginal risks; and where required.
+11.2.1 a)  When review processes indicate non-compliance with policies, Information Owners and Information Custodians must develop plans to implement corrective action..
+11.2.1 b)  Ministries must develop an annual plan which identifies information systems scheduled for a security review in each fiscal year.
+11.2.1 c)  The information systems to be reviewed in each year should be the value of the information system as determined by a Security Threat and Risk Assessment or a Risk and Controls Review..
+11.2.1 c)  •    Results of previous reviews.
+11.2.1 c)  Internal Audit and Advisory Services, Office of the Comptroller General, should be consulted prior to issuing Requests For Proposals or contracts for independent information security reviews or audits.
+11.2.1 c)  Self assessment tools are available from Information Security Branch, Office of the Government Chief Information Officer.
+11.2.2 Information systems must be regularly checked for compliance with security policies and standards.
+11.2.2 a)  Information Custodians must regularly test information system technical control compliance by using automated tools to detect network intrusion.
+11.2.2 a)  Information Custodians must regularly test information system technical control compliance by using automated tools to conduct penetration testing.
+11.2.2 a)  Information Custodians must regularly test information system technical control compliance by using automated tools to determine if information system patches have been applied.
+11.2.2 a)  Information Custodians must regularly test information system technical control compliance by using automated tools to confirm that system technical controls have been implemented and are functioning as designed.
+11.2.2 a)  Information Custodians must regularly test information system technical control compliance by using automated tools to perform technical compliance checking as part of the system change management process to verify that unauthorized connections and/or systems changes have not been made..
+11.2.2 b)  Managers responsible for technical compliance checking and Information Custodians must ensure that information Owners and operations personnel are consulted prior to initiating tests.
+11.2.2 b)  Managers responsible for technical compliance checking and Information Custodians must ensure that the Chief Information Security Officer is notified prior to testing to prevent triggering false security alarms from the infrastructure.
+11.2.2 b)  Managers responsible for technical compliance checking and Information Custodians must ensure that automated testing of operational systems is conducted by personnel authorized by the Chief Information Security Officer..
+11.2.2 b)  Ministries must consult with the Chief Information Security Officer prior to issuing Requests For Proposal or contracts for technical compliance checking.
+11.2.2 c)  Managers responsible for technical compliance checking and Information Custodians must assess results of testing and promptly develop action plans to investigate and mitigate identified exposures in consultation with the Ministry Information Security Officer.
+11.2.2 c)  Managers responsible for technical compliance checking and Information Custodians must provide Information Owners and the Chief Information Security Officer with copies of test results and action plans.
+11.2.2 c)  Managers responsible for technical compliance checking and Information Custodians must provide the Chief Information Security Officer with the internal or external audit reports immediately upon receipt.
+11.2.2 c)  Managers responsible for technical compliance checking and Information Custodians must maintain records, in accordance with established records schedules, of tests for subsequent review by internal and external auditors..
+11.2.2 c)  The Chief Information Security Officer should develop and maintain testing processes for authorizing/conducting tests, storing results and building on previous testing experience.
+11.2.2 c)  The Chief Information Security Officer should provide summarized quarterly reports to the Government Chief Information Officer on the status and results of testing..
+11.3.1 Audit requirements and activities involving checks on operational systems must be planned and approved to minimize disruption to business processes.
+11.3.1 a)  Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by determining the scope, duration and level of detail of the compliance checking activity.
+11.3.1 a)  Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by limiting access rights to operational information systems for compliance checking personnel to “read only�?.
+11.3.1 a)  Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by determining handling requirements for copies of files made by compliance checking personnel including: o establishing a separate environment for the analysis of files, o restricting access to those files,.
+11.3.1 a)  Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by submitting the reports of penetration tests or vulnerability assessments to the Chief Information Security Officer immediately upon receipt.
+11.3.1 a)  Prior to commencing compliance checking activities such as audits, risk and controls reviews, monitoring or security reviews of operational information systems, the Manager responsible for the compliance checking activity, Information Owners and Information Custodians must define, document and approve the activities by identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by requiring that personnel conducting compliance checking activities maintain a segregation of duty from the operational information systems being checked..
+11.3.1 a)  Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by the Chief Information Security Officer; and/or,.
+11.3.1 a)  Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by office of the Comptroller General.
+11.3.2 a)  Guidance for compliance checking activities can be obtained from identifying special testing or processing which may impact the operational information system (e.g., penetration tests, server vulnerability assessments) and by restricting access to authorized personnel who have a need-to-know.
+11.3.2 a)  Guidance for compliance checking activities can be obtained from installing or enabling specialized audit tools for the duration required by the compliance checking activity.
+11.3.2 a)  Guidance for compliance checking activities can be obtained from removing information system access at the conclusion of the compliance checking activities.
+11.3.2 a)  Guidance for compliance checking activities can be obtained from notifying the Chief Information Security Officer prior to the use of audit tools..
