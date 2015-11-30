@@ -46,7 +46,6 @@ class SParser {
 		List<List<? extends HasWord>> tmp = new ArrayList<List<? extends HasWord>>();
 		
 		for(SectionSentence s: sentences){
-			printAndWrite(s.getSection() + ": " + s.getSentence());
 			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s.getSentence()));
 			List<? extends HasWord> sTokenized = toke.tokenize();
 			tmp.add(sTokenized);
@@ -58,54 +57,51 @@ class SParser {
 	
 	public void parseSentences(ArrayList<SectionSentence> input){
 		Iterable<List<? extends HasWord>> sTokenized = tokenizeSentence(input);
-		printAndWrite("");
+		int counter = 0;
+		printAndWrite("Section", new String[] {"Goals"}, new String[] {"Subjects"},
+					  new String[] {"Scopes"}, new String[] {"Constraints"},
+					  new String[] {"Jurisdictions"});
 
 		for (List<? extends HasWord> sentence : sTokenized) {
         	// Parse for parts of speech
 			Tree parse = lp.parse(sentence);
-//			parse.pennPrint();
 			
-          // Find grammatical structure
+			// Find grammatical structure
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-//			System.out.println(tdl);
-//			System.out.println();
-
-//			System.out.println("The words of the sentence:");
-//			for (Label lab : parse.yield()) {
-//				if (lab instanceof CoreLabel) {
-//					System.out.println("Word: " + ((CoreLabel)lab).word() + " Tag:" +((CoreLabel)lab).tag());
-//              //System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
-//				} else {
-//					System.out.println("lab "+lab);
-//				}
-//			}
-			//System.out.println(parse.taggedYield());
-			System.out.println();
-			
-			printAndWrite(sentence.toString());
-			printAndWrite("");
-			
-			printAndWrite("The words of the sentence:");
-			for (TypedDependency td : tdl) {
-				printAndWrite(td.toString());
-			}
-			printAndWrite("");
 			
 			String[] goals = getGoals(tdl);
-			printAndWrite("Goals: " + Arrays.toString(goals));
+			String[] subjects = null;
+			String[] scopes = null;
+			String[] constraints = null;
+			String[] jurisdictions = null;
+			
+			Set<String> lstSubjects = new HashSet<>();
+			Set<String> lstScopes = new HashSet<>();
+			Set<String> lstConstraints= new HashSet<>();
+			
 			for (String goal : goals) {
-				String[] subjects = getSubjects(tdl, goal);
-				String[] scopes = getScopes(tdl, goal);
-				String[] constraints = getConstraints(tdl, goal);
-				String[] jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
-				printAndWrite("Subjects: " + Arrays.toString(subjects));
-				printAndWrite("Scopes: " + Arrays.toString(scopes));
-				printAndWrite("Constraints: " + Arrays.toString(constraints));
-				printAndWrite("Jurisdictions: " + Arrays.toString(jurisdictions));
+				String[] tempSubjects = getSubjects(tdl, goal);
+				String[] tempScopes = getScopes(tdl, goal);
+				String[] tempConstraints = getConstraints(tdl, goal);
+				if (tempSubjects != null) {
+					lstSubjects.addAll(Arrays.asList(tempSubjects));
+				}
+				if (tempScopes != null) {
+					lstScopes.addAll(Arrays.asList(tempScopes));
+				}
+				if (tempConstraints != null) {
+					lstConstraints.addAll(Arrays.asList(tempConstraints));
+				}
 			}
-			printAndWrite("");
-			printAndWrite("");
+			subjects = Arrays.copyOf(lstSubjects.toArray(), lstSubjects.size(), String[].class);
+			scopes = Arrays.copyOf(lstScopes.toArray(), lstScopes.size(), String[].class);
+			constraints = Arrays.copyOf(lstConstraints.toArray(), lstConstraints.size(), String[].class);
+			jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
+			
+			printAndWrite(input.get(counter).getSection(), goals, subjects, scopes, constraints, jurisdictions);
+			
+			counter++;
 		}
 	}
 	
@@ -450,9 +446,68 @@ class SParser {
 		}
 	}
 	
+	public void printAndWrite(String section, String[] goals, String[] subjects,
+							  String[] scopes, String[] constraints, String[] jurisdictions) {
+		String formatted = "\"" + section + "\",\"";
+		String temp = "";
+		
+		if (goals == null) {
+			return;
+		}
+		
+		for (String current : goals) {
+			temp += current + ", ";
+		}
+		temp = temp.substring(0, temp.length() - 2);
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (subjects != null && subjects.length > 0) {
+			for (String current : subjects) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (scopes != null && scopes.length > 0) {
+			for (String current : scopes) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (constraints != null && constraints.length > 0) {
+			for (String current : constraints) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\",\"";
+		temp = "";
+		
+		if (jurisdictions != null && jurisdictions.length > 0) {
+			for (String current : jurisdictions) {
+				temp += current + ", ";
+			}
+			temp = temp.substring(0, temp.length() - 2);
+		}
+		
+		formatted += temp + "\"";
+		
+		printAndWrite(formatted);
+	}
+	
 	public static void main(String[] args) throws IOException {
 		try {
-			FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".txt").createNewFile();
+			FileWriter.getNewInstance("mp", "Results-" + System.currentTimeMillis() + ".csv").createNewFile();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
