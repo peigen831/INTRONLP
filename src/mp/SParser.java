@@ -70,6 +70,10 @@ class SParser {
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
 			
+			for (TypedDependency td : tdl) {
+				System.out.println(td.toString());
+			}
+			
 			String[] goals = getGoals(tdl);
 			String[] subjects = null;
 			String[] scopes = null;
@@ -264,6 +268,7 @@ class SParser {
 		for (TypedDependency dependency : tdl) {
 			if (dependency.reln().getShortName().equals("nsubj") ||
 				(dependency.reln().getShortName().equals("nmod") &&
+				 dependency.reln().getSpecific() != null &&
 				 dependency.reln().getSpecific().equals("agent"))) {
 				arrlResults.add(dependency);
 			}
@@ -351,6 +356,7 @@ class SParser {
 			for (TypedDependency dependency : tdl) {
 				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal)) {
 					if (dependency.reln().getShortName().equals("nmod") &&
+						dependency.reln().getSpecific() != null &&
 						(dependency.reln().getSpecific().equals("of") ||
 						 dependency.reln().getSpecific().equals("for") ||
 						 dependency.reln().getSpecific().equals("through"))) {
@@ -372,6 +378,7 @@ class SParser {
 						dependency.reln().getShortName().equals("amod") ||
 						dependency.reln().getShortName().equals("det") ||
 						(dependency.reln().getShortName().equals("nmod") &&
+						 dependency.reln().getSpecific() != null &&
 						 (dependency.reln().getSpecific().equals("of") ||
 						  dependency.reln().getSpecific().equals("to") ||
 						  dependency.reln().getSpecific().equals("poss") ||
@@ -514,18 +521,7 @@ class SParser {
 		
 		SParser s = new SParser();
 		s.initialize();
-//    	s.readFile();
-		
-//		String[] input = {"Management must set direction and provide support for information security."};
-//		s.parseSentences(input);
-//		String[] input = {"The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services."};
-//		"Management must set direction and provide support for information security.",
-//		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
-//		"Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.",
-//		"Security roles and responsibilities for personnel must be documented.",
-//		"Access to information systems and services must be consistent with business needs and be based on security requirements.",
-//		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
-		System.out.println("Write something:");
+    	System.out.println("Write something:");
 		
 		ArrayList<SectionSentence> inputs = new ArrayList<>();
 		
