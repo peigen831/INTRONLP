@@ -2,6 +2,7 @@ package mp;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Matcher;
@@ -17,7 +18,8 @@ public class MPFileReader {
 	private String[] invalidStart = {"Purpose:", "Standards:", "Other References:", "Guidelines:", "Metrics and Enforcement:"};
 	
 
-	private String bulletHead = "";
+	private String bulletHeadFst = "";
+	private String bulletHeadSnd = "";
 	private int invalidCount = 0;
 
 	
@@ -25,7 +27,8 @@ public class MPFileReader {
 		Scanner scanner;
 		FileReader fr;
 		ArrayList<SectionSentence> result = new ArrayList<SectionSentence>();
-		boolean boolHead = false;
+		boolean boolBulletFst = false;
+		boolean boolBulletSnd = false;
 		boolean isChapter = true;
 		String tmp;
 		String line = "";		
@@ -60,7 +63,7 @@ public class MPFileReader {
 				line = getValidSentence(tmp);
 				
 				String[] sentences;
-				if(!bulletHead.equals("")){
+				if(!bulletHeadFst.equals("")){
 					sentences = new String[1];
 					sentences[0] = line;
 				}
@@ -77,31 +80,50 @@ public class MPFileReader {
 				{
 					sentence = sentence.trim();
 					//SHOULD BE PER SENTENCE ALREADY
-					boolHead = isBulletHead(sentence);
+					boolBulletFst = isBulletHead(sentence);
 
-					if(boolHead){
-						bulletHead = sentence;
-						bulletHead = bulletHead.replaceFirst(":", "");
+					if(boolBulletFst && bulletHeadFst.equals("")){
+						bulletHeadFst = sentence;
+						bulletHeadFst = bulletHeadFst.replaceFirst(":", "");
 					}
 					
 					else if(!sentence.equals(""))
 					{
-						if(!bulletHead.equals(""))
+						if(!bulletHeadFst.equals(""))
 						{
 							String tmp1 = sentence;
-							sentence = bulletHead + " " + sentence;
 							
-							if(tmp1.replaceAll("\\s", "").endsWith("."))
-								bulletHead = "";
+							if(bulletHeadSnd.equals(""))
+								sentence = bulletHeadFst + " " + sentence;
+							else 
+								sentence = bulletHeadFst + " " + bulletHeadSnd + " " + sentence;
+							
+							if(tmp1.replaceAll("\\s",  "").endsWith(":")){
+								bulletHeadSnd = tmp1;
+								bulletHeadSnd = bulletHeadSnd.replaceFirst(":", "");
+								boolBulletSnd = true;
+							}
+							
+							else if(tmp1.replaceAll("\\s", "").endsWith("."))
+								bulletHeadFst = "";
+							
+							else if(tmp1.replaceAll("\\s", "").endsWith(";") && !bulletHeadSnd.equals(""))
+								bulletHeadSnd = "";
 							
 							sentence = correctPunctuation(sentence);
 						}
-						if(isChapter)
-							result.add(new SectionSentence(String.valueOf(curChapter), sentence));
-						else 
-							result.add(new SectionSentence(curSection, sentence));
-						
-						System.out.println("Added: " + sentence);
+						if(!boolBulletSnd){
+							if(isChapter){
+
+								result.add(new SectionSentence(String.valueOf(curChapter), sentence));
+								//System.out.println(curChapter + ": "+ sentence);
+							}
+							else{ 
+								result.add(new SectionSentence(curSection, sentence));
+								//System.out.println(curSection + ": "+ sentence);
+							}
+						}
+						boolBulletSnd = false;
 					}
 				}
 			}
@@ -116,7 +138,7 @@ public class MPFileReader {
 	public String getValidSentence(String lineText){
 		String result = "";
 
-		if(bulletHead.equals(""))
+		if(bulletHeadFst.equals(""))
 		{
 			if(isValidStart(lineText) && isValidEnd(lineText))
 			{
@@ -186,11 +208,24 @@ public class MPFileReader {
 		return false;
 	}
 	
+	public void writeAll(ArrayList<SectionSentence> ss ){
+		try{
+			FileWriter fw = new FileWriter("Sentences.txt");
+			for(SectionSentence s: ss ){
+				fw.write(s.getSection() + " " + s.getSentence() +"\n");
+			}
+			fw.close();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+	}
 	
 	public static void main(String args[]){
 		MPFileReader fr = new MPFileReader();
 		
-		fr.readFile();
+		ArrayList<SectionSentence> ss = fr.readFile();
+		fr.writeAll(ss);
+		
 		System.out.println("Invalid count: " + fr.invalidCount);
 	}
 }
