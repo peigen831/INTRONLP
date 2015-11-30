@@ -13,9 +13,7 @@ import java.util.TreeMap;
 
 import common.FileWriter;
 import edu.stanford.nlp.ling.CoreAnnotations;
-import edu.stanford.nlp.ling.CoreLabel;
 import edu.stanford.nlp.ling.HasWord;
-import edu.stanford.nlp.ling.Label;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.process.Tokenizer;
 import edu.stanford.nlp.trees.GrammaticalStructure;
@@ -42,12 +40,13 @@ class SParser {
 		gsf = tlp.grammaticalStructureFactory();
 	}
 	
-	public Iterable<List<? extends HasWord>> tokenizeSentence(String[] sentences){
+	public Iterable<List<? extends HasWord>> tokenizeSentence(ArrayList<SectionSentence> sentences){
 		Iterable<List<? extends HasWord>> result;
 		List<List<? extends HasWord>> tmp = new ArrayList<List<? extends HasWord>>();
 		
-		for(String s: sentences){
-			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s));
+		for(SectionSentence s: sentences){
+			printAndWrite(s.getSection() + ": " + s.getSentence());
+			Tokenizer<? extends HasWord> toke = tlp.getTokenizerFactory().getTokenizer(new StringReader(s.getSentence()));
 			List<? extends HasWord> sTokenized = toke.tokenize();
 			tmp.add(sTokenized);
 		}
@@ -56,29 +55,30 @@ class SParser {
 		return result;
 	}
 	
-	public void parseSentences(String[] input){
+	public void parseSentences(ArrayList<SectionSentence> input){
 		Iterable<List<? extends HasWord>> sTokenized = tokenizeSentence(input);
+		printAndWrite("");
 
 		for (List<? extends HasWord> sentence : sTokenized) {
         	// Parse for parts of speech
 			Tree parse = lp.parse(sentence);
-			parse.pennPrint();
+//			parse.pennPrint();
 			
           // Find grammatical structure
 			GrammaticalStructure gs = gsf.newGrammaticalStructure(parse);
 			List<TypedDependency> tdl = gs.typedDependenciesCCprocessed();
-			System.out.println(tdl);
-			System.out.println();
+//			System.out.println(tdl);
+//			System.out.println();
 
-			System.out.println("The words of the sentence:");
-			for (Label lab : parse.yield()) {
-				if (lab instanceof CoreLabel) {
-					System.out.println("Word: " + ((CoreLabel)lab).word() + " Tag:" +((CoreLabel)lab).tag());
-              //System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
-				} else {
-					System.out.println("lab "+lab);
-				}
-			}
+//			System.out.println("The words of the sentence:");
+//			for (Label lab : parse.yield()) {
+//				if (lab instanceof CoreLabel) {
+//					System.out.println("Word: " + ((CoreLabel)lab).word() + " Tag:" +((CoreLabel)lab).tag());
+//              //System.out.println(((CoreLabel) lab).toString(CoreLabel.OutputFormat.VALUE_MAP));
+//				} else {
+//					System.out.println("lab "+lab);
+//				}
+//			}
 			//System.out.println(parse.taggedYield());
 			System.out.println();
 			
@@ -94,9 +94,14 @@ class SParser {
 			String[] goals = getGoals(tdl);
 			printAndWrite("Goals: " + Arrays.toString(goals));
 			for (String goal : goals) {
-				printAndWrite("Subjects: " + Arrays.toString(getSubjects(tdl, goal)));
-				printAndWrite("Scopes: " + Arrays.toString(getScopes(tdl, goal)));
-				printAndWrite("Constraint: " + Arrays.toString(getConstraints(tdl, goal)));
+				String[] subjects = getSubjects(tdl, goal);
+				String[] scopes = getScopes(tdl, goal);
+				String[] constraints = getConstraints(tdl, goal);
+				String[] jurisdictions = getJurisdictions(tdl, new String[][] {goals, subjects, scopes, constraints});
+				printAndWrite("Subjects: " + Arrays.toString(subjects));
+				printAndWrite("Scopes: " + Arrays.toString(scopes));
+				printAndWrite("Constraints: " + Arrays.toString(constraints));
+				printAndWrite("Jurisdictions: " + Arrays.toString(jurisdictions));
 			}
 			printAndWrite("");
 			printAndWrite("");
@@ -129,7 +134,7 @@ class SParser {
 				}
 			}
 		}
-		else {
+		if (results.isEmpty()) {
 			for (TypedDependency dependency : tdl) {
 				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals("ROOT")) {
 					root = dependency.dep().getString(CoreAnnotations.ValueAnnotation.class);
@@ -150,22 +155,28 @@ class SParser {
 	}
 	
 	public String[] getConstraints(List<TypedDependency> tdl, String goal) {
-		Set<String> results = new HashSet<>();
+		Set<TypedDependency> results = new HashSet<>();
 		for (TypedDependency dependency : tdl) {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
 					dependency.reln().getShortName().equals("nmod") &&
 					(dependency.reln().getSpecific().equals("with") ||
 					 dependency.reln().getSpecific().equals("from") ||
 					 dependency.reln().getSpecific().equals("on"))) {
-				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				results.add(dependency);
 			}
 			else if (dependency.reln().getShortName().equals("nsubjpass")) {
-				results.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				for (TypedDependency result : results) {
+					if (result.dep().get(CoreAnnotations.ValueAnnotation.class).equals(dependency.dep().get(CoreAnnotations.ValueAnnotation.class))) {
+						Set<TypedDependency> temp = new HashSet<>(results);
+						temp.remove(result);
+						results = temp;
+					}
+				}
 			}
 		}
 		
 		String[] arrResults = new String[results.size()];
-		ArrayList<String> arrlResults = new ArrayList<String>(results);
+		ArrayList<TypedDependency> arrlResults = new ArrayList<>(results);
 		
 		for (int i = 0; i < results.size(); i++) {
 			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i), goal);
@@ -174,27 +185,123 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	public String[] getSubjects(List<TypedDependency> tdl, String goal) {
-		Set<String> results = new HashSet<>();
+	public String[] getJurisdictions(List<TypedDependency> tdl, String[][] alreadyFound) {
+		ArrayList<TypedDependency> arrlResults = new ArrayList<>();
+		//String strTdl = tdl.toString();
 		for (TypedDependency dependency : tdl) {
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
-				(dependency.reln().getShortName().equals("nsubj") ||
-				 (dependency.reln().getShortName().equals("nmod") &&
-				  dependency.reln().getSpecific().equals("agent")))) {
-				results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+			if (dependency.reln().getShortName().equals("nmod")) {
+				arrlResults.add(dependency);
+			}
+		}
+		
+		ArrayList<String> finalResults = new ArrayList<>();
+		
+		for (int i = 0; i < arrlResults.size(); i++) {
+			for (String goal : alreadyFound[0]) {
+				String current = getNounDependencies(tdl, arrlResults.get(i), goal);
+				if (!finalResults.contains(current)) {
+					finalResults.add(current);
+				}
+			}
+		}
+		
+		if (alreadyFound[1] != null) {
+			for (String subject : alreadyFound[1]) {
+				for (String result : finalResults) {
+					if (result.equals(subject) || subject.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		if (alreadyFound[2] != null) {
+			for (String scope : alreadyFound[2]) {
+				for (String result : finalResults) {
+					if (result.equals(scope) || scope.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		if (alreadyFound[3] != null) {
+			for (String constraint : alreadyFound[3]) {
+				for (String result : finalResults) {
+					if (result.equals(constraint) || constraint.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		String[] arrResults = Arrays.copyOf(finalResults.toArray(), finalResults.size(), String[].class);
+		return (arrResults.length > 0) ? arrResults : null;
+	}
+	
+	public String[] getSubjects(List<TypedDependency> tdl, String goal) {
+		ArrayList<TypedDependency> arrlResults = new ArrayList<>();
+		for (TypedDependency dependency : tdl) {
+			if (dependency.reln().getShortName().equals("nsubj") ||
+				(dependency.reln().getShortName().equals("nmod") &&
+				 dependency.reln().getSpecific().equals("agent"))) {
+				arrlResults.add(dependency);
 			}
 			else if (dependency.reln().getShortName().equals("nsubjpass")) {
-				results.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
+				arrlResults.remove(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
 			}
 		}
 		
-		String[] arrResults = new String[results.size()];
-		ArrayList<String> arrlResults = new ArrayList<String>(results);
+		ArrayList<String> finalResults = new ArrayList<>();
 		
-		for (int i = 0; i < results.size(); i++) {
-			arrResults[i] = getNounDependencies(tdl, arrlResults.get(i), goal);
+		for (int i = 0; i < arrlResults.size(); i++) {
+			String current = getNounDependencies(tdl, arrlResults.get(i), goal);
+			if (!finalResults.contains(current)) {
+				finalResults.add(current);
+			}
 		}
 		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
+			}
+		}
+		
+		String[] arrResults = Arrays.copyOf(finalResults.toArray(), finalResults.size(), String[].class);
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
@@ -204,7 +311,26 @@ class SParser {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
 				(dependency.reln().getShortName().equals("nsubjpass") ||
 				dependency.reln().getShortName().equals("dobj"))) {
-				results.add(getNounDependencies(tdl, dependency.dep().getString(CoreAnnotations.ValueAnnotation.class), goal));
+				results.add(getNounDependencies(tdl, dependency, goal));
+			}
+		}
+		
+		ArrayList<String> finalResults = new ArrayList<>(results);
+		
+		for (String result : finalResults) {
+			for (String innerResult : finalResults) {
+				if (!result.equals(innerResult)) {
+					if (result.contains(innerResult)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(innerResult);
+						finalResults = temp;
+					}
+					else if (innerResult.contains(result)) {
+						ArrayList<String> temp = new ArrayList<>(finalResults);
+						temp.remove(result);
+						finalResults = temp;
+					}
+				}
 			}
 		}
 		
@@ -213,22 +339,28 @@ class SParser {
 		return (arrResults.length > 0) ? arrResults : null;
 	}
 	
-	private String getNounDependencies(List<TypedDependency> tdl, String noun, String goal) {
+	private String getNounDependencies(List<TypedDependency> tdl, TypedDependency noun, String goal) {
 		String results = "";
 		boolean hasDependency = true;
-		TreeMap<Integer, String> ordering = new TreeMap<>();
+		TreeMap<Double, String> ordering = new TreeMap<>();
 		ArrayList<String> dependencies = new ArrayList<>();
 		ArrayList<String> oldDependencies = null;
 		
-		dependencies.add(noun);
+		dependencies.add(noun.dep().getString(CoreAnnotations.ValueAnnotation.class));
+		ordering.put(noun.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(), noun.dep().getString(CoreAnnotations.ValueAnnotation.class));
 		
-		for (TypedDependency dependency : tdl) {
-			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal)) {
-				if (dependency.reln().getShortName().equals("nmod") &&
-					dependency.reln().getSpecific().equals("for")) {
-					dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
-					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
-							     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+		if (noun.reln().getShortName().equals("nsubjpass") ||
+			noun.reln().getShortName().equals("dobj")) {
+			for (TypedDependency dependency : tdl) {
+				if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal)) {
+					if (dependency.reln().getShortName().equals("nmod") &&
+						(dependency.reln().getSpecific().equals("of") ||
+						 dependency.reln().getSpecific().equals("for") ||
+						 dependency.reln().getSpecific().equals("through"))) {
+						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
+								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+					}
 				}
 			}
 		}
@@ -237,21 +369,28 @@ class SParser {
 			hasDependency = false;
 			oldDependencies = new ArrayList<>(dependencies);
 			for (TypedDependency dependency : tdl) {
-				if (dependency.dep().get(CoreAnnotations.ValueAnnotation.class).equals(noun)) {
-					ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class), noun);
-				}
-				else if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
+				if (dependencies.contains(dependency.gov().get(CoreAnnotations.ValueAnnotation.class))) {
 					if (dependency.reln().getShortName().equals("compound") ||
 						dependency.reln().getShortName().equals("case") ||
 						dependency.reln().getShortName().equals("amod") ||
 						dependency.reln().getShortName().equals("det") ||
 						(dependency.reln().getShortName().equals("nmod") &&
 						 (dependency.reln().getSpecific().equals("of") ||
-						  dependency.reln().getSpecific().equals("to")))) {
+						  dependency.reln().getSpecific().equals("to") ||
+						  dependency.reln().getSpecific().equals("poss") ||
+						  dependency.reln().getSpecific().equals("through")))) {
 						hasDependency = true;
 						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
-						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class),
+						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
 								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+					}
+					else if (dependency.reln().getShortName().equals("conj")) {
+						hasDependency = true;
+						dependencies.add(dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue(),
+								     dependency.dep().get(CoreAnnotations.ValueAnnotation.class));
+						ordering.put(dependency.dep().get(CoreAnnotations.IndexAnnotation.class).doubleValue() - 0.5,
+							    	 dependency.reln().getSpecific());
 					}
 				}
 			}
@@ -317,7 +456,7 @@ class SParser {
 		}
 		
 		SParser s = new SParser();
-//		s.initialize();
+		s.initialize();
 //    	s.readFile();
 		
 //		String[] input = {"Management must set direction and provide support for information security."};
@@ -331,15 +470,16 @@ class SParser {
 //		"Users must ensure the safety of sensitive information from unauthorized access, loss or damage."};
 		System.out.println("Write something:");
 		
-		ArrayList<String> inputs = new ArrayList<>();
+		ArrayList<SectionSentence> inputs = new ArrayList<>();
 		
 		Scanner scan = new Scanner(System.in);
 		String input = null;
 		while ((input = scan.nextLine()) != null && !input.equals("")) {
-			inputs.add(input);
+			inputs.add(new SectionSentence(null, input));
 		}
+		scan.close();
 		
-		s.parseSentences(Arrays.copyOf(inputs.toArray(), inputs.size(), String[].class));
+		s.parseSentences(inputs);
 		
 		FileWriter.getInstance().deleteFileIfEmpty();
 	}
