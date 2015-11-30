@@ -112,7 +112,7 @@ public class MPFileReader {
 							
 							sentence = correctPunctuation(sentence);
 						}
-						if(!boolBulletSnd){
+						if(!boolBulletSnd && sentence.length() > 40 && !sentence.contains("(e.")){
 							if(isChapter){
 
 								result.add(new SectionSentence(String.valueOf(curChapter), sentence));
@@ -138,7 +138,7 @@ public class MPFileReader {
 	public String getValidSentence(String lineText){
 		String result = "";
 
-		if(bulletHeadFst.equals(""))
+		if(bulletHeadFst.equals("") && !lineText.startsWith("•"))
 		{
 			if(isValidStart(lineText) && isValidEnd(lineText))
 			{
