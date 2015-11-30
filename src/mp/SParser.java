@@ -32,6 +32,7 @@ class SParser {
 	public LexicalizedParser lp;
 	public TreebankLanguagePack tlp;
 	public GrammaticalStructureFactory gsf;
+
 	
 	public void initialize(){
 		grammar = "edu/stanford/nlp/models/lexparser/englishPCFG.ser.gz";
@@ -315,14 +316,11 @@ class SParser {
 		}
 		
 		SParser s = new SParser();
-		s.initialize();
-    	//2.1.1 Management must set direction and provide support for information security.
-    	//2.1.2 Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer.
-    	//2.1.6 Appropriate contacts shall be maintained with local law enforcement authorities, emergency support staff and service providers.
-    	//4.1.1 Security roles and responsibilities for personnel must be documented.
-    	//7.1.1 Access to information systems and services must be consistent with business needs and be based on security requirements.
-    	//7.3.3 Users must ensure the safety of sensitive information from unauthorized access, loss or damage.
+//		s.initialize();
+//    	s.readFile();
 		
+//		String[] input = {"Management must set direction and provide support for information security."};
+//		s.parseSentences(input);
 //		String[] input = {"The Information Security Policy contains operational policies, standards, guidelines and metrics intended to establish minimum requirements for the secure delivery of government services."};
 //		"Management must set direction and provide support for information security.",
 //		"Implementation of information security activities across government must be coordinated by the Office of the Government Chief Information Officer",
