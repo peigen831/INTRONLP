@@ -143,6 +143,7 @@ class SParser {
 				}
 				else if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(root) &&
 						 dependency.reln().getShortName().equals("conj") &&
+						 dependency.reln().getSpecific() != null &&
 						 (dependency.reln().getSpecific().equals("or") ||
 						  dependency.reln().getSpecific().equals("and"))) {
 					results.add(dependency.dep().getString(CoreAnnotations.ValueAnnotation.class));
@@ -159,10 +160,11 @@ class SParser {
 		Set<TypedDependency> results = new HashSet<>();
 		for (TypedDependency dependency : tdl) {
 			if (dependency.gov().get(CoreAnnotations.ValueAnnotation.class).equals(goal) &&
-					dependency.reln().getShortName().equals("nmod") &&
-					(dependency.reln().getSpecific().equals("with") ||
-					 dependency.reln().getSpecific().equals("from") ||
-					 dependency.reln().getSpecific().equals("on"))) {
+				dependency.reln().getShortName().equals("nmod") &&
+				dependency.reln().getSpecific() != null &&
+				(dependency.reln().getSpecific().equals("with") ||
+				 dependency.reln().getSpecific().equals("from") ||
+				 dependency.reln().getSpecific().equals("on"))) {
 				results.add(dependency);
 			}
 			else if (dependency.reln().getShortName().equals("nsubjpass")) {
